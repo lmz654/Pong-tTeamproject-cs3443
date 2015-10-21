@@ -13,6 +13,11 @@ public abstract class Game {
 		this.ballArr = balls;
 	}
 	
+	public Game(int nPlayers, int nBalls) {		
+		this.playerArr = new ArrayList<Player>();
+		this.ballArr = new ArrayList<Ball>();
+	}
+	
 	public ArrayList<Ball> getBalls() {
 		return ballArr;
 	}

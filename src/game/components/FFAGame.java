@@ -14,6 +14,10 @@ public class FFAGame extends Game {
 		super(players, balls);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public FFAGame(int nPlayers, int nBalls) {
+		super(nPlayers, nBalls);
+	}
 
 	@Override
 	public void update() {
