@@ -1,4 +1,4 @@
-package vbhit;
+package game.core;
 
 public class Score {
 	private int miss;

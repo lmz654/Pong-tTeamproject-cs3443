@@ -1,4 +1,4 @@
-package vbhit;
+package game.core;
 
 import java.util.ArrayList;
 

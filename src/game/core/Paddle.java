@@ -1,4 +1,4 @@
-package vbhit;
+package game.core;
 
 public class Paddle {
 	private double movepos;// the position of moving left right or up down
