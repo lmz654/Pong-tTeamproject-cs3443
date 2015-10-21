@@ -16,4 +16,13 @@ public class NormalObstacle extends Obstacle {
 		this.width = width;
 	}
 
+	public int getHeight() {
+		return height;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	
 }
