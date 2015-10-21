@@ -21,5 +21,9 @@ public abstract class Game {
 		return playerArr;
 	}
 	
+	public void addBall(Ball b) {
+		this.ballArr.add(b);
+	}
+	
 	abstract void update();
 }
