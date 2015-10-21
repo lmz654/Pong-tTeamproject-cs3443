@@ -4,9 +4,8 @@ import java.util.ArrayList;
 
 public class Player {
 	private Paddle pad;
-	private ArrayList<Ball> ball;
 	private Score score;
-	private ArrayList<Item> item;
+	private ArrayList item;
 	private char moveupright;
 	private char movedownleft;
 	private char keymovingflag;//-1 for move to the left or down, 1 for move to the right or move up, 0 is nothing
@@ -26,10 +25,10 @@ public class Player {
 	public void setScore(Score score) {
 		this.score = score;
 	}
-	public ArrayList<Item> getItem() {
+	public ArrayList getItem() {
 		return item;
 	}
-	public void setItem(ArrayList<Item> item) {
+	public void setItem(ArrayList item) {
 		this.item = item;
 	}
 	public char getMoveupright() {
