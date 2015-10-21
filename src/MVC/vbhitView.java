@@ -1,5 +1,8 @@
 package MVC;
 
-public class vbhitView {
+import javax.swing.JPanel;
+
+public class vbhitView extends JPanel{
+	private vbhitModel model;
 
 }
