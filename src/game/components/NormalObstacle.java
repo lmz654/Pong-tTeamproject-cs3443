@@ -6,7 +6,7 @@ public class NormalObstacle extends Obstacle {
 	
 	//private Shape/Image
 	private int height, width;
-	public static final double PROBABILITY = .4;
+	public static final double PROBABILITY = Controls.NORMALOBSTACLE_PROBABILITY;
 
 	public NormalObstacle(Vector postition, char effect, int height, int width) {
 		super(postition, effect);
