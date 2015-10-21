@@ -15,7 +15,11 @@ public class TimedGame extends Game {
 		
 		this.timeLimit = timeLimit;
 	}
-
+	
+	public long getTimeLimit() {
+		return this.timeLimit;
+	}
+	
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
