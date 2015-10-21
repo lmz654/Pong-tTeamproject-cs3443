@@ -10,16 +10,11 @@ public class Player {
 	private Paddle paddle;
 	private Score score;
 	private ArrayList<Item> item;
-	private char keyLeftDown, keyRightUp;
-	private char keyHoldBall;
-	
-	public Player(String name, Paddle paddle, char keyLeftDown, char keyRightUp, char keyHoldBall) {
+			
+	public Player(String name, Paddle paddle) {
 		super();
 		this.name = name;
 		this.paddle = paddle;
-		this.keyLeftDown = keyLeftDown;
-		this.keyRightUp = keyRightUp;
-		this.keyHoldBall = keyHoldBall;
 		this.item = new ArrayList<Item>();
 		this.score = new Score(0,0);		
 	}
@@ -30,30 +25,6 @@ public class Player {
 
 	public void setScore(Score score) {
 		this.score = score;
-	}
-
-	public char getKeyLeftDown() {
-		return keyLeftDown;
-	}
-
-	public void setKeyLeftDown(char keyLeftDown) {
-		this.keyLeftDown = keyLeftDown;
-	}
-
-	public char getKeyRightUp() {
-		return keyRightUp;
-	}
-
-	public void setKeyRightUp(char keyRightUp) {
-		this.keyRightUp = keyRightUp;
-	}
-
-	public char getKeyHoldBall() {
-		return keyHoldBall;
-	}
-
-	public void setKeyHoldBall(char keyHoldBall) {
-		this.keyHoldBall = keyHoldBall;
 	}
 
 	public String getName() {
