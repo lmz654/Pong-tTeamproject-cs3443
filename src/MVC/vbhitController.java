@@ -6,26 +6,31 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class vbhitController implements KeyListener, ActionListener  {
+	private vbhitModel model;
+	private vbhitView view;
+	
 
-	@Override
+	public vbhitController(vbhitModel model, vbhitView view) {
+		super();
+		this.model = model;
+		this.view = view;
+	}
+
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 	}
