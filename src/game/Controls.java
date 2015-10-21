@@ -4,9 +4,9 @@ package game;
 public final class Controls {
 	
 	// Control Variables for Obstacle Probabilities
-	protected static final double NORMALOBSTACLE_PROBABILITY = .4;
-	protected static final double WHACKYOBSTACLE_PROBABILITY = .05;
-	protected static final double MOVINGOBSTACLE_PROBABILITY = .2;
+	public static final double NORMALOBSTACLE_PROBABILITY = .4;
+	public static final double WHACKYOBSTACLE_PROBABILITY = .05;
+	public static final double MOVINGOBSTACLE_PROBABILITY = .2;
 	
 
 }
