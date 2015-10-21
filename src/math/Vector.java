@@ -56,5 +56,26 @@ public class Vector {
 		return result;
 	}
 	
+	public double cartesian(int i) {
+		return data[i];
+	}
 	
+	//TODO Override * sign Operator
+	public Vector times(double factor) {
+		Vector result = new Vector(LEN);
+		for (int i = 0; i < LEN; i++)
+			result.data[i] = factor * data[i];
+		return result;
+	}
+	
+	public String toString() {
+		StringBuilder s = new StringBuilder();
+		s.append("<");
+		for (int i = 0; i < LEN; i++) {
+			s.append(data[i]);
+			if (i < LEN -1) s.append(", ");
+		}
+		s.append(">");
+		return s.toString();			
+	}
 }
