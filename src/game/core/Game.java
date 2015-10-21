@@ -25,5 +25,5 @@ public abstract class Game {
 		this.ballArr.add(b);
 	}
 	
-	abstract void update();
+	public abstract void update();
 }
