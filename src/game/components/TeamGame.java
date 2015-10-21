@@ -16,6 +16,10 @@ public class TeamGame extends Game {
 		// TODO There has to be a better way to pass the parameters
 	}
 
+	public ArrayList<Team> getTeams() {
+		return this.teamArr;
+	}
+	
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
