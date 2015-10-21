@@ -3,6 +3,7 @@ package vbhit;
 public class Score {
 	private int miss;
 	private int score;
+	
 	public Score(int miss, int score) {
 		super();
 		this.miss = miss;
