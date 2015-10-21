@@ -70,11 +70,4 @@ public class Player {
 		// TODO Item Validation
 		this.item.add(i);
 	}
-	
-	
-	
-	
-	
-	
-
 }

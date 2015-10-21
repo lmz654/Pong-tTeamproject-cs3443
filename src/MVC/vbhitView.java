@@ -1,4 +1,4 @@
-package vbhit;
+package MVC;
 
 public class vbhitView {
 
