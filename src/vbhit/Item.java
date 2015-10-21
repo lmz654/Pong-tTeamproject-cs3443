@@ -11,6 +11,5 @@ public abstract  class Item {
 
 	public void setPoint(Point point) {
 		this.point = point;
-	}
-	abstract void affect (Player p);
+	}	
 }
