@@ -1,35 +1,40 @@
 package game.core;
 
+import game.math.Vector;
+
 public class Paddle {
-	private double movepos;// the position of moving left right or up down
-	private char playerpos;//the paddle of which player player 1 =1, player 2=2, player 3=3, player4=4
+	
+	// Paddle Mechanics
+	private Vector position;
+	private Vector velocity;
 	private int length;
-	private float speed;
-	public Paddle(){
-		
+	
+	public Paddle(Vector position, int length) {
+		this.position = position;
+		this.velocity = new Vector(position.length());
+		this.length = length;
 	}
-	public double getMovepos() {
-		return movepos;
+
+	public Vector getVelocity() {
+		return velocity;
 	}
-	public void setMovepos(double movepos) {
-		this.movepos = movepos;
+
+	public void setVelocity(Vector velocity) {
+		this.velocity = velocity;
 	}
-	public char getPlayerpos() {
-		return playerpos;
-	}
-	public void setPlayerpos(char playerpos) {
-		this.playerpos = playerpos;
-	}
+
 	public int getLength() {
 		return length;
 	}
+
 	public void setLength(int length) {
 		this.length = length;
 	}
-	public float getSpeed() {
-		return speed;
+
+	public Vector getPosition() {
+		return position;
 	}
-	public void setSpeed(float speed) {
-		this.speed = speed;
-	}
+	
+	
+	
 }

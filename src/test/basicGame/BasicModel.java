@@ -12,7 +12,9 @@ public class BasicModel {
 	private ArrayList<Ball> ballArr;
 	
 	public BasicModel() {
+		//Game Constructor for 2 players and 1 ball
 		this.game = new FFAGame(2, 1);
+		
 		this.playerArr = this.game.getPlayers();
 		this.ballArr = this.game.getBalls();
 	}
