@@ -2,6 +2,8 @@ package game.core;
 
 import java.util.ArrayList;
 
+import game.components.Item;
+
 public class Player {
 	
 	private String name;
