@@ -1,4 +1,4 @@
-package game.components;
+package game.components.obstacles;
 
 import game.math.Vector;
 

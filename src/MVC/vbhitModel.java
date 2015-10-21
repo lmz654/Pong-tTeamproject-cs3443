@@ -3,7 +3,7 @@ package MVC;
 import java.util.ArrayList;
 
 import game.components.Item;
-import game.components.Obstacle;
+import game.components.obstacles.Obstacle;
 import game.core.Ball;
 import game.core.Player;
 
