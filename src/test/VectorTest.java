@@ -1,6 +1,6 @@
 package test;
 
-import math.Vector;
+import game.math.Vector;
 
 public class VectorTest {
 	

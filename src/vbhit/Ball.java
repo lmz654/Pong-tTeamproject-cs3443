@@ -1,6 +1,6 @@
 package vbhit;
 
-import math.Vector;
+import game.math.Vector;
 
 public class Ball {
 	// --- Ball Mechanics ---
