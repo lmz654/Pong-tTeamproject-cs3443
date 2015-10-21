@@ -7,4 +7,5 @@ public class Player {
 	private Score score;
 	private ArrayList<Item> item;
 	private char moveupright;
+	private char movedownleft;
 }
