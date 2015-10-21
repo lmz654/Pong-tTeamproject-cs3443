@@ -1,5 +1,6 @@
 package game.components;
 
+import game.Controls;
 import game.math.Vector;
 
 public class NormalObstacle extends Obstacle {

@@ -1,4 +1,4 @@
-package game.components;
+package game;
 
 // Class that contains all of the control variables for the Game
 public final class Controls {
