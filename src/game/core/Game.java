@@ -17,7 +17,7 @@ public abstract class Game {
 		return ballArr;
 	}
 	
-	public ArrayList<Player> getPLayers() {
+	public ArrayList<Player> getPlayers() {
 		return playerArr;
 	}
 	
