@@ -53,5 +53,18 @@ public class Ball {
 		return position.distanceTo(ball.getPosition()) < (radius + ball.getRadius());
 	}
 	
+	// Information Methods
+	
+	public String toString() {
+		StringBuilder s = new StringBuilder();
+		s.append(this.getClass().getSimpleName() + "{");		
+		s.append("Position: " + position.toString());
+		s.append(" Speed: " + velocity.magnitude());
+		s.append(" Direction Vector: " + velocity.unit().toString());
+		s.append(" Velocity Vector: " + velocity.toString());
+		s.append("}");
+		return s.toString();
+	}
+	
 	
 }

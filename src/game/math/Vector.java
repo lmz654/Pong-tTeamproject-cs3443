@@ -35,6 +35,12 @@ public class Vector {
 		return Math.sqrt(this.dot(this));
 	}
 	
+	public Vector unit() {
+		if (this.magnitude() == 0)
+			return this;
+		return this.times(1/this.magnitude());
+	}
+	
 	public double distanceTo(Vector v) {
 		if (this.LEN != v.length()) throw new RuntimeException("Dimentions are not equal.");
 		return this.minus(v).magnitude();
