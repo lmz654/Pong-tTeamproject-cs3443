@@ -59,9 +59,9 @@ public class Player {
 		this.item.add(i);
 	}
 	
-	public void movePaddle(int amount) {
+	public void movePaddle() {
 		try {
-			paddle.move(motionAxis, amount);
+			paddle.move(motionAxis);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
