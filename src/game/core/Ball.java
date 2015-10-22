@@ -41,4 +41,7 @@ public class Ball {
 	public void setLastHit(Player player) {
 		this.lastHit = player;
 	}
+	public void ballmove(){
+		
+	}
 }

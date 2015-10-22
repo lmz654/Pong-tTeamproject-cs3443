@@ -1,8 +1,14 @@
 package test;
 
+import javax.swing.JFrame;
+
 import game.math.Vector;
 
+
 public class VectorTest {
+	public static void creatframe(){
+		JFrame temp = new JFrame();
+	}
 	
 	public static void main(String[] args) {
         double[] xdata = { 1.0, 2.0, 3.0, 4.0 };
@@ -18,6 +24,7 @@ public class VectorTest {
         System.out.println("|x|      =  " + x.magnitude());
         System.out.println("<x, y>   =  " + x.dot(y));
         System.out.println("|x - y|  =  " + x.minus(y).magnitude());
+        
     }
 
 }
