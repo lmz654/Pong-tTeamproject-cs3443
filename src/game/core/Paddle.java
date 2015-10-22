@@ -14,6 +14,12 @@ public class Paddle {
 		this.velocity = new Vector(position.length());
 		this.length = length;
 	}
+	
+	public Paddle(int dimension, int length) {
+		this.position = new Vector(dimension);
+		this.velocity = new Vector(dimension);
+		this.length = length;
+	}
 
 	public Vector getVelocity() {
 		return velocity;
@@ -35,6 +41,8 @@ public class Paddle {
 		return position;
 	}
 	
-	
+	public void setPosition(Vector position) {
+		this.position = position;
+	}
 	
 }

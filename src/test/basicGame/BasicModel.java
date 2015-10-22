@@ -8,6 +8,7 @@ import game.core.*;
 public class BasicModel {
 
 	private Game game;
+	
 	private ArrayList<Player> playerArr;
 	private ArrayList<Ball> ballArr;
 	
@@ -17,5 +18,13 @@ public class BasicModel {
 		
 		this.playerArr = this.game.getPlayers();
 		this.ballArr = this.game.getBalls();
+		
+		this.initializePaddles(2);
+		
+	}
+
+	private void initializePaddles(int i) {
+		return;
+		
 	}
 }
