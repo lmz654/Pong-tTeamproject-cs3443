@@ -1,5 +1,6 @@
 package game.core;
 
+import game.core.player.Player;
 import game.math.Vector;
 
 public class Ball {

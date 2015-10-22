@@ -1,8 +1,10 @@
-package game.core;
+package game.core.player;
 
 import java.util.ArrayList;
 
 import game.components.Item;
+import game.core.Score;
+import game.core.paddle.Paddle;
 
 public class Player {
 	
@@ -10,21 +12,13 @@ public class Player {
 	private Paddle paddle;
 	private Score score;
 	private ArrayList<Item> item;
-	private int keyuprightpress;
-	private int keydownleftpress;
-	private char keyupright;
-	private char keydownleft;
-			
-	public Player(String name, Paddle paddle,char upright, char downleft) {
-		super();
+				
+	public Player(String name, Paddle paddle) {
 		this.name = name;
 		this.paddle = paddle;
 		this.item = new ArrayList<Item>();
 		this.score = new Score(0,0);
-		keyuprightpress=0;
-		keydownleftpress=0;
-		keyupright=upright;
-		keydownleft=downleft;
+		
 	}
 
 	public Score getScore() {
@@ -51,16 +45,5 @@ public class Player {
 		// TODO Item Validation
 		this.item.add(i);
 	}
-	public void setKeyUpRight(int in){
-		keyuprightpress=in;
-	}
-	public int getKeyUpRight(){
-		return keyuprightpress;
-	}
-	public void setKeyDownLeft(int in){
-		keydownleftpress=in;
-	}
-	public int getKeyDownLeft(){
-		return keydownleftpress;
-	}
+	
 }

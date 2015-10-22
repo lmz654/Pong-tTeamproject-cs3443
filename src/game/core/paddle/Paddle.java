@@ -1,4 +1,4 @@
-package game.core;
+package game.core.paddle;
 
 import game.math.Vector;
 
@@ -43,12 +43,6 @@ public class Paddle {
 	
 	public void setPosition(Vector position) {
 		this.position = position;
-	}
-	public void padmoveupright(){
-		
-	}
-	public void padmovedownleft(){
-		
 	}
 	
 }
