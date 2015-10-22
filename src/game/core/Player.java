@@ -10,19 +10,20 @@ public class Player {
 	private Paddle paddle;
 	private Score score;
 	private ArrayList<Item> item;
-	private int keyupright;
-	private int keydownleft;
+	
+	private char motionAxis;
 			
-	public Player(String name, Paddle paddle) {
+	public Player(String name, Paddle paddle, char axis) {
 		super();
 		this.name = name;
 		this.paddle = paddle;
 		this.item = new ArrayList<Item>();
 		this.score = new Score(0,0);
-		keyupright=0;
-		keydownleft=0;
+		
+		this.motionAxis = axis;
 	}
-
+	
+	// Setters and Getters
 	public Score getScore() {
 		return score;
 	}
@@ -39,24 +40,49 @@ public class Player {
 		return paddle;
 	}
 
-	public ArrayList<Item> getItem() {
+	public ArrayList<Item> getItems() {
 		return item;
 	}
 	
+	public char getMotionAxis() {
+		return motionAxis;
+	}
+
+	public void setMotionAxis(char axis) {
+		this.motionAxis = axis;
+	}
+	
+	// Action Methods
+
 	public void addItem(Item i) {
 		// TODO Item Validation
 		this.item.add(i);
 	}
-	public void setKeyUpRight(int in){
-		keyupright=in;
+	
+	public void movePaddle(int amount) {
+		try {
+			paddle.move(motionAxis, amount);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	public int getKeyUpRight(){
-		return keyupright;
+	
+	public void shrinkPaddle(int amount) throws Exception {
+		if (amount >= paddle.getLength())
+			throw new Exception("Shrink size is larger than Paddle length!");
+		if (amount < 0)
+			throw new Exception("Cannot have negative Shrink!");
+		
+		paddle.setLength(paddle.getLength()-amount);
 	}
-	public void setKeyDownLeft(int in){
-		keydownleft=in;
+	
+	public void enlargePaddle(int amount) throws Exception {
+		if (amount < 0)
+			throw new Exception("Cannot have Negative Shrink!");
+		
+		paddle.setLength(paddle.getLength()+amount);
 	}
-	public int getKeyDownLeft(){
-		return keydownleft;
-	}
+	
+	
 }
