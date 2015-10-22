@@ -25,6 +25,38 @@ public class vbhitModel {
 		item.remove(out);
 	}
 	
+	public ArrayList<Item> getItem() {
+		return item;
+	}
+
+	public void setItem(ArrayList<Item> item) {
+		this.item = item;
+	}
+
+	public ArrayList<Obstacle> getObstacle() {
+		return obstacle;
+	}
+
+	public void setObstacle(ArrayList<Obstacle> obstacle) {
+		this.obstacle = obstacle;
+	}
+
+	public ArrayList<Player> getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(ArrayList<Player> player) {
+		this.player = player;
+	}
+
+	public ArrayList<Ball> getBall() {
+		return ball;
+	}
+
+	public void setBall(ArrayList<Ball> ball) {
+		this.ball = ball;
+	}
+
 	public void addItem(Item in){
 		item.add(in);
 	}
