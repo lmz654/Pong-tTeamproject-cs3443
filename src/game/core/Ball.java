@@ -18,6 +18,7 @@ public class Ball {
 		this.radius = radius;
 	}
 	
+	// Setters and Getters
 	public Vector getPosition() {
 		return this.position;
 	}
@@ -41,7 +42,16 @@ public class Ball {
 	public void setLastHit(Player player) {
 		this.lastHit = player;
 	}
-	public void ballmove(){
-		
+	
+	// Action Methods
+	
+	public void move() {
+		position = position.plus(velocity);
 	}
+	
+	public boolean intersects(Ball ball) {
+		return position.distanceTo(ball.getPosition()) < (radius + ball.getRadius());
+	}
+	
+	
 }
