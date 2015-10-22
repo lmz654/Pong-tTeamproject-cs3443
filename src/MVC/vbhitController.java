@@ -7,6 +7,8 @@ import java.awt.event.KeyListener;
 
 import javax.swing.Timer;
 
+import game.core.player.Player;
+
 public class vbhitController implements KeyListener, ActionListener  {
 	private vbhitModel model;
 	private vbhitView view;
@@ -20,7 +22,9 @@ public class vbhitController implements KeyListener, ActionListener  {
 
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+		for(Player temp:model.getPlayer()){
+			
+		}
 	}
 
 	public void keyReleased(KeyEvent arg0) {
