@@ -5,12 +5,12 @@ public class Vector {
 	private double[] data;
 	
 	
-	public Vector(int LEN) {
-		this.LEN = LEN;
+	public Vector(int LEN1) {
+		this.LEN = LEN1;
 		data = new double[LEN];
 	}
 	
-	public Vector(double[] data) {
+	public Vector(double...data) {
 		LEN = data.length;
 		
 		this.data = new double[LEN];

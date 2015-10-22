@@ -57,7 +57,7 @@ public class Ball {
 	
 	public String toString() {
 		StringBuilder s = new StringBuilder();
-		s.append(this.getClass().getSimpleName() + "{");		
+		s.append("{");		
 		s.append("Position: " + position.toString());
 		s.append(" Speed: " + velocity.magnitude());
 		s.append(" Direction Vector: " + velocity.unit().toString());
