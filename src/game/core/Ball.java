@@ -18,6 +18,7 @@ public class Ball {
 		this.radius = radius;
 	}
 	
+	// Setters and Getters
 	public Vector getPosition() {
 		return this.position;
 	}
@@ -44,4 +45,23 @@ public class Ball {
 	public void ballmove(){
 		
 	}
+	
+	public boolean intersects(Ball ball) {
+		return position.distanceTo(ball.getPosition()) < (radius + ball.getRadius());
+	}
+	
+	// Information Methods
+	
+	public String toString() {
+		StringBuilder s = new StringBuilder();
+		s.append("{");		
+		s.append("Position: " + position.toString());
+		s.append(" Speed: " + velocity.magnitude());
+		s.append(" Direction Vector: " + velocity.unit().toString());
+		s.append(" Velocity Vector: " + velocity.toString());
+		s.append("}");
+		return s.toString();
+	}
+	
+	
 }
