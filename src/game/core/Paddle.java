@@ -6,10 +6,12 @@ public class Paddle {
 	
 	// Paddle Mechanics
 	private Vector position;
+	private Vector velocity;
 	private int length;
 	
-	public Paddle(Vector position, int length) {
+	public Paddle(Vector position, Vector velocity, int length) {
 		this.position = position;
+		this.velocity = velocity;
 		this.length = length;
 	}
 	
@@ -34,34 +36,34 @@ public class Paddle {
 		this.position = position;
 	}
 	
-	public void move(char axis, int amount) throws Exception{
+	public Vector getVelocity() {
+		return velocity;
+	}
+	
+	public void setVelocity(Vector velocity) {
+		this.velocity = velocity;
+	}
+	
+	public void move(char axis) throws Exception{
 		switch(axis) {
 		case 'x':
 		case 'X':
-			moveXAxis(amount);
+			moveXAxis();
 			break;
 		case 'y':
 		case 'Y':
-			moveYAxis(amount);
+			moveYAxis();
 			break;
 		default:
 			throw new Exception("Invalid Motion Axis!");
 		}
 	}
 
-	private void moveXAxis(int amount) {
-		double[] movement = new double[position.length()];
-		movement[0] = amount;
-		Vector nextPos = new Vector(movement);
-		
-		position = position.plus(nextPos);
+	private void moveXAxis() {
+		position = position.plus(velocity);
 	}
 
-	private void moveYAxis(int amount) {
-		double[] movement = new double[position.length()];
-		movement[1] = amount;
-		Vector nextPos = new Vector(movement);
-		
-		position = position.plus(nextPos);		
+	private void moveYAxis() {
+		position = position.plus(velocity);		
 	}
 }
