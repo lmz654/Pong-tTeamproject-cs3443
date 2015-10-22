@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import game.components.Item;
 import game.components.obstacles.Obstacle;
 import game.core.Ball;
-import game.core.Player;
+import game.core.player.Player;
 
 public class vbhitModel {
 	private ArrayList<Item> item;
@@ -25,6 +25,38 @@ public class vbhitModel {
 		item.remove(out);
 	}
 	
+	public ArrayList<Item> getItem() {
+		return item;
+	}
+
+	public void setItem(ArrayList<Item> item) {
+		this.item = item;
+	}
+
+	public ArrayList<Obstacle> getObstacle() {
+		return obstacle;
+	}
+
+	public void setObstacle(ArrayList<Obstacle> obstacle) {
+		this.obstacle = obstacle;
+	}
+
+	public ArrayList<Player> getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(ArrayList<Player> player) {
+		this.player = player;
+	}
+
+	public ArrayList<Ball> getBall() {
+		return ball;
+	}
+
+	public void setBall(ArrayList<Ball> ball) {
+		this.ball = ball;
+	}
+
 	public void addItem(Item in){
 		item.add(in);
 	}

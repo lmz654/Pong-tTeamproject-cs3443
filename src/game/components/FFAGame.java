@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import game.core.Ball;
 import game.core.Game;
-import game.core.Player;
+import game.core.player.Player;
 
 public class FFAGame extends Game {
 
