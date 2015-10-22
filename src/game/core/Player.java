@@ -10,17 +10,21 @@ public class Player {
 	private Paddle paddle;
 	private Score score;
 	private ArrayList<Item> item;
-	private int keyupright;
-	private int keydownleft;
+	private int keyuprightpress;
+	private int keydownleftpress;
+	private char keyupright;
+	private char keydownleft;
 			
-	public Player(String name, Paddle paddle) {
+	public Player(String name, Paddle paddle,char upright, char downleft) {
 		super();
 		this.name = name;
 		this.paddle = paddle;
 		this.item = new ArrayList<Item>();
 		this.score = new Score(0,0);
-		keyupright=0;
-		keydownleft=0;
+		keyuprightpress=0;
+		keydownleftpress=0;
+		keyupright=upright;
+		keydownleft=downleft;
 	}
 
 	public Score getScore() {
@@ -48,15 +52,15 @@ public class Player {
 		this.item.add(i);
 	}
 	public void setKeyUpRight(int in){
-		keyupright=in;
+		keyuprightpress=in;
 	}
 	public int getKeyUpRight(){
-		return keyupright;
+		return keyuprightpress;
 	}
 	public void setKeyDownLeft(int in){
-		keydownleft=in;
+		keydownleftpress=in;
 	}
 	public int getKeyDownLeft(){
-		return keydownleft;
+		return keydownleftpress;
 	}
 }
