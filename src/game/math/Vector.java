@@ -1,5 +1,7 @@
 package game.math;
 
+import java.awt.Point;
+
 public class Vector {
 	private final int LEN;
 	private double[] data;
@@ -72,6 +74,10 @@ public class Vector {
 		for (int i = 0; i < LEN; i++)
 			result.data[i] = factor * data[i];
 		return result;
+	}
+	
+	public Point toPoint() {
+		return new Point((int) data[0],(int) data[1]);
 	}
 	
 	public String toString() {

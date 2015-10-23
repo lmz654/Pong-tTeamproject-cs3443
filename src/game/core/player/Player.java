@@ -6,7 +6,7 @@ import game.components.Item;
 import game.core.Score;
 import game.core.paddle.Paddle;
 
-public abstract class Player {
+public class Player {
 	
 	private String name;
 	private Paddle paddle;
@@ -94,8 +94,6 @@ public abstract class Player {
 		// TODO Item Validation
 		this.item.add(i);
 	}
-	public abstract void moveupright();
-	public abstract void movedownleft();
 	
 	public void movePaddle() {
 		try {
