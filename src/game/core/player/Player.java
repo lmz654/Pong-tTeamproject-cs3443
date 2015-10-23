@@ -17,7 +17,7 @@ public class Player {
 	private int keyuprightpress;
 	private int keydownleftpress;
 	
-	private char motionAxis;
+	private char motionAxis; // X is for Top and Bottom Players,  Y is for Side Players
 	
 	public Player(String name, Paddle paddle,char keyupright, char keydownleft, char motionAxis) {
 		this.name = name;
