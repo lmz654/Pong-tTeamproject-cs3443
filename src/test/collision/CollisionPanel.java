@@ -1,15 +1,15 @@
-package test;
+package test.collision;
 
 import java.awt.*;
 import javax.swing.*;
 
 import game.core.Ball;
 
-public class BTPanel extends JPanel {
-	private BTModel model;
-	private BTView view;
+public class CollisionPanel extends JPanel {
+	private CollisionModel model;
+	private CollisionView view;
 	
-	public BTPanel(BTModel model, BTView view) {
+	public CollisionPanel(CollisionModel model, CollisionView view) {
 		this.model = model;
 		this.view = view;
 		

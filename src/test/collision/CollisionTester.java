@@ -1,11 +1,11 @@
-package test;
+package test.collision;
 
 import javax.swing.*;
 
 import game.core.Ball;
 import game.math.Vector;
 
-public class BallTester {
+public class CollisionTester {
 
 	public static void main(String[] args) {
 		int t = 0;
@@ -39,10 +39,10 @@ public class BallTester {
 		
 		
 		// JFrame Simulation
-		BTModel model = new BTModel();
-		BTView view = new BTView(model);
+		CollisionModel model = new CollisionModel();
+		CollisionView view = new CollisionView(model);
 		
-		BTRepaintController repaintController = new BTRepaintController(model, view);
+		CollisionRepaintController repaintController = new CollisionRepaintController(model, view);
 		
 		new Timer(25, repaintController).start();
 		

@@ -1,6 +1,6 @@
-package test;
+package test.collision;
 
-public class BTModel {
+public class CollisionModel {
 
 	public void moveBalls() {
 		// TODO Auto-generated method stub
