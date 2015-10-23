@@ -6,6 +6,7 @@ import game.components.Item;
 import game.components.obstacles.Obstacle;
 import game.core.Ball;
 import game.core.player.Player;
+import game.math.CollisionDetector;
 
 public class vbhitModel {
 	private ArrayList<Item> item;
@@ -83,6 +84,10 @@ public class vbhitModel {
 	
 	public void addBall(Ball in){
 		ball.add(in);
+	}
+	
+	public void checkCollisions() {
+		CollisionDetector.checkCollisions(this);
 	}
 	
 }
