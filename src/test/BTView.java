@@ -14,7 +14,7 @@ public class BTView extends JFrame {
 		
 		ballPanel = new BTPanel(model, this);
 		add(ballPanel, BorderLayout.CENTER);
-		ballPanel.
+		//ballPanel.
 	}
 
 	public void repaint() {

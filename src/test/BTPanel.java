@@ -19,9 +19,9 @@ public class BTPanel extends JPanel {
 	public void paintComponents(Graphics g) {
 		g.setColor(Color.BLACK);
 		
-		for (Ball b : model.getBalls()) {
-			fillBall(b, g);
-		}
+		//for (Ball b : model) {
+			//fillBall(b, g);
+		//}
 	}
 	
 	private void fillBall(Ball ball, Graphics g) {
