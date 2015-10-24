@@ -6,20 +6,27 @@ import javax.swing.*;
 
 public class CollisionView extends JFrame {
 	private CollisionModel model;
-	private CollisionPanel ballPanel;
+	private CollisionPanel cPanel;
 
 	public CollisionView(CollisionModel model) {
-		super("Ball Tester");
+		super("Collision Tester");
 		this.model = model;
 		
-		ballPanel = new CollisionPanel(model, this);
-		add(ballPanel, BorderLayout.CENTER);
-		//ballPanel.
+		cPanel = new CollisionPanel(model, this);
+		add(cPanel, BorderLayout.CENTER);
+		cPanel.setBackground(Color.WHITE);
+		Dimension size = cPanel.getSize();
+		model.setSize(size.width, size.height);
+		
+		cPanel.requestFocus();
+	}
+	
+	public void registerListeners(CollisionResizeController c) {
+		cPanel.addComponentListener(c);
 	}
 
-	public void repaint() {
-		// TODO Auto-generated method stub
-		
-	}
+	public Dimension getCollisionPanelSize() {
+        return cPanel.getSize();
+    }
 
 }

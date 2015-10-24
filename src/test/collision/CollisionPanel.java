@@ -16,18 +16,22 @@ public class CollisionPanel extends JPanel {
 		this.setFocusable(true);
 	}
 	
-	public void paintComponents(Graphics g) {
+	public void paintComponent(Graphics g) {
 		g.setColor(Color.BLACK);
 		
-		//for (Ball b : model) {
-			//fillBall(b, g);
-		//}
+		for (Ball b : model.getBalls()) {
+			this.fillBall(b, g);
+		}
 	}
 	
 	private void fillBall(Ball ball, Graphics g) {
-		g.fillOval((int)ball.getPosition().cartesian(0)-ball.getRadius(), 
-				   (int)ball.getPosition().cartesian(1)-ball.getRadius(), 
-				   ball.getRadius()*2, ball.getRadius()*2);
+		int posX = (int)ball.getPosition().cartesian(0);
+		int posY = (int)ball.getPosition().cartesian(1);
+		int radius = ball.getRadius();
+		
+		g.drawString(ball.getPosition().toString(), posX, posY);
+		
+		g.fillOval(posX-radius, posY-radius, radius*2, radius*2);
 	}
 }
 

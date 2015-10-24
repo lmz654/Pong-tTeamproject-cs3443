@@ -8,6 +8,7 @@ import game.math.Vector;
 public class CollisionTester {
 
 	public static void main(String[] args) {
+		/*
 		int t = 0;
 		
 		// 1 Dimension Collision Course
@@ -36,18 +37,21 @@ public class CollisionTester {
 		
 		if (ball1.getPosition().distanceTo(new Vector(11, 21)) == 0.0)		
 			System.out.println("2D Movement Test: passed");
-		
+		*/
 		
 		// JFrame Simulation
 		CollisionModel model = new CollisionModel();
 		CollisionView view = new CollisionView(model);
 		
 		CollisionRepaintController repaintController = new CollisionRepaintController(model, view);
+		CollisionResizeController resizeController = new CollisionResizeController(model, view);
 		
 		new Timer(25, repaintController).start();
 		
+		view.registerListeners(resizeController);
+		
 		view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		view.setSize(400, 300);
+		view.setSize(1000, 800);
 		view.setVisible(true);
 		
 
