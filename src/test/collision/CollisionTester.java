@@ -50,7 +50,6 @@ public class CollisionTester {
 		view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		view.setSize(1000, 800);
 		view.setVisible(true);
-		
 
 	}
 

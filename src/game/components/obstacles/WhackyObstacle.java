@@ -33,12 +33,7 @@ public class WhackyObstacle extends Obstacle {
 	}
 	
 	private Vector getRandomReflection() {
-		double[] data = new double[2];
-		
-		// TODO Figure out how to generate a random Vector!!
-		//data[1] = Math.random()*
-		
-		return new Vector(data);
+		return Vector.getRand(new int[]{10, -5}, new int[]{10, -5});
 	}
 
 	

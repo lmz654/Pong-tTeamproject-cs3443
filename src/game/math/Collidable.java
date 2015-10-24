@@ -1,5 +1,7 @@
 package game.math;
 
+import java.util.ArrayList;
+
 public abstract class Collidable {
 	protected Object obj;
 	protected Vector position;
@@ -25,4 +27,5 @@ public abstract class Collidable {
 	}
 	
 	public abstract Collidable intersects(Collidable object);
+	public abstract ArrayList<Bound> getXYZProjections();
 }

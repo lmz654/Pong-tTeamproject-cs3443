@@ -1,5 +1,7 @@
 package game.math;
 
+import java.util.ArrayList;
+
 import game.core.Ball;
 
 public class CollidableCircle extends Collidable {
@@ -26,6 +28,12 @@ public class CollidableCircle extends Collidable {
 	
 	public int getRadius() {
 		return radius;
+	}
+
+	@Override
+	public ArrayList<Bound> getXYZProjections() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

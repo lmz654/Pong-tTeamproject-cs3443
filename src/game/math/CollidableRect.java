@@ -1,6 +1,9 @@
 package game.math;
 
-public abstract class CollidableRect extends Collidable {
+import java.util.ArrayList;
+
+public class CollidableRect extends Collidable {
+	private int width, height;
 
 	public CollidableRect(Object object, Vector position) {
 		super(object, position);
@@ -9,6 +12,12 @@ public abstract class CollidableRect extends Collidable {
 
 	@Override
 	public Collidable intersects(Collidable object) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Bound> getXYZProjections() {
 		// TODO Auto-generated method stub
 		return null;
 	}

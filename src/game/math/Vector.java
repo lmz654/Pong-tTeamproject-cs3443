@@ -35,7 +35,7 @@ public class Vector {
 		double[] rand = new double[data.length];
 		
 		for (int i = 0; i < data.length; i++) {
-			rand[i] = Math.round(Math.random()*(data[i][0] - 2*data[i][1]) + data[i][1]);
+			rand[i] = Math.round(Math.random()*data[i][0] + data[i][1]);
 		}
 		
 		return new Vector(rand);

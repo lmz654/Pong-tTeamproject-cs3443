@@ -9,7 +9,7 @@ public class CollisionView extends JFrame {
 	private CollisionPanel cPanel;
 
 	public CollisionView(CollisionModel model) {
-		super("Collision Tester");
+		super("Collision Simulation");
 		this.model = model;
 		
 		cPanel = new CollisionPanel(model, this);
