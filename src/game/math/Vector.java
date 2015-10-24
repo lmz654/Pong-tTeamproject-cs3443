@@ -22,13 +22,23 @@ public class Vector {
 	}
 	
 	public static Vector getRand(int...data) {
-		double[] info = new double[data.length];
+		double[] rand = new double[data.length];
 		
 		for (int i = 0; i < data.length; i++) {
-			info[i] = Math.round(Math.random()*data[i]);
+			rand[i] = Math.round(Math.random()*data[i]);
 		}
 		
-		return new Vector(info);
+		return new Vector(rand);
+	}
+	
+	public static Vector getRand(int[]...data) {
+		double[] rand = new double[data.length];
+		
+		for (int i = 0; i < data.length; i++) {
+			rand[i] = Math.round(Math.random()*(data[i][0] - 2*data[i][1]) + data[i][1]);
+		}
+		
+		return new Vector(rand);
 	}
 	
 	public int length() {
@@ -58,7 +68,6 @@ public class Vector {
 		return this.minus(v).magnitude();
 	}
 	
-	//TODO Override + sign Operator
 	public Vector plus(Vector v) {
 		Vector result = new Vector(LEN);
 		for (int i = 0; i < LEN; i++)
@@ -66,7 +75,6 @@ public class Vector {
 		return result;
 	}
 	
-	//TODO Override - sign Operator
 	public Vector minus(Vector v) {
 		Vector result = new Vector(LEN);
 		for (int i = 0; i < LEN; i++)
@@ -78,7 +86,6 @@ public class Vector {
 		return data[i];
 	}
 	
-	//TODO Override * sign Operator
 	public Vector times(double factor) {
 		Vector result = new Vector(LEN);
 		for (int i = 0; i < LEN; i++)

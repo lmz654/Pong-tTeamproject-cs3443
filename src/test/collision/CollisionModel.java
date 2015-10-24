@@ -22,7 +22,7 @@ public class CollisionModel {
 		balls = new ArrayList<Ball>();
 		
 		for (int i = 0; i < 20; i++) {
-			balls.add(new Ball(Vector.getRand(1000, 800), Vector.getRand(5,5), 5));
+			balls.add(new Ball(Vector.getRand(new int[]{1000, 10}, new int[]{800, 10}), Vector.getRand(5,5), 5));
 		}
 		
 	}
