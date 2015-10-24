@@ -25,7 +25,7 @@ public class Vector {
 		double[] info = new double[data.length];
 		
 		for (int i = 0; i < data.length; i++) {
-			info[i] = Math.random()*data[i];
+			info[i] = Math.round(Math.random()*data[i]);
 		}
 		
 		return new Vector(info);

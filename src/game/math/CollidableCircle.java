@@ -1,10 +1,16 @@
 package game.math;
 
+import game.core.Ball;
+
 public class CollidableCircle extends Collidable {
+	private int radius;
 
 	public CollidableCircle(Object object, Vector position) {
 		super(object, position);
 		// TODO Auto-generated constructor stub
+		if (object instanceof Ball) {
+			this.radius = ((Ball)object).getRadius();
+		}
 	}
 
 	@Override
@@ -16,6 +22,10 @@ public class CollidableCircle extends Collidable {
 		}
 		
 		return null;
+	}
+	
+	public int getRadius() {
+		return radius;
 	}
 
 }
