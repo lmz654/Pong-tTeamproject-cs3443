@@ -1,8 +1,8 @@
 package game.math;
 
 public abstract class Collidable {
-	private Object obj;
-	private Vector position;
+	protected Object obj;
+	protected Vector position;
 	
 	public Collidable(Object object, Vector position) {
 		this.obj = object;

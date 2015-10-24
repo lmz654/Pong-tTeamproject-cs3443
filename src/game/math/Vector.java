@@ -21,6 +21,16 @@ public class Vector {
 		}
 	}
 	
+	public static Vector getRand(int...data) {
+		double[] info = new double[data.length];
+		
+		for (int i = 0; i < data.length; i++) {
+			info[i] = Math.random()*data[i];
+		}
+		
+		return new Vector(info);
+	}
+	
 	public int length() {
 		return this.LEN;
 	}
