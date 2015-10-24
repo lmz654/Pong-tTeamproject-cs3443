@@ -2,9 +2,6 @@ package test.collision;
 
 import javax.swing.*;
 
-import game.core.Ball;
-import game.math.Vector;
-
 public class CollisionTester {
 
 	public static void main(String[] args) {

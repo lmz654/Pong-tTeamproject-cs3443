@@ -76,7 +76,7 @@ public class CollisionModel {
 				if (b.intersects(c)) {
 					// TODO Collision Detected
 					collision = new Collision(new CollidableCircle(b, b.getPosition()), new CollidableCircle(c, c.getPosition()));
-					System.out.println(collision.toString());
+					System.out.println(b.getPosition().toString() + ":" + c.getPosition().toString() + "@" + collision.getCollisionPoint().toString());
 				}
 			}
 			

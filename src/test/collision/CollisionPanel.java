@@ -5,6 +5,7 @@ import javax.swing.*;
 
 import game.core.Ball;
 
+@SuppressWarnings("serial")
 public class CollisionPanel extends JPanel {
 	private CollisionModel model;
 	private CollisionView view;
