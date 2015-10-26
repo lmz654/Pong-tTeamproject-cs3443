@@ -2,22 +2,23 @@ package game.math;
 
 import java.util.ArrayList;
 
+import game.core.paddle.Paddle;
+
 public class CollidableRect extends Collidable {
 	private int width, height;
 
-	public CollidableRect(Object object, Vector position) {
-		super(object, position);
+	public CollidableRect(Object object) {
+		super(object);
 		// TODO Auto-generated constructor stub
+		if (object instanceof Paddle) {
+			this.position = ((Paddle)object).getPosition();
+			this.width = ((Paddle)object).getLength();
+			this.height = ((Paddle)object).getHeight();
+		}
 	}
-
+	
 	@Override
-	public Collidable intersects(Collidable object) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Bound> getXYZProjections() {
+	public ArrayList<Bound> getBounds() {
 		// TODO Auto-generated method stub
 		return null;
 	}

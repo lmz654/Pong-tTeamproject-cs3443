@@ -17,7 +17,7 @@ public class CollisionDetector {
 		
 		// Load Collision Detector with Collidable Units from the Model
 		for (Ball ball : model.getBalls()) {
-			collidableUnits.add(new CollidableCircle(ball, ball.getPosition()));
+			collidableUnits.add(new CollidableCircle(ball));
 		}
 		
 		// TODO Test for Collisions

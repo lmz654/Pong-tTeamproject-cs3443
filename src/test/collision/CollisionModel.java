@@ -20,9 +20,14 @@ public class CollisionModel {
 		
 		//collisions = new ArrayList<Collision>();
 		balls = new ArrayList<Ball>();
+		int radius = 10;
+		int tolerance = 1;
+		
+		int redux = 2*(radius+tolerance);
+		int ofst = radius + tolerance;
 		
 		for (int i = 0; i < 20; i++) {
-			balls.add(new Ball(Vector.getRand(new int[]{988, 6}, new int[]{788, 6}), Vector.getRand(5,5), 5));
+			balls.add(new Ball(Vector.getRand(new int[]{1000-redux, ofst}, new int[]{800-redux, ofst}), Vector.getRand(10,10), radius));
 		}
 		
 	}
@@ -68,17 +73,19 @@ public class CollisionModel {
 				//System.out.println("Pos: " + b.getPosition().toString() + " V: " + b.getVelocity().toString());
 			}
 			
-			/*Checking for Collisions
-			 * 
+			/*
+			 * Checking for Collisions
 			 */
-			for (Ball c : balls) {
-				if (b.equals(c)) continue;
-				if (b.intersects(c)) {
-					// TODO Collision Detected
-					collision = new Collision(new CollidableCircle(b, b.getPosition()), new CollidableCircle(c, c.getPosition()));
-					System.out.println(b.getPosition().toString() + ":" + c.getPosition().toString() + "@" + collision.getCollisionPoint().toString());
-				}
-			}
+			CollisionDetector.checkCollisions(this);
+			
+//			for (Ball c : balls) {
+//				if (b.equals(c)) continue;
+//				if (b.intersects(c)) {
+//					// TODO Collision Detected
+//					collision = new Collision(new CollidableCircle(b), new CollidableCircle(c));
+//					System.out.println(b.getPosition().toString() + ":" + c.getPosition().toString() + "@" + collision.getCollisionPoint().toString());
+//				}
+//			}
 			
 			
 		}

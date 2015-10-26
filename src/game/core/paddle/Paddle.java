@@ -8,12 +8,14 @@ public abstract class Paddle {
 	private Vector position;
 	private double velocity;
 	private int length;
+	private int height;
 	
 	
-	public Paddle(Vector position, int length) {
+	public Paddle(Vector position, int length, int height) {
 		this.position = position;
-		this.velocity = 3;
+		this.velocity = 3.0;
 		this.length = length;
+		this.setHeight(height);
 	}
 	
 	public Paddle(int dimension, int length) {
@@ -36,6 +38,14 @@ public abstract class Paddle {
 
 	public void setLength(int length) {
 		this.length = length;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
 	}
 
 	public Vector getPosition() {
@@ -64,7 +74,7 @@ public abstract class Paddle {
 	}
 
 	private void moveXAxis() {
-		position = position.plus(new Vector(velocity, 0));
+		position = position.plus(new Vector(velocity, 0.0));
 	}
 
 	private void moveYAxis() {
