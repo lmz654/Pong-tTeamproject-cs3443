@@ -8,6 +8,19 @@ import game.math.*;
 public class CollisionModel {
 	private ArrayList<Ball> balls;
 	
+	//Information Markers
+	public boolean showVelocityVectors = true;
+	public boolean showPositionVectors = true;
+	public boolean showProjections = true;
+	public boolean showMoreInfo = true;
+	
+	// Simulation Properties
+	public int numBalls = 20; // 50 Still ran, seems like good upper limit. 100 Lagged.
+	public int radius = 5;
+	public int tolerance = 1;	
+	public int redux = 2*(radius+tolerance);
+	public int ofst = radius + tolerance;
+	
 	// Panel Properties
 	private int width, height;
 	
@@ -20,14 +33,9 @@ public class CollisionModel {
 		
 		//collisions = new ArrayList<Collision>();
 		balls = new ArrayList<Ball>();
-		int radius = 10;
-		int tolerance = 1;
 		
-		int redux = 2*(radius+tolerance);
-		int ofst = radius + tolerance;
-		
-		for (int i = 0; i < 20; i++) {
-			balls.add(new Ball(Vector.getRand(new int[]{1000-redux, ofst}, new int[]{800-redux, ofst}), Vector.getRand(10,10), radius));
+		for (int i = 0; i < numBalls; i++) {
+			balls.add(new Ball(Vector.getRand(new int[]{1000-redux, ofst}, new int[]{750-redux, ofst}), Vector.getRand(10,10), radius));
 		}
 		
 	}
@@ -52,7 +60,7 @@ public class CollisionModel {
 		if (height == 0) return;
 		int posX, posY, radius;
 		
-		Collision collision;
+		//Collision collision;
 		
 		for (Ball b : balls) {
 			b.move();
@@ -63,12 +71,12 @@ public class CollisionModel {
 			
 			// Check boundries
 			// Checking X
-			if (posX > width - radius || posX < radius) {
+			if (posX > (width - radius) || posX < radius) {
 				b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
 				//System.out.println("Pos: " + b.getPosition().toString() + " V: " + b.getVelocity().toString());
 			}
 			// Checking Y
-			if (posY > height - radius || posY < radius) {
+			if (posY > (height - radius) || posY < radius) {
 				b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
 				//System.out.println("Pos: " + b.getPosition().toString() + " V: " + b.getVelocity().toString());
 			}

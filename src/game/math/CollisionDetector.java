@@ -20,7 +20,20 @@ public class CollisionDetector {
 			collidableUnits.add(new CollidableCircle(ball));
 		}
 		
+		Collision c;
 		// TODO Test for Collisions
+		for (Collidable cUnitA : collidableUnits) {
+			for (Collidable cUnitB : collidableUnits) {
+				if (cUnitA.equals(cUnitB)) continue;
+				else {
+					c = cUnitA.intersects(cUnitB);
+					if (c != null) {
+						System.out.println("Collision @" + c.getCollisionPoint().toString());
+					}
+				}
+					
+			}
+		}
 		
 	}
 

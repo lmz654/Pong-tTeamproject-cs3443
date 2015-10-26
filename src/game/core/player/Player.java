@@ -108,7 +108,19 @@ public class Player {
 		if (amount < 0)
 			throw new Exception("Cannot have Negative Shrink!");
 		
-		paddle.setLength(paddle.getLength()+amount);
+		switch(motionAxis) {
+		case 'X':
+		case 'x':
+			paddle.setLength(paddle.getLength()+amount);
+			break;
+		case 'y':
+		case 'Y':
+			paddle.setHeight(paddle.getHeight()+amount);
+			break;
+		default:
+			System.err.println("Something went wrong shrinking paddle");
+			
+		}
 	}
 
 
@@ -128,7 +140,7 @@ public class Player {
 			paddle.setHeight(paddle.getHeight()-amount);
 			break;
 		default:
-			System.err.println("Something went wring shrinking paddle");
+			System.err.println("Something went wrong shrinking paddle");
 			
 		}
 	}
