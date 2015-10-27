@@ -2,8 +2,6 @@ package game.core;
 
 import java.util.ArrayList;
 
-import game.core.player.Player;
-
 public abstract class Game {
 	
 	// ArrayList of Players in the Game

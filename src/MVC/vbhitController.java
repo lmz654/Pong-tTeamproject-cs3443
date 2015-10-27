@@ -5,7 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.Timer;
-import game.core.player.Player;
+
+import game.core.Player;
 
 public class vbhitController implements KeyListener, ActionListener  {
 	private vbhitModel model;

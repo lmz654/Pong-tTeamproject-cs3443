@@ -1,4 +1,4 @@
-package game.core.paddle;
+package game.core;
 
 import game.math.Vector;
 

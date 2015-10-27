@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import game.components.Item;
 import game.components.obstacles.Obstacle;
 import game.core.Ball;
-import game.core.player.Player;
+import game.core.Player;
 import game.math.CollisionDetector;
 
 public class vbhitModel {

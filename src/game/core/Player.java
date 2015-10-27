@@ -1,10 +1,8 @@
-package game.core.player;
+package game.core;
 
 import java.util.ArrayList;
 
 import game.components.Item;
-import game.core.Score;
-import game.core.paddle.Paddle;
 
 public class Player {
 	
