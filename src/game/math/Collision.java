@@ -42,6 +42,10 @@ public class Collision {
 		return s.toString();
 	}
 	
+	public void adjustTrajectories() {
+		// TODO Math to find reflection velocities of the objects 
+	}
+	
 	private Vector calculateCollisionPoint() {
 		Vector aTob = b.position.minus(a.position);	
 		Vector cPoint = aTob.unit();
