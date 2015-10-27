@@ -16,6 +16,15 @@ public class vbhitController implements KeyListener, ActionListener  {
 		super();
 		this.model = model;
 		this.view = view;
+		//time = new Timer(25,this);
+	}
+	public class updategame implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 	
 	public void keyPressed(KeyEvent arg0) {
@@ -45,6 +54,7 @@ public class vbhitController implements KeyListener, ActionListener  {
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		model.checkCollisions();
 	}
 
 	

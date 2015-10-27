@@ -14,12 +14,19 @@ public class vbhitModel {
 	private ArrayList<Player> player;
 	private ArrayList<Ball> ball;
 	
-	public vbhitModel(ArrayList<Item> item, ArrayList<Obstacle> obstacle, ArrayList<Player> player, ArrayList<Ball> ball) {
+	public vbhitModel() {
 		super();
 		this.item = new ArrayList<Item>();
 		this.obstacle = new ArrayList<Obstacle>();
 		this.player = new ArrayList<Player>();
 		this.ball = new ArrayList<Ball>();
+	}
+	public vbhitModel(ArrayList<Item> item, ArrayList<Obstacle> obstacle, ArrayList<Player> player, ArrayList<Ball> ball) {
+		super();
+		this.item = item;
+		this.obstacle = obstacle;
+		this.player = player;
+		this.ball = ball;
 	}
 	
 	public void removeItem(Item out){
