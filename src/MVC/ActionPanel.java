@@ -28,7 +28,7 @@ public class ActionPanel extends JPanel {
 			//the current path at src level or files that the same with folder that src folder in
 			image1 = ImageIO.read(new File("src\\MVC\\imagecontainer\\back1.png"));
 			image2 = ImageIO.read(new File("src\\MVC\\imagecontainer\\fire2.png"));
-			image3 = ImageIO.read(new File("src\\MVC\\imagecontainer\\back2.png"));
+			image3 = ImageIO.read(new File("src\\MVC\\imagecontainer\\black1.png"));
 			image4 = ImageIO.read(new File("src\\MVC\\imagecontainer\\green2.png"));
 			
 		} catch (IOException e) {
@@ -49,6 +49,7 @@ public class ActionPanel extends JPanel {
 		//g.drawImage(image3, 0, 0, null);
 		g.drawImage(image2, i,100, 50, 50, null);
 		g.drawImage(image4,200,i, 50, 50, null);
+		g.drawImage(image3, i, i, 50, 50, null);
 		//gg.setBackground(this.getBackground());
 		
 		
