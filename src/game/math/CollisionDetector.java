@@ -20,14 +20,23 @@ public class CollisionDetector {
 			collidableUnits.add(new CollidableCircle(ball));
 		}
 		
+		adjustTrajectories(checkCollisions(collidableUnits));
+	}
+	
+	private static ArrayList<Collision> checkCollisions(ArrayList<Collidable> cUnits) {
+		ArrayList<Collision> collisions = new ArrayList<Collision>();
+		
 		Collision c;
-		// TODO Test for Collisions
-		for (Collidable cUnitA : collidableUnits) {
-			for (Collidable cUnitB : collidableUnits) {
+		/* Finding Collisions
+		 *  TODO Figure out a more efficient Algorithm
+		 */
+		for (Collidable cUnitA : cUnits) {
+			for (Collidable cUnitB : cUnits) {
 				if (cUnitA.equals(cUnitB)) continue;
 				else {
 					c = cUnitA.intersects(cUnitB);
 					if (c != null) {
+						collisions.add(c);
 						System.out.println("Collision @" + c.getCollisionPoint().toString());
 					}
 				}
@@ -35,6 +44,13 @@ public class CollisionDetector {
 			}
 		}
 		
+		return collisions;
+	}
+	
+	private static void adjustTrajectories(ArrayList<Collision> collisions) {
+		for (Collision collision: collisions) {
+			collision.adjustTrajectories();
+		}
 	}
 
 }
