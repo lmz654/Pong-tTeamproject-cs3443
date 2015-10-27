@@ -2,7 +2,7 @@ package game.math;
 
 import java.util.ArrayList;
 
-import game.core.paddle.Paddle;
+import game.core.Paddle;
 
 public class CollidableRect extends Collidable {
 	private int width, height;

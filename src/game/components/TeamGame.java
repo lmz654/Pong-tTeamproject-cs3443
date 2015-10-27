@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import game.core.Ball;
 import game.core.Game;
-import game.core.player.Player;
+import game.core.Player;
 
 public class TeamGame extends Game {
 	

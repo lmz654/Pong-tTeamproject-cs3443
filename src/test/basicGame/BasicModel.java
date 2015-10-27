@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import game.components.*;
 import game.core.*;
-import game.core.player.Player;
 
 public class BasicModel {
 
