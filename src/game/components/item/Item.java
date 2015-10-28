@@ -1,4 +1,4 @@
-package game.components;
+package game.components.item;
 
 import java.awt.Point;
 import java.awt.image.BufferedImage;

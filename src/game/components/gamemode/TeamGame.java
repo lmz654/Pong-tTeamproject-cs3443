@@ -1,4 +1,4 @@
-package game.components;
+package game.components.gamemode;
 
 import java.util.ArrayList;
 

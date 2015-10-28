@@ -1,5 +1,7 @@
 package game.core;
 
+import java.awt.Point;
+
 import game.math.Vector;
 
 public class Paddle {
@@ -22,6 +24,9 @@ public class Paddle {
 		this.position = new Vector(dimension);
 		this.velocity = 3;
 		this.length = length;
+	}
+	public Vector getPosition(){
+		return position;
 	}
 
 	public double getVelocity() {
@@ -48,8 +53,11 @@ public class Paddle {
 		this.height = height;
 	}
 
-	public Vector getPosition() {
-		return position;
+	public Point getPositionp() {
+		Point point = new Point();
+		point.x=(int)position.cartesian(0);
+		point.y=(int)position.cartesian(1);
+		return point;
 	}
 	
 	public void setPosition(Vector position) {

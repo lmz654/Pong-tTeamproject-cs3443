@@ -3,6 +3,7 @@ package test.basicGame;
 import java.util.ArrayList;
 
 import game.components.*;
+import game.components.gamemode.FFAGame;
 import game.core.*;
 
 public class BasicModel {

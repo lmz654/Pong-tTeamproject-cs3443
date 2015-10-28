@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -32,22 +33,6 @@ public class vbhitView extends JFrame{
 		controller = new vbhitController();
 		this.addKeyListener(controller);
 		this.setFocusableWindowState(true);
-		/*time = new Timer(25,new ActionListener(){	
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				if (i<=0){
-					j=-1*j+1;
-				} else if(i>=450){
-					j=-j;
-				}
-				i+=j;
-				
-				actionpanel.paint1(i,j);
-				//System.out.println(i);
-			}
-			
-		});
-		time.start();*/
 		//this.pack();
 		//this.setResizable(false);
 		//this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -72,26 +57,11 @@ public class vbhitView extends JFrame{
 		this.add(panel[1]);
 		this.pack();
 		
-		/*panel[2]=new JPanel ();
-		//panel[2].setLayout(null);
-		//panel[2].setSize(500, 500);
-		panel[2].setBounds(250, 100, 500, 500);
-		panel[2].setBackground(Color.gray);
-		this.add(panel[2]);*/
 		
-		/*panel[3]=new JPanel ();
-		//panel[3].setLayout(null);
-		//panel[3].setSize(250, 500);
-		panel[3].setBounds(750, 100, 250, 500);
-		panel[3].setBackground(Color.CYAN);
-		this.add(panel[3]);
-		
-		panel[4]=new JPanel ();
-		//panel[4].setLayout(null);
-		//panel[4].setSize(1000, 100);
-		panel[4].setBounds(0, 600, 1000, 100);
-		panel[4].setBackground(Color.GREEN);
-		this.add(panel[4]);*/
+	}
+	public Point tranferPos(Point p){
+		Point point=new Point();
+		return point;
 	}
 	public vbhitView(vbhitModel model){
 		/*this.model=model;

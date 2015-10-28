@@ -2,7 +2,7 @@ package game.core;
 
 import java.util.ArrayList;
 
-import game.components.Item;
+import game.components.item.Item;
 
 public class Player {
 	

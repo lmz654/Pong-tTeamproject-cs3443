@@ -2,9 +2,13 @@ package MVC;
 
 import java.util.ArrayList;
 
-import game.components.Item;
+import javax.sound.sampled.Control;
+
+import game.Controls;
+import game.components.item.Item;
 import game.components.obstacles.Obstacle;
 import game.core.Ball;
+import game.core.Paddle;
 import game.core.Player;
 import game.math.CollisionDetector;
 
@@ -27,6 +31,21 @@ public class vbhitModel {
 		this.obstacle = obstacle;
 		this.player = player;
 		this.ball = ball;
+	}
+	public void createplayer(int number){
+		for(int i =0;i<number;i++){
+			if(i==0){
+				this.addPlayer(Controls.player1default());
+			}else if(i==1){
+				this.addPlayer(Controls.player2default());
+			}else if (i==2){
+				this.addPlayer(Controls.player3default());
+			}else if(i==3){
+				this.addPlayer(Controls.player4default());
+			}
+			
+				
+		}
 	}
 	
 	public void removeItem(Item out){

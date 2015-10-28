@@ -1,14 +1,23 @@
 package MVC;
 
+import game.Controls;
+import game.core.Player;
+
 public class vbhitMain {
 	public static void creatwindow(){
 		//ActionPanel actionpanel = new ActionPanel(new vbhitModel());
 		//actionpanel.setVisible(true);
-		vbhitView frame = new vbhitView();
+		vbhitModel model = new vbhitModel();
+		model.addPlayer(new Player("huu",Controls.getPaddle(1),'w','s','x'));
+		model.addPlayer(new Player("huu",Controls.getPaddle(1),'w','s','x'));
+		vbhitView view = new vbhitView(model);
+		vbhitController controller = new vbhitController(model, view);
+		
+		
 		//frame.pack();
-		frame.setSize(1000, 700);
+		view.setSize(1000, 700);
 		//frame.setUndecorated(false);
-		frame.setVisible(true);
+		view.setVisible(true);
 	}
 
 	public static void main(String[] args) {

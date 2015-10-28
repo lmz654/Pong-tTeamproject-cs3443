@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import game.components.Item;
+import game.components.item.Item;
 import game.core.Player;
 
 public class sideplayer extends playerpanel {

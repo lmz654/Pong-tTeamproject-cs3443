@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 
 import MVC.player.sideplayer.itempanel;
 import MVC.player.sideplayer.scorepanel;
-import game.components.Item;
+import game.components.item.Item;
 import game.core.Player;
 
 public class TBplayerpanel extends playerpanel {
