@@ -11,7 +11,6 @@ public class NormalObstacle extends Obstacle {
 
 	public NormalObstacle(Vector postition, char effect, int height, int width) {
 		super(postition, effect);
-		// TODO Auto-generated constructor stub
 		this.height = height;
 		this.width = width;
 	}

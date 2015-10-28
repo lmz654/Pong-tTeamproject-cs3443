@@ -19,8 +19,18 @@ public class CollidableRect extends Collidable {
 	
 	@Override
 	public ArrayList<Bound> getBounds() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Bound> bounds = new ArrayList<Bound>();
+		
+		bounds.add(new Bound((int)position.cartesian(0)+(width/2),(int) position.cartesian(0)-(width/2)));
+		bounds.add(new Bound((int)position.cartesian(1)+(height/2),(int) position.cartesian(1)-(height/2)));
+		
+		return bounds;
+	}
+
+	@Override
+	public void setVelocity(Vector velocity) {
+		// TODO Setting Velocity on CollidableRect
+		
 	}
 
 }

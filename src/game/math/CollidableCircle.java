@@ -9,7 +9,7 @@ public class CollidableCircle extends Collidable {
 
 	public CollidableCircle(Object object) {
 		super(object);
-		// TODO Auto-generated constructor stub
+		// Conversion of Balls to Collidable Circles
 		if (object instanceof Ball) {
 			this.radius = ((Ball)object).getRadius();
 			super.position = ((Ball)object).getPosition();
@@ -35,6 +35,21 @@ public class CollidableCircle extends Collidable {
 		}
 		
 		return bounds;
+	}
+
+	@Override
+	public void setVelocity(Vector velocity) {
+		if (this.obj instanceof Ball) {
+			((Ball)this.obj).setVelocity(velocity);
+		}
+		
+	}
+	
+	public Vector getVelocity() {
+		if (this.obj instanceof Ball) {
+			return ((Ball)this.obj).getVelocity();
+		}
+		return null;
 	}
 
 }
