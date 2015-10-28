@@ -17,7 +17,7 @@ public class Player {
 	
 	private char motionAxis; // X is for Top and Bottom Players,  Y is for Side Players
 	
-	public Player(String name,char keyupright, char keydownleft, char motionAxis) {
+	public Player(String name, Paddle paddle,char keyupright, char keydownleft, char motionAxis) {
 		this.name = name;
 		this.paddle = paddle;
 		this.item = new ArrayList<Item>();
@@ -27,7 +27,7 @@ public class Player {
 		this.keyuprightpress=0;
 		this.keydownleft=0;
 		this.motionAxis = motionAxis;
-		this.paddle= new Paddle()
+		this.paddle = paddle;
 	}
 	
 	public char getKeyupright() {
