@@ -2,7 +2,7 @@ package game.core;
 
 import game.math.Vector;
 
-public abstract class Paddle {
+public class Paddle {
 	
 	// Paddle Mechanics
 	private Vector position;
@@ -55,8 +55,6 @@ public abstract class Paddle {
 	public void setPosition(Vector position) {
 		this.position = position;
 	}
-	public abstract void slideup();
-	public abstract void slidedown();
 
 	public void move(char axis) throws Exception{
 		switch(axis) {

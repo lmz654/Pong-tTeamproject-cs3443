@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,6 +16,7 @@ import javax.swing.Timer;
 
 public class vbhitView extends JFrame{
 	private vbhitModel model;
+	private vbhitController controller;
 	private Timer time;
 	public JPanel[] panel;
 	public ActionPanel actionpanel;
@@ -26,7 +29,10 @@ public class vbhitView extends JFrame{
 		//this.add(panel);
 		j=1;
 		i=50;
-		time = new Timer(25,new ActionListener(){	
+		controller = new vbhitController();
+		this.addKeyListener(controller);
+		this.setFocusableWindowState(true);
+		/*time = new Timer(25,new ActionListener(){	
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				if (i<=0){
@@ -37,31 +43,35 @@ public class vbhitView extends JFrame{
 				i+=j;
 				
 				actionpanel.paint1(i,j);
-				System.out.println(i);
+				//System.out.println(i);
 			}
 			
 		});
-		time.start();
+		time.start();*/
 		//this.pack();
 		//this.setResizable(false);
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		panel = new JPanel[5];
 		panel[0]=new JPanel ();
 		//panel[0].setLayout(null);
-		panel[0].setBounds(0, 0, 1000, 100);
+		panel[0].setBounds(0, 0,300, 700);
 		//panel[0].setSize(1000, 100);
 		panel[0].setBackground(Color.blue);
 		this.add(panel[0]);
+		
+		
+		//actionpanel=new ActionPanel(model);
+		actionpanel.setBounds(300, 0, 700, 700);
+		this.add(actionpanel);
+		
 		panel[1]=new JPanel ();
 		//panel[1].setLayout(null);
 		//panel[1].setSize(250, 500);
-		panel[1].setBounds(0, 100, 250, 500);
+		panel[1].setBounds(1000, 0, 300, 700);
 		panel[1].setBackground(Color.yellow);
 		this.add(panel[1]);
+		this.pack();
 		
-		//actionpanel=new ActionPanel(model);
-		actionpanel.setBounds(250, 100, 500, 500);
-		this.add(actionpanel);
 		/*panel[2]=new JPanel ();
 		//panel[2].setLayout(null);
 		//panel[2].setSize(500, 500);
@@ -69,7 +79,7 @@ public class vbhitView extends JFrame{
 		panel[2].setBackground(Color.gray);
 		this.add(panel[2]);*/
 		
-		panel[3]=new JPanel ();
+		/*panel[3]=new JPanel ();
 		//panel[3].setLayout(null);
 		//panel[3].setSize(250, 500);
 		panel[3].setBounds(750, 100, 250, 500);
@@ -81,7 +91,7 @@ public class vbhitView extends JFrame{
 		//panel[4].setSize(1000, 100);
 		panel[4].setBounds(0, 600, 1000, 100);
 		panel[4].setBackground(Color.GREEN);
-		this.add(panel[4]);
+		this.add(panel[4]);*/
 	}
 	public vbhitView(vbhitModel model){
 		/*this.model=model;

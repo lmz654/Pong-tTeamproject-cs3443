@@ -2,9 +2,12 @@ package MVC;
 
 public class vbhitMain {
 	public static void creatwindow(){
+		//ActionPanel actionpanel = new ActionPanel(new vbhitModel());
+		//actionpanel.setVisible(true);
 		vbhitView frame = new vbhitView();
 		//frame.pack();
 		frame.setSize(1000, 700);
+		//frame.setUndecorated(false);
 		frame.setVisible(true);
 	}
 
