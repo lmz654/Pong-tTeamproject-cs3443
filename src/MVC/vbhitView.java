@@ -16,11 +16,32 @@ public class vbhitView extends JFrame{
 	private vbhitModel model;
 	private Timer time;
 	public JPanel[] panel;
-	public int i;
+	public ActionPanel actionpanel;
+	public int i,j;
 	public vbhitView(){
 		super();
 		this.setLayout(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		actionpanel =new ActionPanel(model);
+		//this.add(panel);
+		j=1;
+		i=50;
+		time = new Timer(25,new ActionListener(){	
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				if (i<=0){
+					j=-1*j+1;
+				} else if(i>=450){
+					j=-j;
+				}
+				i+=j;
+				
+				actionpanel.paint1(i,j);
+				System.out.println(i);
+			}
+			
+		});
+		time.start();
 		//this.pack();
 		//this.setResizable(false);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -38,12 +59,15 @@ public class vbhitView extends JFrame{
 		panel[1].setBackground(Color.yellow);
 		this.add(panel[1]);
 		
-		panel[2]=new JPanel ();
+		//actionpanel=new ActionPanel(model);
+		actionpanel.setBounds(250, 100, 500, 500);
+		this.add(actionpanel);
+		/*panel[2]=new JPanel ();
 		//panel[2].setLayout(null);
 		//panel[2].setSize(500, 500);
 		panel[2].setBounds(250, 100, 500, 500);
 		panel[2].setBackground(Color.gray);
-		this.add(panel[2]);
+		this.add(panel[2]);*/
 		
 		panel[3]=new JPanel ();
 		//panel[3].setLayout(null);
