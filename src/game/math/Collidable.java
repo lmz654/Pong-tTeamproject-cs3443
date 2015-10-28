@@ -25,6 +25,10 @@ public abstract class Collidable {
 		return s.toString();
 	}
 	
+	public boolean equals(Collidable other) {
+		return this.obj.equals(other.obj);
+	}
+	
 	public Collision intersects(Collidable object) {		
 		if (object == null) {
 			System.err.println("Object no Valid");
@@ -47,4 +51,6 @@ public abstract class Collidable {
 		}
 	}
 	public abstract ArrayList<Bound> getBounds();
+
+	public abstract void setVelocity(Vector velocity);
 }

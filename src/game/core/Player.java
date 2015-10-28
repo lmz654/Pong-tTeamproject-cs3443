@@ -97,7 +97,7 @@ public class Player {
 		try {
 			paddle.move(motionAxis);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			// TODO Figure out how to handle movePaddle Error
 			e.printStackTrace();
 		}
 	}

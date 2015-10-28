@@ -12,12 +12,12 @@ public class CollisionModel {
 	public boolean showVelocityVectors = true;
 	public boolean showPositionVectors = true;
 	public boolean showProjections = true;
-	public boolean showMoreInfo = true;
+	public boolean showMoreInfo = false;
 	
 	// Simulation Properties
-	public int numBalls = 20; // 50 Still ran, seems like good upper limit. 100 Lagged.
-	public int radius = 5;
-	public int tolerance = 1;	
+	public int numBalls = 2; // 50 Still ran, seems like good upper limit. 100 Lagged.
+	public int radius = 10;
+	public int tolerance = 5;	
 	public int redux = 2*(radius+tolerance);
 	public int ofst = radius + tolerance;
 	
@@ -34,9 +34,12 @@ public class CollisionModel {
 		//collisions = new ArrayList<Collision>();
 		balls = new ArrayList<Ball>();
 		
-		for (int i = 0; i < numBalls; i++) {
+		/*for (int i = 0; i < numBalls; i++) {
 			balls.add(new Ball(Vector.getRand(new int[]{1000-redux, ofst}, new int[]{750-redux, ofst}), Vector.getRand(10,10), radius));
-		}
+		}*/
+		
+		balls.add(new Ball(new Vector(200, 395), new Vector(5, 0), radius));
+		balls.add(new Ball(new Vector(600, 400), new Vector(-5, 0), radius));
 		
 	}
 
@@ -89,7 +92,6 @@ public class CollisionModel {
 //			for (Ball c : balls) {
 //				if (b.equals(c)) continue;
 //				if (b.intersects(c)) {
-//					// TODO Collision Detected
 //					collision = new Collision(new CollidableCircle(b), new CollidableCircle(c));
 //					System.out.println(b.getPosition().toString() + ":" + c.getPosition().toString() + "@" + collision.getCollisionPoint().toString());
 //				}

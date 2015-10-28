@@ -23,8 +23,8 @@ public class CollisionDetector {
 		adjustTrajectories(checkCollisions(collidableUnits));
 	}
 	
-	private static ArrayList<Collision> checkCollisions(ArrayList<Collidable> cUnits) {
-		ArrayList<Collision> collisions = new ArrayList<Collision>();
+	private static CollisionList checkCollisions(ArrayList<Collidable> cUnits) {
+		CollisionList collisions = new CollisionList();
 		
 		Collision c;
 		/* Finding Collisions
@@ -35,9 +35,9 @@ public class CollisionDetector {
 				if (cUnitA.equals(cUnitB)) continue;
 				else {
 					c = cUnitA.intersects(cUnitB);
-					if (c != null) {
+					if (c != null && !collisions.contains(c)) {
 						collisions.add(c);
-						System.out.println("Collision @" + c.getCollisionPoint().toString());
+						//System.out.println("Collision @" + c.getCollisionPoint().toString());
 					}
 				}
 					
@@ -47,7 +47,7 @@ public class CollisionDetector {
 		return collisions;
 	}
 	
-	private static void adjustTrajectories(ArrayList<Collision> collisions) {
+	private static void adjustTrajectories(CollisionList collisions) {
 		for (Collision collision: collisions) {
 			collision.adjustTrajectories();
 		}

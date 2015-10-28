@@ -35,7 +35,7 @@ public class Vector {
 		double[] rand = new double[data.length];
 		
 		for (int i = 0; i < data.length; i++) {
-			rand[i] = Math.round(Math.random()*data[i][0] + data[i][1]);
+			rand[i] = Math.rint((Math.random()*data[i][0] + data[i][1]));
 		}
 		
 		return new Vector(rand);
@@ -91,6 +91,24 @@ public class Vector {
 		for (int i = 0; i < LEN; i++)
 			result.data[i] = factor * data[i];
 		return result;
+	}
+	
+	public double angleTo(Vector other) {
+		return Math.acos((this.dot(other))/(this.magnitude()*other.magnitude()));
+	}
+	
+	public Vector rotate2D(double a) throws Exception{
+		if (this.LEN != 2) throw new Exception("Wrong Dimensions");
+		
+		double xP = (this.cartesian(0)*Math.cos(a))+(this.cartesian(1)*Math.sin(a));
+		double yP = (-1*this.cartesian(0)*Math.sin(a)) + (this.cartesian(1)*Math.cos(a));
+		
+		return new Vector((int)xP, (int)yP);
+	}
+	
+	public Vector getPerpendicular() throws Exception {
+		if (this.LEN != 2) throw new Exception("Wrong Dimensionallity");
+		return this.rotate2D(Math.PI/2);
 	}
 	
 	public Point toPoint() {
