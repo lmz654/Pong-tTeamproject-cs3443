@@ -21,12 +21,12 @@ public class Controls {
 	public static final int X_OFST = 0;
 	public static final int Y_OFST= 0;
 	public static final int PADDLE_LENGTH = 100;
-	public static final int PADDLE_WIDTH = 5;
+	public static final int PADDLE_WIDTH = 10;
 	
 	// Control Variables for Ball
 	public static final int BALL_MAX_SPEED = 10;
 	public static final int BALL_MIN_SPEED = 5;
-	public static final int BALL_DEFAULT_RADIUS = 10;
+	public static final int BALL_DEFAULT_RADIUS = 50;
 	
 	//player 1 left, 2 right, 3 top, 4 bottom
 	public static Paddle getPaddle(int player) {
@@ -53,7 +53,7 @@ public class Controls {
 	}
 	
 	public static Ball getDefaultBall() {
-		return new Ball(new Vector(MODEL_WIDTH, MODEL_HEIGHT), 
+		return new Ball(new Vector(MODEL_WIDTH/2, MODEL_HEIGHT/2), 
 				Vector.getRand(new int[]{BALL_MAX_SPEED - BALL_MIN_SPEED, BALL_MIN_SPEED}, 
 							   new int[]{BALL_MAX_SPEED - BALL_MIN_SPEED, BALL_MIN_SPEED}), BALL_DEFAULT_RADIUS);
 	}

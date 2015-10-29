@@ -38,6 +38,7 @@ public class vbhitView extends JFrame{
 		this.setLayout(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1200, 700);
+		this.setUndecorated(true);
 		controller=new vbhitController(model,this);
 		this.addKeyListener(controller);
 		this.addComponentListener(controller);
@@ -49,6 +50,7 @@ public class vbhitView extends JFrame{
 		rightpanel.setLayout(null);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		model.createplayer(4);
+		model.createball();
 		//this.setResizable(false);
 		System.out.println(this.getBounds().height+"     " + this.getBounds().width);
 		actionpanel.setSize(this.getHeight(),this.getHeight());
@@ -97,19 +99,21 @@ public class vbhitView extends JFrame{
 		
 		
 		//actionpanel.setSize(this.getHeight(),this.getHeight());
+		actionpanel.setRatiox((float)actionpanel.getSize().width/1000);
+		actionpanel.setRatioy((float)actionpanel.getSize().height/1000);
+		System.out.println(actionpanel.getRatiox());
 		leftpanelpos=0;
-		
-		actpanelpos=(this.getWidth()-this.getHeight())/2;
+		actpanelpos=(int) ((this.getSize().getWidth()-this.getSize().height)/2);
 		rightpanelpos=actpanelpos+this.getHeight();
 		//leftpanel.setSize((this.getWidth()-this.getWidth())/2,this.getHeight());
 		//rightpanel.setSize((this.getWidth()-this.getWidth())/2,this.getHeight());
 		rightpanel.setBackground(Color.BLUE);
 		leftpanel.setBackground(Color.CYAN);
 		actionpanel.setBackground(Color.GREEN);
-		leftpanel.setBounds(leftpanelpos, 0, actpanelpos, this.getHeight());
-		actionpanel.setBounds(actpanelpos, 0, this.getHeight(), this.getHeight());
+		leftpanel.setBounds(leftpanelpos, 0, actpanelpos, this.getSize().height);
+		actionpanel.setBounds(actpanelpos, 0, this.getHeight(), this.getSize().height);
 		rightpanel.setBounds(rightpanelpos, 0, actpanelpos, this.getHeight());
-		System.out.println(this.leftpanelpos+ "   "+ this.getBounds().height+"     " + this.getBounds().width);
+		//System.out.println(this.leftpanelpos+ "   "+ this.getBounds().height+"     " + this.getBounds().width);
 	}
 	
 	

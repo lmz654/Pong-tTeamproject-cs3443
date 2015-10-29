@@ -15,50 +15,78 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import MVC.vbhitModel;
+import game.core.Ball;
 import game.core.Player;
 
 public class ActionPanel extends JPanel {
 	private vbhitModel model;
 	private vbhitView view;
 	private float ratiox,ratioy;
+	private BufferedImage image,image1;
 	
 	public ActionPanel(vbhitModel model,vbhitView view){
 		super();
 		this.model=model;
 		this.view=view;
 		this.setBackground(Color.GRAY);
-		ratiox=(float)this.getSize().width/1000;
-		ratioy=(float)this.getSize().height/1000;
-		
-	}
-	public void paint1(int i,int j){
-		
-		this.repaint();
+		this.ratiox=(float)this.getSize().width/1000;
+		this.ratioy=(float)this.getSize().height/1000;
+		System.out.println(this.getSize()+"  "+ratiox);
+		try {
+			image = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\actionbg.jpeg"));
+			image1 = ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\fire.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	@Override
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
+		//Graphics2D g2= (Graphics2D)g;
+		g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
 		Point p1=new Point();
 		int length,height;
-		g.setColor(Color.BLUE);
-		g.fillRect(100, 100, 100, 100);
+		g.setColor(Color.CYAN);
+		//g.fillRect(100, this.getHeight()-50, 100, 100);
 		for(Player p:model.getPlayer()){
-			System.out.println(p.getPaddle().getPosition().cartesian(1));
 			p1.x=(int) (p.getPaddle().getPositionp().x*this.ratiox);
 			p1.y=(int) (p.getPaddle().getPositionp().y*this.ratioy);
+			
 			if(p.getMotionAxis()=='x'||p.getMotionAxis()=='X'){
 				length=(int) (p.getPaddle().getLength()*this.ratiox);
 				height=(int) (p.getPaddle().getHeight()*this.ratioy);
 				g.fillRect(p1.x-length/2, p1.y-height/2, length, height);
+				System.out.println((p1.x-length/2)+"   " +(p1.y-height/2));
 			}else{
 				length=(int) (p.getPaddle().getLength()*this.ratioy);
 				height=(int) (p.getPaddle().getHeight()*this.ratiox);
-				g.fillRect(p1.x-height/2, p1.y-length/2, height, length);
+				g.fillRect(p1.x-length/2, p1.y-height/2, length, height);
+				System.out.println((p1.x-length/2)+"   " +(p1.y-height/2));
 			}
 				
 		}
+		//g.drawImage(image1, 100, 100, 50, 50, null);
+		for(Ball b:model.getBall()){
+			System.out.println("draw one");
+			p1.x=(int) (b.getPositionp().x*this.ratiox);
+			p1.y=(int) (b.getPositionp().y*this.ratioy);
+			g.drawImage(image1, p1.x-b.getRadius()/2, p1.y-b.getRadius()/2, (int)(b.getRadius()*this.ratiox), (int)(b.getRadius()*this.ratioy), null);
+		}
 		
+	}
+	public float getRatiox() {
+		return ratiox;
+	}
+	public void setRatiox(float ratiox) {
+		this.ratiox = ratiox;
+	}
+	public float getRatioy() {
+		return ratioy;
+	}
+	public void setRatioy(float ratioy) {
+		this.ratioy = ratioy;
 	}
 	
 }

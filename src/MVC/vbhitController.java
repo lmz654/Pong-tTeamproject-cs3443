@@ -34,6 +34,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 		// TODO Auto-generated method stub
 		if(arg0.getKeyChar()=='q'){
 			//view.setUndecorated(true);
+			System.exit(1);
 		}
 		else{
 			/*for(Player temp:model.getPlayer()){

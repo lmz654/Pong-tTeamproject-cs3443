@@ -32,6 +32,9 @@ public class vbhitModel {
 		this.player = player;
 		this.ball = ball;
 	}
+	public void createball(){
+		ball.add(Controls.getDefaultBall());
+	}
 	public void createplayer(int number){
 		for(int i =0;i<number;i++){
 			if(i==0){
