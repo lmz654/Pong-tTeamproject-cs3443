@@ -1,5 +1,8 @@
 package MVC;
 
+import javax.swing.JFrame;
+
+import MVC.view.vbhitView;
 import game.Controls;
 import game.core.Player;
 
@@ -8,14 +11,10 @@ public class vbhitMain {
 		//ActionPanel actionpanel = new ActionPanel(new vbhitModel());
 		//actionpanel.setVisible(true);
 		vbhitModel model = new vbhitModel();
-		model.addPlayer(new Player("huu",Controls.getPaddle(1),'w','s','x'));
-		model.addPlayer(new Player("huu",Controls.getPaddle(1),'w','s','x'));
 		vbhitView view = new vbhitView(model);
 		vbhitController controller = new vbhitController(model, view);
-		
-		
+		view.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		//frame.pack();
-		view.setSize(1000, 700);
 		//frame.setUndecorated(false);
 		view.setVisible(true);
 	}

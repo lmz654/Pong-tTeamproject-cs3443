@@ -2,20 +2,19 @@ package MVC;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.Timer;
 
+import MVC.view.vbhitView;
 import game.core.Player;
 
-public class vbhitController implements KeyListener, ActionListener  {
+public class vbhitController implements KeyListener, ActionListener, ComponentListener  {
 	private vbhitModel model;
 	private vbhitView view;
 	private Timer time;
-	public vbhitController(){
-		super();
-		
-	}
 	public vbhitController(vbhitModel model, vbhitView view) {
 		super();
 		this.model = model;
@@ -34,16 +33,15 @@ public class vbhitController implements KeyListener, ActionListener  {
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		if(arg0.getKeyChar()=='q'){
-			//view.setUndecorated(false);
-			System.out.println("it is work");
+			//view.setUndecorated(true);
 		}
 		else{
-			for(Player temp:model.getPlayer()){
+			/*for(Player temp:model.getPlayer()){
 				if(temp.getKeydownleft()==arg0.getKeyChar())
 					temp.setKeydownleftpress(1);
 				if(temp.getKeyupright()==arg0.getKeyChar())
 					temp.setKeydownleftpress(1);
-			}
+			}*/
 		}
 	}
 
@@ -65,6 +63,27 @@ public class vbhitController implements KeyListener, ActionListener  {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		model.checkCollisions();
+	}
+
+	public void componentHidden(ComponentEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void componentMoved(ComponentEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void componentResized(ComponentEvent e) {
+		// TODO Auto-generated method stub
+		view.updateratio();
+		
+	}
+
+	public void componentShown(ComponentEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

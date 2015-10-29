@@ -3,7 +3,7 @@ package test;
 import javax.swing.JFrame;
 
 import MVC.vbhitModel;
-import MVC.vbhitView;
+import MVC.view.vbhitView;
 import game.math.Vector;
 
 

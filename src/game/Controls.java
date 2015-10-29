@@ -14,8 +14,8 @@ public class Controls {
 	public static final double MOVINGOBSTACLE_PROBABILITY = .2;
 	
 	// Control Variables for Model
-	public static final int MODEL_WIDTH = 0;
-	public static final int MODEL_HEIGHT = 0;
+	public static final int MODEL_WIDTH = 1000;
+	public static final int MODEL_HEIGHT = 1000;
 	
 	// Control Variables for Paddles
 	public static final int X_OFST = 0;
