@@ -12,7 +12,7 @@ public class RightPanel extends JPanel {
 	BufferedImage image;
 	public RightPanel(){
 		try {
-			image= ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\rightblackhole.jpg"));
+			image= ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\rightblackhole1.jpg"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -23,7 +23,7 @@ public class RightPanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
-		g.drawImage(image, -200,0,800,800,null);
+		g.drawImage(image, -200,0,null);
 	}
 	
 

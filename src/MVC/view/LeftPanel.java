@@ -23,7 +23,7 @@ public class LeftPanel extends JPanel{
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
-		g.drawImage(image, -200,0,800,800,null);
+		g.drawImage(image, -200,0,null);
 	}
 	
 

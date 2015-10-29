@@ -45,7 +45,7 @@ public class ActionPanel extends JPanel {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		//Graphics2D g2= (Graphics2D)g;
-		g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
+		g.drawImage(image.getSubimage((image.getWidth()-this.getWidth())/2, (image.getHeight()-this.getHeight())/2, this.getWidth(), this.getWidth()), 0, 0, this.getWidth(), this.getHeight(), null);
 		Point p1=new Point();
 		int length,height;
 		g.setColor(Color.CYAN);
