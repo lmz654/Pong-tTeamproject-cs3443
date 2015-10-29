@@ -21,12 +21,6 @@ public class Ball {
 	}
 	
 	// Setters and Getters
-	public Point getPositionp() {
-		Point point=new Point();
-		point.x= (int) position.cartesian(0);
-		point.y=(int) position.cartesian(1);
-		return point;
-	}
 	public Vector getPosition(){
 		return position;
 	}

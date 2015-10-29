@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import javax.swing.Timer;
 
 import MVC.view.vbhitView;
+import game.core.Ball;
 import game.core.Player;
 
 public class vbhitController implements KeyListener, ActionListener, ComponentListener  {
@@ -35,6 +36,13 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 		if(arg0.getKeyChar()=='q'){
 			//view.setUndecorated(true);
 			System.exit(1);
+		}else if(arg0.getKeyChar()=='t'){
+			model.checkCollisions();
+			for(Ball b:model.getBall()){
+				b.move();
+			}
+			view.repaint();
+			System.out.println(model.getBall().get(0).getPosition().toPoint());
 		}
 		else{
 			/*for(Player temp:model.getPlayer()){

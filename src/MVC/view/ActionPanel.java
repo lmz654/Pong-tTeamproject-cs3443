@@ -51,8 +51,8 @@ public class ActionPanel extends JPanel {
 		g.setColor(Color.CYAN);
 		//g.fillRect(100, this.getHeight()-50, 100, 100);
 		for(Player p:model.getPlayer()){
-			p1.x=(int) (p.getPaddle().getPositionp().x*this.ratiox);
-			p1.y=(int) (p.getPaddle().getPositionp().y*this.ratioy);
+			p1.x=(int) (p.getPaddle().getPosition().toPoint().x*this.ratiox);
+			p1.y=(int) (p.getPaddle().getPosition().toPoint().y*this.ratioy);
 			
 			if(p.getMotionAxis()=='x'||p.getMotionAxis()=='X'){
 				length=(int) (p.getPaddle().getLength()*this.ratiox);
@@ -70,8 +70,8 @@ public class ActionPanel extends JPanel {
 		//g.drawImage(image1, 100, 100, 50, 50, null);
 		for(Ball b:model.getBall()){
 			System.out.println("draw one");
-			p1.x=(int) (b.getPositionp().x*this.ratiox);
-			p1.y=(int) (b.getPositionp().y*this.ratioy);
+			p1.x=(int) (b.getPosition().toPoint().x*this.ratiox);
+			p1.y=(int) (b.getPosition().toPoint().y*this.ratioy);
 			g.drawImage(image1, p1.x-b.getRadius()/2, p1.y-b.getRadius()/2, (int)(b.getRadius()*this.ratiox), (int)(b.getRadius()*this.ratioy), null);
 		}
 		
