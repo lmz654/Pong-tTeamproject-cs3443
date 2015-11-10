@@ -33,15 +33,16 @@ public class CollisionDetector {
 		for (Collidable cUnitA : cUnits) {
 			for (Collidable cUnitB : cUnits) {
 				if (cUnitA.equals(cUnitB)) continue;
+				else if (cUnitA.equals(cUnitB.getLastCollided())) continue;
 				else {
 					c = cUnitA.intersects(cUnitB);
 					if (c != null && !collisions.contains(c)) {
 						collisions.add(c);
 						//System.out.println("Collision @" + c.getCollisionPoint().toString());
 					}
-				}
-					
+				}					
 			}
+			System.out.println(collisions + "\n");
 		}
 		
 		return collisions;

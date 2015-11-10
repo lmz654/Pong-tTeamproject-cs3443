@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public abstract class Collidable {
 	protected Object obj;
+	protected Collidable lastCollided;
 	protected Vector position;
 	
 	public Collidable(Object object) {
@@ -18,6 +19,14 @@ public abstract class Collidable {
 		return position;
 	}
 	
+	public Object getLastCollided() {
+		return lastCollided;
+	}
+
+	public void setLastCollided(Collidable lastCollided) {
+		this.lastCollided = lastCollided;
+	}
+
 	public String toString() {
 		StringBuilder s = new StringBuilder();
 		s.append(obj.getClass().getSimpleName());
@@ -26,7 +35,7 @@ public abstract class Collidable {
 	}
 	
 	public boolean equals(Collidable other) {
-		return this.obj.equals(other.obj);
+		return this.obj.equals(other.obj) && this.position.distanceTo(other.position)==0;
 	}
 	
 	public Collision intersects(Collidable object) {		

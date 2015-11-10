@@ -12,7 +12,7 @@ public class CollisionModel {
 	public boolean showVelocityVectors = true;
 	public boolean showPositionVectors = true;
 	public boolean showProjections = true;
-	public boolean showMoreInfo = false;
+	public boolean showMoreInfo = true;
 	
 	// Simulation Properties
 	public int numBalls = 2; // 50 Still ran, seems like good upper limit. 100 Lagged.
@@ -34,12 +34,12 @@ public class CollisionModel {
 		//collisions = new ArrayList<Collision>();
 		balls = new ArrayList<Ball>();
 		
-		/*for (int i = 0; i < numBalls; i++) {
+		for (int i = 0; i < numBalls; i++) {
 			balls.add(new Ball(Vector.getRand(new int[]{1000-redux, ofst}, new int[]{750-redux, ofst}), Vector.getRand(10,10), radius));
-		}*/
+		}
 		
-		balls.add(new Ball(new Vector(200, 395), new Vector(5, 0), radius));
-		balls.add(new Ball(new Vector(600, 400), new Vector(-5, 0), radius));
+		//balls.add(new Ball(new Vector(200, 395), new Vector(5, 0), radius));
+		//balls.add(new Ball(new Vector(600, 400), new Vector(-5, 0), radius));
 		
 	}
 

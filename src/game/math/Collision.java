@@ -10,6 +10,9 @@ public class Collision {
 		this.a = a;
 		this.b = b;
 		
+		a.setLastCollided(b);
+		b.setLastCollided(a);
+		
 		this.collisionPoint = calculateCollisionPoint();
 	}
 
@@ -49,7 +52,7 @@ public class Collision {
 	public void adjustTrajectories() {
 		// TODO Math to find reflection velocities of the objects
 		Vector hyperplane = this.getHyperplane();
-		System.out.println(a.getPosition().toString() + b.getPosition().toString() + hyperplane.toString());
+		//System.out.println(a.getPosition().toString() + b.getPosition().toString() + hyperplane.toString());
 		Vector aPrime, bPrime;
 		
 		if (a instanceof CollidableCircle && b instanceof CollidableCircle) {
@@ -71,6 +74,7 @@ public class Collision {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			//System.out.println(aPrime.toString() + bPrime.toString());
 			
 			a.setVelocity(aPrime);
 			b.setVelocity(bPrime);
