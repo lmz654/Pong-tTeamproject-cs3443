@@ -2,6 +2,7 @@ package test.collision;
 
 import java.util.ArrayList;
 
+import game.Controls;
 import game.core.Ball;
 import game.math.*;
 
@@ -15,8 +16,8 @@ public class CollisionModel {
 	public boolean showMoreInfo = true;
 	
 	// Simulation Properties
-	public int numBalls = 2; // 50 Still ran, seems like good upper limit. 100 Lagged.
-	public int radius = 10;
+	public int numBalls = Controls.SIM_NUM_BALLS; // 50 Still ran, seems like good upper limit. 100 Lagged.
+	public int radius = Controls.SIM_BALL_DEFAULT_RADIUS;
 	public int tolerance = 5;	
 	public int redux = 2*(radius+tolerance);
 	public int ofst = radius + tolerance;
@@ -35,7 +36,7 @@ public class CollisionModel {
 		balls = new ArrayList<Ball>();
 		
 		for (int i = 0; i < numBalls; i++) {
-			balls.add(new Ball(Vector.getRand(new int[]{1000-redux, ofst}, new int[]{750-redux, ofst}), Vector.getRand(10,10), radius));
+			balls.add(new Ball(Vector.getRand(new int[]{1000-redux, ofst}, new int[]{750-redux, ofst}), Vector.getRand(new int[]{20, -10}, new int[]{20, -10}), radius));
 		}
 		
 		//balls.add(new Ball(new Vector(200, 395), new Vector(5, 0), radius));

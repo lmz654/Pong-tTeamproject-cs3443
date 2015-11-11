@@ -1,6 +1,7 @@
 package game.math;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public abstract class Collidable {
 	protected Object obj;
@@ -37,6 +38,12 @@ public abstract class Collidable {
 	public boolean equals(Collidable other) {
 		return this.obj.equals(other.obj) && this.position.distanceTo(other.position)==0;
 	}
+	
+	public static Comparator<Collidable> magnitudeComparator = new Comparator<Collidable>() {
+		public int compare(Collidable c1, Collidable c2) {
+			return (int) (c1.getPosition().magnitude() - c2.getPosition().magnitude());
+		}
+	};
 	
 	public Collision intersects(Collidable object) {		
 		if (object == null) {

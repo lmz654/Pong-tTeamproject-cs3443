@@ -28,6 +28,12 @@ public class Controls {
 	public static final int BALL_MIN_SPEED = 5;
 	public static final int BALL_DEFAULT_RADIUS = 50;
 	
+	// Control Variables for Collision Model
+	public static final int SIM_NUM_BALLS = 10;
+	public static final int SIM_BALL_MAX_SPEED = 10;
+	public static final int SIM_BALL_MIN_SPEED = 5;
+	public static final int SIM_BALL_DEFAULT_RADIUS = 10;
+	
 	//player 1 left, 2 right, 3 top, 4 bottom
 	public static Paddle getPaddle(int player) {
 		Paddle paddle;
@@ -54,8 +60,8 @@ public class Controls {
 	
 	public static Ball getDefaultBall() {
 		return new Ball(new Vector(MODEL_WIDTH/2, MODEL_HEIGHT/2), 
-				Vector.getRand(new int[]{BALL_MAX_SPEED - BALL_MIN_SPEED, BALL_MIN_SPEED}, 
-							   new int[]{BALL_MAX_SPEED - BALL_MIN_SPEED, BALL_MIN_SPEED}), BALL_DEFAULT_RADIUS);
+				Vector.getRand(new int[]{BALL_MAX_SPEED - BALL_MIN_SPEED, -BALL_MIN_SPEED}, 
+							   new int[]{BALL_MAX_SPEED - BALL_MIN_SPEED, -BALL_MIN_SPEED}), BALL_DEFAULT_RADIUS);
 	}
 	public static Player player1default(){
 		Paddle paddle = Controls.getPaddle(1);

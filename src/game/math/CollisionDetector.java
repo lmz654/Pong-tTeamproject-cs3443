@@ -1,6 +1,8 @@
 package game.math;
 
+import java.awt.List;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import MVC.vbhitModel;
 import game.core.Ball;
@@ -20,6 +22,8 @@ public class CollisionDetector {
 			collidableUnits.add(new CollidableCircle(ball));
 		}
 		
+		Collections.sort(collidableUnits, Collidable.magnitudeComparator);
+		
 		adjustTrajectories(checkCollisions(collidableUnits));
 	}
 	
@@ -30,10 +34,12 @@ public class CollisionDetector {
 		/* Finding Collisions
 		 *  TODO Figure out a more efficient Algorithm
 		 */
-		for (Collidable cUnitA : cUnits) {
+		/*
+		 *  Old Algorithm
+		 * for (Collidable cUnitA : cUnits) {
 			for (Collidable cUnitB : cUnits) {
 				if (cUnitA.equals(cUnitB)) continue;
-				else if (cUnitA.equals(cUnitB.getLastCollided())) continue;
+				// else
 				else {
 					c = cUnitA.intersects(cUnitB);
 					if (c != null && !collisions.contains(c)) {
@@ -43,7 +49,15 @@ public class CollisionDetector {
 				}					
 			}
 			System.out.println(collisions + "\n");
+		}*/
+		
+		/*
+		 *  New Algorithm
+		 */
+		for (int i = 0; i < cUnits.size()-1; i++) {
+			c = cUnits.get(i).intersects(cUnits.get(i+1)); 
 		}
+		
 		
 		return collisions;
 	}
