@@ -1,8 +1,11 @@
 package MVC;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.sound.sampled.Control;
+import javax.swing.Timer;
 
 import game.Controls;
 import game.components.item.Item;
@@ -18,6 +21,7 @@ public class vbhitModel {
 	private ArrayList<Obstacle> obstacle;
 	private ArrayList<Player> player;
 	private ArrayList<Ball> ball;
+	private Timer timer;
 	
 	public vbhitModel() {
 		super();
@@ -25,6 +29,15 @@ public class vbhitModel {
 		this.obstacle = new ArrayList<Obstacle>();
 		this.player = new ArrayList<Player>();
 		this.ball = new ArrayList<Ball>();
+		ActionListener action = new ActionListener(){
+
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				vbhitModel.this.update();
+			}
+			
+		};
+		timer = new Timer(Controls.MODEL_TIME, action);
 	}
 	public vbhitModel(ArrayList<Item> item, ArrayList<Obstacle> obstacle, ArrayList<Player> player, ArrayList<Ball> ball) {
 		super();
@@ -119,6 +132,10 @@ public class vbhitModel {
 	public void checkCollisions() {
 		CollisionDetector.checkCollisions(this);
 	}
+	public void update(){
+		this.checkCollisions();
+		this.moveBalls();
+	}
 	public void moveBalls() {
 		if (Controls.MODEL_HEIGHT == 0) return;
 		int posX, posY, radius;
@@ -160,5 +177,11 @@ public class vbhitModel {
 			
 		}
 		
+	}
+	public void start(){
+		this.timer.start();
+	}
+	public void stop(){
+		this.timer.stop();
 	}
 }

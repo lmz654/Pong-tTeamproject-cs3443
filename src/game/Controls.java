@@ -8,6 +8,10 @@ import game.math.Vector;
 // Class that contains all of the control variables for the Game
 public class Controls {
 	
+	//time repeat for model and view
+	public static final int MODEL_TIME=15;
+	public static final int VIEW_TIME=24;
+	
 	// Control Variables for Obstacle Probabilities
 	public static final double NORMALOBSTACLE_PROBABILITY = .4;
 	public static final double WHACKYOBSTACLE_PROBABILITY = .05;

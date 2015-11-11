@@ -36,20 +36,17 @@ public class ActionPanel extends JPanel {
 			image = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\actionbg.jpeg"));
 			image1 = ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\fire.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("image input fail in actionpanel");
 		}
 	}
 	@Override
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
-		//Graphics2D g2= (Graphics2D)g;
 		g.drawImage(image.getSubimage((image.getWidth()-this.getWidth())/2, (image.getHeight()-this.getHeight())/2, this.getWidth(), this.getWidth()), 0, 0, this.getWidth(), this.getHeight(), null);
 		Point p1=new Point();
 		int length,height;
 		g.setColor(Color.CYAN);
-		//g.fillRect(100, this.getHeight()-50, 100, 100);
 		for(Player p:model.getPlayer()){
 			p1.x=(int) (p.getPaddle().getPosition().toPoint().x*this.ratiox);
 			p1.y=(int) (p.getPaddle().getPosition().toPoint().y*this.ratioy);
@@ -67,7 +64,6 @@ public class ActionPanel extends JPanel {
 			}
 				
 		}
-		//g.drawImage(image1, 100, 100, 50, 50, null);
 		for(Ball b:model.getBall()){
 			System.out.println("draw one");
 			p1.x=(int) (b.getPosition().toPoint().x*this.ratiox);
