@@ -5,7 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 // class
-public class MenuLayout {
+public class TitleMenu {
     public JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         menuBar.setLayout(new BoxLayout(menuBar, BoxLayout.PAGE_AXIS));
@@ -45,7 +45,7 @@ public class MenuLayout {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Create and set up the content pane.
-        MenuLayout demo = new MenuLayout();
+        TitleMenu demo = new TitleMenu();
         Container contentPane = frame.getContentPane();
         contentPane.setBackground(Color.WHITE); //contrasting bg
         contentPane.add(demo.createMenuBar(),
