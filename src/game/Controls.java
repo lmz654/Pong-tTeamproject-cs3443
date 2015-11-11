@@ -26,7 +26,7 @@ public class Controls {
 	// Control Variables for Ball
 	public static final int BALL_MAX_SPEED = 10;
 	public static final int BALL_MIN_SPEED = 5;
-	public static final int BALL_DEFAULT_RADIUS = 50;
+	public static final int BALL_DEFAULT_RADIUS = 20;
 	
 	// Control Variables for Collision Model
 	public static final int SIM_NUM_BALLS = 10;

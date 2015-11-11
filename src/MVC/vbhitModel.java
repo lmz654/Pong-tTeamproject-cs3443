@@ -11,6 +11,7 @@ import game.core.Ball;
 import game.core.Paddle;
 import game.core.Player;
 import game.math.CollisionDetector;
+import game.math.Vector;
 
 public class vbhitModel {
 	private ArrayList<Item> item;
@@ -118,5 +119,46 @@ public class vbhitModel {
 	public void checkCollisions() {
 		CollisionDetector.checkCollisions(this);
 	}
-	
+	public void moveBalls() {
+		if (Controls.MODEL_HEIGHT == 0) return;
+		int posX, posY, radius;
+		
+		//Collision collision;
+		
+		for (Ball b : ball) {
+			b.move();
+			
+			posX = (int)b.getPosition().cartesian(0);
+			posY = (int)b.getPosition().cartesian(1);
+			radius = b.getRadius();
+			
+			// Check boundries
+			// Checking X
+			if (posX > (Controls.MODEL_WIDTH - radius) || posX < radius) {
+				b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
+				//System.out.println("Pos: " + b.getPosition().toString() + " V: " + b.getVelocity().toString());
+			}
+			// Checking Y
+			if (posY > (Controls.MODEL_HEIGHT - radius) || posY < radius) {
+				b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
+				//System.out.println("Pos: " + b.getPosition().toString() + " V: " + b.getVelocity().toString());
+			}
+			
+			/*
+			 * Checking for Collisions
+			 */
+			CollisionDetector.checkCollisions(this);
+			
+//			for (Ball c : balls) {
+//				if (b.equals(c)) continue;
+//				if (b.intersects(c)) {
+//					collision = new Collision(new CollidableCircle(b), new CollidableCircle(c));
+//					System.out.println(b.getPosition().toString() + ":" + c.getPosition().toString() + "@" + collision.getCollisionPoint().toString());
+//				}
+//			}
+			
+			
+		}
+		
+	}
 }

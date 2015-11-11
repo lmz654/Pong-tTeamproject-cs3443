@@ -37,12 +37,15 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			//view.setUndecorated(true);
 			System.exit(1);
 		}else if(arg0.getKeyChar()=='t'){
+			/*for(Ball b:model.getBall()){
+				
+			}*/
+			model.moveBalls();
 			model.checkCollisions();
-			for(Ball b:model.getBall()){
-				b.move();
-			}
 			view.repaint();
 			System.out.println(model.getBall().get(0).getPosition().toPoint());
+		}else if(arg0.getKeyChar()=='n'){
+			model.createball();
 		}
 		else{
 			/*for(Player temp:model.getPlayer()){
