@@ -1,5 +1,9 @@
 package game;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import game.core.Ball;
 import game.core.Paddle;
 import game.core.Player;
@@ -63,25 +67,57 @@ public class Controls {
 	}
 	
 	public static Ball getDefaultBall() {
-		return new Ball(new Vector(MODEL_WIDTH/2, MODEL_HEIGHT/2), 
+		Ball ball = new Ball(new Vector(MODEL_WIDTH/2, MODEL_HEIGHT/2), 
 				Vector.getRand(new int[]{BALL_MAX_SPEED - BALL_MIN_SPEED, -BALL_MIN_SPEED}, 
 							   new int[]{BALL_MAX_SPEED - BALL_MIN_SPEED, -BALL_MIN_SPEED}), BALL_DEFAULT_RADIUS);
+		return ball;
 	}
 	public static Player player1default(){
 		Paddle paddle = Controls.getPaddle(1);
-		return new Player("Huu", paddle,'w','s','y');
+		Player player = new Player("Huu", paddle,'w','s','y');
+		try {
+			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p11.png")));
+			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p12.png")));
+		} catch (IOException e) {
+			System.out.println("p1 ballimage input fail");
+		}
+		return player;
 	}
 	public static Player player2default(){
 		Paddle paddle = Controls.getPaddle(2);
-		return new Player("Fernando", paddle,'[',';','y');
+		Player player = new Player("Fernando", paddle,'[',';','y');
+		try {
+			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p21.png")));
+			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p22.png")));
+		} catch (IOException e) {
+			System.out.println("p2 ballimage input fail");
+		}
+		
+		return player;
 	}
 	public static Player player3default(){
 		Paddle paddle = Controls.getPaddle(3);
-		return new Player("Christian", paddle,'x','c','x');
+		Player player = new Player("Christian", paddle,'x','c','x');
+		try {
+			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p31.png")));
+			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p32.png")));
+		} catch (IOException e) {
+			System.out.println("p3 ballimage input fail");
+		}
+		
+		return player;
 	}
 	public static Player player4default(){
 		Paddle paddle = Controls.getPaddle(4);
-		return new Player("Taylor", paddle,',','.','x');
+		Player player = new Player("Christian", paddle,',','.','x');
+		try {
+			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p41.png")));
+			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p42.png")));
+		} catch (IOException e) {
+			System.out.println("p3 ballimage input fail");
+		}
+		
+		return player;
 	}
 
 }

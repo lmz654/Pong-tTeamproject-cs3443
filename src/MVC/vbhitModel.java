@@ -2,8 +2,12 @@ package MVC;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.sound.sampled.Control;
 import javax.swing.Timer;
 
@@ -22,6 +26,7 @@ public class vbhitModel {
 	private ArrayList<Player> player;
 	private ArrayList<Ball> ball;
 	private Timer timer;
+	private BufferedImage defaultballimage;
 	
 	public vbhitModel() {
 		super();
@@ -36,6 +41,12 @@ public class vbhitModel {
 			}
 			
 		};
+		try {
+			defaultballimage = ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\default.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		timer = new Timer(Controls.MODEL_TIME, action);
 	}
 	public vbhitModel(ArrayList<Item> item, ArrayList<Obstacle> obstacle, ArrayList<Player> player, ArrayList<Ball> ball) {
@@ -44,9 +55,25 @@ public class vbhitModel {
 		this.obstacle = obstacle;
 		this.player = player;
 		this.ball = ball;
+		ActionListener action = new ActionListener(){
+
+			public void actionPerformed(ActionEvent arg0) {
+				vbhitModel.this.update();
+			}
+			
+		};
+		try {
+			defaultballimage = ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\default.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		timer = new Timer(Controls.MODEL_TIME, action);
 	}
 	public void createball(){
-		ball.add(Controls.getDefaultBall());
+		Ball ball = Controls.getDefaultBall();
+		ball.setimage(this.defaultballimage);
+		this.ball.add(ball);
 	}
 	public void createplayer(int number){
 		for(int i =0;i<number;i++){

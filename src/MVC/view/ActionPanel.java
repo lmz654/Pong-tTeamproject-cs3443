@@ -33,7 +33,7 @@ public class ActionPanel extends JPanel {
 		this.ratioy=(float)this.getSize().height/1000;
 		try {
 			image = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\actionbg.jpeg"));
-			image1 = ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\fire.png"));
+			//image1 = ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\default.png"));
 		} catch (IOException e) {
 			System.out.println("image input fail in actionpanel");
 		}
@@ -63,7 +63,7 @@ public class ActionPanel extends JPanel {
 		for(Ball b:model.getBall()){
 			p1.x=(int) (b.getPosition().toPoint().x*this.ratiox);
 			p1.y=(int) (b.getPosition().toPoint().y*this.ratioy);
-			g.drawImage(image1, p1.x-b.getRadius()/2, p1.y-b.getRadius()/2, (int)(b.getRadius()*this.ratiox), (int)(b.getRadius()*this.ratioy), null);
+			g.drawImage(b.getimage(), p1.x-b.getRadius()/2, p1.y-b.getRadius()/2, (int)(b.getRadius()*this.ratiox), (int)(b.getRadius()*this.ratioy), null);
 		}
 		
 	}

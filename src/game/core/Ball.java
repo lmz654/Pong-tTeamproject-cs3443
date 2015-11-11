@@ -1,6 +1,7 @@
 package game.core;
 
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 
 import game.math.Vector;
 
@@ -9,6 +10,7 @@ public class Ball {
 	private Vector position;
 	private Vector velocity;
 	private final int radius;
+	private BufferedImage image;
 	
 	// --- Game Metrics ---
 	private Player lastHit;
@@ -50,6 +52,12 @@ public class Ball {
 	
 	public boolean intersects(Ball ball) {
 		return ((double)position.distanceTo(ball.getPosition()) < (double)(radius + ball.getRadius()));
+	}
+	public void setimage(BufferedImage image){
+		this.image=image;
+	}
+	public BufferedImage getimage(){
+		return this.image;
 	}
 	
 	// Information Methods

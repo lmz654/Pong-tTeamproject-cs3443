@@ -20,7 +20,6 @@ public class Player {
 	
 	
 
-
 	private char motionAxis; // X is for Top and Bottom Players,  Y is for Side Players
 	
 	public Player(String name, Paddle paddle,char keydecrease, char keyincrease, char motionAxis) {
@@ -34,6 +33,8 @@ public class Player {
 		this.keydecreasepress=0;
 		this.motionAxis = motionAxis;
 		this.paddle = paddle;
+		this.ballimage = new ArrayList<BufferedImage>();
+		this.paddleimage = new ArrayList<BufferedImage>();
 	}
 	
 	public char getKeyincrease() {
@@ -122,7 +123,6 @@ public class Player {
 	
 	public void movePaddle() {
 		try {
-			System.out.println(keyincreasepress + "  " + keydecreasepress);
 			if(this.keyincreasepress==0 && this.keydecreasepress==1){
 				paddle.move(motionAxis,-1);
 			}else if(this.keyincreasepress==1 && this.keydecreasepress==0){
