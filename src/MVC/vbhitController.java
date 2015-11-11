@@ -49,7 +49,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 				if(temp.getKeydecrease()==arg0.getKeyChar())
 					temp.setkeydecreasepress(1);
 				if(temp.getKeyincrease()==arg0.getKeyChar())
-					temp.setkeydecreasepress(1);
+					temp.setKeyincreasepress(1);;
 			}
 		}
 	}
