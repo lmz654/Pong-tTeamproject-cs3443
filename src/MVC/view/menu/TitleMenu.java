@@ -30,7 +30,6 @@ public class TitleMenu {
         submenu.add("Submenu item #1");
         submenu.add("Submenu item #2");
         m.add(submenu);
-
         return m;
     }
 

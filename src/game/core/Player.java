@@ -1,5 +1,6 @@
 package game.core;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import game.components.item.Item;
@@ -14,7 +15,12 @@ public class Player {
 	private char keyincrease;
 	private int keydecreasepress;
 	private int keyincreasepress;
+	private ArrayList<BufferedImage> ballimage;
+	private ArrayList<BufferedImage> paddleimage;
 	
+	
+
+
 	private char motionAxis; // X is for Top and Bottom Players,  Y is for Side Players
 	
 	public Player(String name, Paddle paddle,char keydecrease, char keyincrease, char motionAxis) {
@@ -68,6 +74,27 @@ public class Player {
 
 	public void setMotionAxis(char axis) {
 		this.motionAxis = axis;
+	}
+	public ArrayList<BufferedImage> getBallimage() {
+		return ballimage;
+	}
+
+	public void addBallimage(BufferedImage ballimage) {
+		this.ballimage.add(ballimage);
+	}
+	public void setBallimage(ArrayList<BufferedImage> paddleimage){
+		this.paddleimage=paddleimage;
+	}
+
+	public ArrayList<BufferedImage> getPaddleimage() {
+		return paddleimage;
+	}
+
+	public void setPaddleimage(ArrayList<BufferedImage> paddleimage) {
+		this.paddleimage = paddleimage;
+	}
+	public void addpaddleimage(BufferedImage paddleimage){
+		this.paddleimage.add(paddleimage);
 	}
 	
 	public Score getScore() {
