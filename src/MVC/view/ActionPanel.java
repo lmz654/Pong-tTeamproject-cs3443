@@ -31,7 +31,6 @@ public class ActionPanel extends JPanel {
 		this.setBackground(Color.GRAY);
 		this.ratiox=(float)this.getSize().width/1000;
 		this.ratioy=(float)this.getSize().height/1000;
-		System.out.println(this.getSize()+"  "+ratiox);
 		try {
 			image = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\actionbg.jpeg"));
 			image1 = ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\fire.png"));
@@ -55,7 +54,6 @@ public class ActionPanel extends JPanel {
 				length=(int) (p.getPaddle().getLength()*this.ratiox);
 				height=(int) (p.getPaddle().getHeight()*this.ratioy);
 				g.fillRect(p1.x-length/2, p1.y-height/2, length, height);
-				System.out.println((p1.x-length/2)+"   " +(p1.y-height/2));
 			}else{
 				length=(int) (p.getPaddle().getLength()*this.ratioy);
 				height=(int) (p.getPaddle().getHeight()*this.ratiox);

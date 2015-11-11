@@ -36,7 +36,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 		if(arg0.getKeyChar()=='q'){
 			//view.setUndecorated(true);
 			System.exit(1);
-		}else if(arg0.getKeyChar()=='s'){
+		}else if(arg0.getKeyChar()=='r'){
 			model.start();
 			view.start();
 		}else if(arg0.getKeyChar()=='t'){
@@ -73,7 +73,6 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		model.checkCollisions();
 	}
 
 	public void componentHidden(ComponentEvent e) {
