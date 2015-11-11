@@ -10,56 +10,56 @@ public class Player {
 	private Paddle paddle;
 	private Score score;
 	private ArrayList<Item> item;
-	private char keyupright;
-	private char keydownleft;
-	private int keyuprightpress;
-	private int keydownleftpress;
+	private char keydecrease;
+	private char keyincrease;
+	private int keydecreasepress;
+	private int keyincreasepress;
 	
 	private char motionAxis; // X is for Top and Bottom Players,  Y is for Side Players
 	
-	public Player(String name, Paddle paddle,char keyupright, char keydownleft, char motionAxis) {
+	public Player(String name, Paddle paddle,char keydecrease, char keyincrease, char motionAxis) {
 		this.name = name;
 		this.paddle = paddle;
 		this.item = new ArrayList<Item>();
 		this.score = new Score(0,0);
-		this.keydownleft=keydownleft;
-		this.keyupright=keyupright;
-		this.keyuprightpress=0;
-		this.keydownleft=0;
+		this.keydecrease=keydecrease;
+		this.keyincrease=keyincrease;
+		this.keyincreasepress=0;
+		this.keydecreasepress=0;
 		this.motionAxis = motionAxis;
 		this.paddle = paddle;
 	}
 	
-	public char getKeyupright() {
-		return keyupright;
+	public char getKeyincrease() {
+		return keyincrease;
 	}
 
-	public void setKeyupright(char keyupright) {
-		this.keyupright = keyupright;
+	public void setKeyincrease(char keyincrease) {
+		this.keyincrease = keyincrease;
 	}
 
-	public char getKeydownleft() {
-		return keydownleft;
+	public char getKeydecrease() {
+		return keydecrease;
 	}
 
-	public void setKeydownleft(char keydownleft) {
-		this.keydownleft = keydownleft;
+	public void setkeydecrease(char keydecrease) {
+		this.keydecrease = keydecrease;
 	}
 
-	public int getKeyuprightpress() {
-		return keyuprightpress;
+	public int getkeydecreasepress() {
+		return keydecreasepress;
 	}
 
-	public void setKeyuprightpress(int keyuprightpress) {
-		this.keyuprightpress = keyuprightpress;
+	public void setkeydecreasepress(int keydecreasepress) {
+		this.keydecreasepress = keydecreasepress;
 	}
 
-	public int getKeydownleftpress() {
-		return keydownleftpress;
+	public int getKeyincreasepress() {
+		return keyincreasepress;
 	}
 	
-	public void setKeydownleftpress(int keydownleftpress) {
-		this.keydownleftpress = keydownleftpress;
+	public void setKeyincreasepress(int keyincreasepress) {
+		this.keyincreasepress = keyincreasepress;
 	}
 	
 	public char getMotionAxis() {
@@ -95,7 +95,13 @@ public class Player {
 	
 	public void movePaddle() {
 		try {
-			paddle.move(motionAxis);
+			System.out.println(keyincreasepress + "  " + keydecreasepress);
+			if(this.keyincreasepress==0 && this.keydecreasepress==1){
+				paddle.move(motionAxis,-1);
+			}else if(this.keyincreasepress==1 && this.keydecreasepress==0){
+				paddle.move(motionAxis,1);
+			}
+			
 		} catch (Exception e) {
 			// TODO Figure out how to handle movePaddle Error
 			e.printStackTrace();

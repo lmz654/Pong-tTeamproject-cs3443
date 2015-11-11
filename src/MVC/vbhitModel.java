@@ -32,7 +32,6 @@ public class vbhitModel {
 		ActionListener action = new ActionListener(){
 
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				vbhitModel.this.update();
 			}
 			
@@ -135,6 +134,9 @@ public class vbhitModel {
 	public void update(){
 		this.checkCollisions();
 		this.moveBalls();
+		for(Player p: player){
+			p.movePaddle();
+		}
 	}
 	public void moveBalls() {
 		if (Controls.MODEL_HEIGHT == 0) return;

@@ -40,7 +40,6 @@ public class ActionPanel extends JPanel {
 	}
 	@Override
 	protected void paintComponent(Graphics g) {
-		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		g.drawImage(image.getSubimage((image.getWidth()-this.getWidth())/2, (image.getHeight()-this.getHeight())/2, this.getWidth(), this.getWidth()), 0, 0, this.getWidth(), this.getHeight(), null);
 		Point p1=new Point();
@@ -58,12 +57,10 @@ public class ActionPanel extends JPanel {
 				length=(int) (p.getPaddle().getLength()*this.ratioy);
 				height=(int) (p.getPaddle().getHeight()*this.ratiox);
 				g.fillRect(p1.x-length/2, p1.y-height/2, length, height);
-				System.out.println((p1.x-length/2)+"   " +(p1.y-height/2));
 			}
 				
 		}
 		for(Ball b:model.getBall()){
-			System.out.println("draw one");
 			p1.x=(int) (b.getPosition().toPoint().x*this.ratiox);
 			p1.y=(int) (b.getPosition().toPoint().y*this.ratioy);
 			g.drawImage(image1, p1.x-b.getRadius()/2, p1.y-b.getRadius()/2, (int)(b.getRadius()*this.ratiox), (int)(b.getRadius()*this.ratioy), null);

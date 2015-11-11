@@ -20,7 +20,6 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 		super();
 		this.model = model;
 		this.view = view;
-		//time = new Timer(25,this);
 	}
 	public class updategame implements ActionListener{
 
@@ -34,7 +33,6 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		if(arg0.getKeyChar()=='q'){
-			//view.setUndecorated(true);
 			System.exit(1);
 		}else if(arg0.getKeyChar()=='r'){
 			model.start();
@@ -48,21 +46,20 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 		}
 		else{
 			for(Player temp:model.getPlayer()){
-				if(temp.getKeydownleft()==arg0.getKeyChar())
-					temp.setKeydownleftpress(1);
-				if(temp.getKeyupright()==arg0.getKeyChar())
-					temp.setKeydownleftpress(1);
+				if(temp.getKeydecrease()==arg0.getKeyChar())
+					temp.setkeydecreasepress(1);
+				if(temp.getKeyincrease()==arg0.getKeyChar())
+					temp.setkeydecreasepress(1);
 			}
 		}
 	}
 
 	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
 		for(Player temp:model.getPlayer()){
-			if(temp.getKeydownleft()==arg0.getKeyChar())
-				temp.setKeydownleftpress(0);
-			if(temp.getKeyupright()==arg0.getKeyChar())
-				temp.setKeydownleftpress(0);
+			if(temp.getKeydecrease()==arg0.getKeyChar())
+				temp.setkeydecreasepress(0);
+			if(temp.getKeyincrease()==arg0.getKeyChar())
+				temp.setKeyincreasepress(0);
 		}
 	}
 

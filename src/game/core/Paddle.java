@@ -57,27 +57,27 @@ public class Paddle {
 		this.position = position;
 	}
 
-	public void move(char axis) throws Exception{
+	public void move(char axis, int orient) throws Exception{
 		switch(axis) {
 		case 'x':
 		case 'X':
-			moveXAxis();
+			moveXAxis(orient);
 			break;
 		case 'y':
 		case 'Y':
-			moveYAxis();
+			moveYAxis(orient);
 			break;
 		default:
 			throw new Exception("Invalid Motion Axis!");
 		}
 	}
 
-	private void moveXAxis() {
-		position = position.plus(new Vector(velocity, 0.0));
+	private void moveXAxis(int orient) {
+		position = position.plus(new Vector(velocity*orient, 0.0));
 	}
 
-	private void moveYAxis() {
-		position = position.plus(new Vector(0.0, velocity));		
+	private void moveYAxis(int orient) {
+		position = position.plus(new Vector(0.0, velocity*orient));		
 	}
 
 }

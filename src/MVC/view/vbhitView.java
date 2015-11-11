@@ -52,7 +52,6 @@ public class vbhitView extends JFrame{
 		model.createplayer(4);
 		model.createball();
 		//this.setResizable(false);
-		System.out.println(this.getBounds().height+"     " + this.getBounds().width);
 		actionpanel.setSize(this.getHeight(),this.getHeight());
 		leftpanelpos=0;
 		
@@ -90,7 +89,6 @@ public class vbhitView extends JFrame{
 		
 		actionpanel.setRatiox((float)actionpanel.getSize().width/1000);
 		actionpanel.setRatioy((float)actionpanel.getSize().height/1000);
-		System.out.println(actionpanel.getRatiox());
 		leftpanelpos=0;
 		actpanelpos=(int) ((this.getSize().getWidth()-this.getSize().height)/2);
 		rightpanelpos=actpanelpos+this.getHeight();

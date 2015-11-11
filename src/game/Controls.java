@@ -9,8 +9,8 @@ import game.math.Vector;
 public class Controls {
 	
 	//time repeat for model and view
-	public static final int MODEL_TIME=15;
-	public static final int VIEW_TIME=24;
+	public static final int MODEL_TIME=20;
+	public static final int VIEW_TIME=20;
 	
 	// Control Variables for Obstacle Probabilities
 	public static final double NORMALOBSTACLE_PROBABILITY = .4;
@@ -73,11 +73,11 @@ public class Controls {
 	}
 	public static Player player2default(){
 		Paddle paddle = Controls.getPaddle(2);
-		return new Player("Fernando", paddle,';','[','y');
+		return new Player("Fernando", paddle,'[',';','y');
 	}
 	public static Player player3default(){
 		Paddle paddle = Controls.getPaddle(3);
-		return new Player("Christian", paddle,'c','v','x');
+		return new Player("Christian", paddle,'x','c','x');
 	}
 	public static Player player4default(){
 		Paddle paddle = Controls.getPaddle(4);
