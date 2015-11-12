@@ -14,8 +14,7 @@ public class LeftPanel extends JPanel{
 		try {
 			image= ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\leftblackhole.jpg"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("leftpanel image input fail");
 		}
 		
 	}

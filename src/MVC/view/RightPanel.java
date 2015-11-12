@@ -14,8 +14,7 @@ public class RightPanel extends JPanel {
 		try {
 			image= ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\rightblackhole1.jpg"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("rightpanel image input fail");
 		}
 		
 	}

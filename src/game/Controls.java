@@ -117,7 +117,7 @@ public class Controls {
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p41.png")));
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p42.png")));
 		} catch (IOException e) {
-			System.out.println("p3 ballimage input fail");
+			System.out.println("p4 ballimage input fail");
 		}
 		
 		return player;
