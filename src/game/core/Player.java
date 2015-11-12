@@ -123,11 +123,7 @@ public class Player {
 	
 	public void movePaddle() {
 		try {
-			//if(this.keyincreasepress==0 && this.keydecreasepress==1){
 				paddle.move(motionAxis,this.keydecreasepress+this.keyincreasepress);
-			//}else if(this.keyincreasepress==1 && this.keydecreasepress==0){
-			//	paddle.move(motionAxis,1);
-			//}
 			
 		} catch (Exception e) {
 			// TODO Figure out how to handle movePaddle Error

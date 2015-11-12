@@ -2,27 +2,28 @@ package game.core;
 
 import java.awt.Point;
 
+import game.Controls;
 import game.math.Vector;
 
 public class Paddle {
 	
 	// Paddle Mechanics
 	private Vector position;
-	private double velocity;
+	private int velocity;
 	private int length;
 	private int height;
 	
 	
 	public Paddle(Vector position, int length, int height) {
 		this.position = position;
-		this.velocity = 3.0;
+		this.velocity = Controls.PADDLE_VELOCITY;
 		this.length = length;
 		this.setHeight(height);
 	}
 	
 	public Paddle(int dimension, int length) {
 		this.position = new Vector(dimension);
-		this.velocity = 3;
+		this.velocity = Controls.PADDLE_VELOCITY;
 		this.length = length;
 	}
 	public Vector getPosition(){
@@ -33,7 +34,7 @@ public class Paddle {
 		return velocity;
 	}
 
-	public void setVelocity(double velocity) {
+	public void setVelocity(int velocity) {
 		this.velocity = velocity;
 	}
 

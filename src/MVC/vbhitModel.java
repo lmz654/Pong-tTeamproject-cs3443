@@ -157,6 +157,7 @@ public class vbhitModel {
 	public void checkCollisions() {
 		CollisionDetector.checkCollisions(this);
 	}
+	//update total action  in the game
 	public void update(){
 		this.checkCollisions();
 		this.moveBalls();
@@ -181,6 +182,7 @@ public class vbhitModel {
 			// Checking X
 			if (posX > (Controls.MODEL_WIDTH - radius) || posX < radius) {
 				b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
+				//change image of the ball to player who hit the ball
 				if(posX<radius){
 					b.setLastHit(player.get(0));
 					b.setimage(b.getLastHit().getBallimage().get(0));
@@ -193,6 +195,7 @@ public class vbhitModel {
 			// Checking Y
 			if (posY > (Controls.MODEL_HEIGHT - radius) || posY < radius) {
 				b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
+				//change image of the ball to player who hit the ball
 				if(posY<radius){
 					b.setLastHit(player.get(2));
 					b.setimage(b.getLastHit().getBallimage().get(0));
