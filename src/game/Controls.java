@@ -31,6 +31,8 @@ public class Controls {
 	public static final int PADDLE_LENGTH = 100;
 	public static final int PADDLE_WIDTH = 10;
 	public static final int PADDLE_VELOCITY=7;
+	public static final int PADDLE_MAXREACH_LIMIT=900;
+	public static final int PADDLE_MINREACH_LIMIT=100;
 	
 	// Control Variables for Ball
 	public static final int BALL_MAX_SPEED = 10;

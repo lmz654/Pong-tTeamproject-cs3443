@@ -46,7 +46,7 @@ public class ActionPanel extends JPanel {
 			Point p1=new Point();
 			int length,height;
 			g.setColor(Color.CYAN);
-			//calculate paddles form real to display screen then draw paddles
+			//calculate paddles from real to display screen then draw paddles
 			for(Player p:model.getPlayer()){
 				p1.x=(int) (p.getPaddle().getPosition().toPoint().x*this.ratiox);
 				p1.y=(int) (p.getPaddle().getPosition().toPoint().y*this.ratioy);

@@ -10,8 +10,8 @@ public class Paddle {
 	// Paddle Mechanics
 	private Vector position;
 	private int velocity;
-	private int length;
-	private int height;
+	private int length;//the x
+	private int height;//the y
 	
 	
 	public Paddle(Vector position, int length, int height) {
@@ -63,11 +63,19 @@ public class Paddle {
 			switch(axis) {
 			case 'x':
 			case 'X':
-				moveXAxis(orient);
+				if((this.position.cartesian(0)-this.length/2)>Controls.PADDLE_MINREACH_LIMIT && orient==-1){
+					moveXAxis(orient);
+				}else if((this.position.cartesian(0)+this.length/2)<Controls.PADDLE_MAXREACH_LIMIT && orient==1){
+					moveXAxis(orient);
+				}
 				break;
 			case 'y':
 			case 'Y':
-				moveYAxis(orient);
+				if((this.position.cartesian(1)-this.height/2)>Controls.PADDLE_MINREACH_LIMIT && orient==-1){
+					moveYAxis(orient);
+				}else if((this.position.cartesian(1)+this.height/2)<Controls.PADDLE_MAXREACH_LIMIT && orient==1){
+					moveYAxis(orient);
+				}
 				break;
 			default:
 				throw new Exception("Invalid Motion Axis!");
