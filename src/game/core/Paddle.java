@@ -58,17 +58,19 @@ public class Paddle {
 	}
 
 	public void move(char axis, int orient) throws Exception{
-		switch(axis) {
-		case 'x':
-		case 'X':
-			moveXAxis(orient);
-			break;
-		case 'y':
-		case 'Y':
-			moveYAxis(orient);
-			break;
-		default:
-			throw new Exception("Invalid Motion Axis!");
+		if(orient!=0){
+			switch(axis) {
+			case 'x':
+			case 'X':
+				moveXAxis(orient);
+				break;
+			case 'y':
+			case 'Y':
+				moveYAxis(orient);
+				break;
+			default:
+				throw new Exception("Invalid Motion Axis!");
+			}
 		}
 	}
 

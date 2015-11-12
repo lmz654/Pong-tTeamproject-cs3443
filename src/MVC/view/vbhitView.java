@@ -38,7 +38,7 @@ public class vbhitView extends JFrame{
 		this.setLayout(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1200, 700);
-		this.setUndecorated(true);
+		this.setUndecorated(true);//set fullscreen
 		controller=new vbhitController(model,this);
 		this.addKeyListener(controller);
 		this.addComponentListener(controller);

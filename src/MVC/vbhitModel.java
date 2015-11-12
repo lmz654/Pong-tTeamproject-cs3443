@@ -44,7 +44,6 @@ public class vbhitModel {
 		try {
 			defaultballimage = ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\default.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		timer = new Timer(Controls.MODEL_TIME, action);

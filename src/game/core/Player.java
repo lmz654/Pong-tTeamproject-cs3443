@@ -13,8 +13,8 @@ public class Player {
 	private ArrayList<Item> item;
 	private char keydecrease;
 	private char keyincrease;
-	private int keydecreasepress;
-	private int keyincreasepress;
+	private int keydecreasepress;//the value is 0 or -1
+	private int keyincreasepress;//the value is 0 or 1
 	private ArrayList<BufferedImage> ballimage;
 	private ArrayList<BufferedImage> paddleimage;
 	
@@ -123,11 +123,11 @@ public class Player {
 	
 	public void movePaddle() {
 		try {
-			if(this.keyincreasepress==0 && this.keydecreasepress==1){
-				paddle.move(motionAxis,-1);
-			}else if(this.keyincreasepress==1 && this.keydecreasepress==0){
-				paddle.move(motionAxis,1);
-			}
+			//if(this.keyincreasepress==0 && this.keydecreasepress==1){
+				paddle.move(motionAxis,this.keydecreasepress+this.keyincreasepress);
+			//}else if(this.keyincreasepress==1 && this.keydecreasepress==0){
+			//	paddle.move(motionAxis,1);
+			//}
 			
 		} catch (Exception e) {
 			// TODO Figure out how to handle movePaddle Error
