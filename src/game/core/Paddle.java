@@ -2,27 +2,28 @@ package game.core;
 
 import java.awt.Point;
 
+import game.Controls;
 import game.math.Vector;
 
 public class Paddle {
 	
 	// Paddle Mechanics
 	private Vector position;
-	private double velocity;
-	private int length;
-	private int height;
+	private int velocity;
+	private int length;//the x
+	private int height;//the y
 	
 	
 	public Paddle(Vector position, int length, int height) {
 		this.position = position;
-		this.velocity = 3.0;
+		this.velocity = Controls.PADDLE_VELOCITY;
 		this.length = length;
 		this.setHeight(height);
 	}
 	
 	public Paddle(int dimension, int length) {
 		this.position = new Vector(dimension);
-		this.velocity = 3;
+		this.velocity = Controls.PADDLE_VELOCITY;
 		this.length = length;
 	}
 	public Vector getPosition(){
@@ -33,7 +34,7 @@ public class Paddle {
 		return velocity;
 	}
 
-	public void setVelocity(double velocity) {
+	public void setVelocity(int velocity) {
 		this.velocity = velocity;
 	}
 
@@ -57,27 +58,37 @@ public class Paddle {
 		this.position = position;
 	}
 
-	public void move(char axis) throws Exception{
-		switch(axis) {
-		case 'x':
-		case 'X':
-			moveXAxis();
-			break;
-		case 'y':
-		case 'Y':
-			moveYAxis();
-			break;
-		default:
-			throw new Exception("Invalid Motion Axis!");
+	public void move(char axis, int orient) throws Exception{
+		if(orient!=0){
+			switch(axis) {
+			case 'x':
+			case 'X':
+				if((this.position.cartesian(0)-this.length/2)>Controls.PADDLE_MINREACH_LIMIT && orient==-1){
+					moveXAxis(orient);
+				}else if((this.position.cartesian(0)+this.length/2)<Controls.PADDLE_MAXREACH_LIMIT && orient==1){
+					moveXAxis(orient);
+				}
+				break;
+			case 'y':
+			case 'Y':
+				if((this.position.cartesian(1)-this.height/2)>Controls.PADDLE_MINREACH_LIMIT && orient==-1){
+					moveYAxis(orient);
+				}else if((this.position.cartesian(1)+this.height/2)<Controls.PADDLE_MAXREACH_LIMIT && orient==1){
+					moveYAxis(orient);
+				}
+				break;
+			default:
+				throw new Exception("Invalid Motion Axis!");
+			}
 		}
 	}
 
-	private void moveXAxis() {
-		position = position.plus(new Vector(velocity, 0.0));
+	private void moveXAxis(int orient) {
+		position = position.plus(new Vector(velocity*orient, 0.0));
 	}
 
-	private void moveYAxis() {
-		position = position.plus(new Vector(0.0, velocity));		
+	private void moveYAxis(int orient) {
+		position = position.plus(new Vector(0.0, velocity*orient));		
 	}
 
 }

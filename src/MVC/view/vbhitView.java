@@ -38,7 +38,7 @@ public class vbhitView extends JFrame{
 		this.setLayout(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1200, 700);
-		this.setUndecorated(false);
+		this.setUndecorated(true);//set fullscreen
 		controller=new vbhitController(model,this);
 		this.addKeyListener(controller);
 		this.addComponentListener(controller);
@@ -52,7 +52,6 @@ public class vbhitView extends JFrame{
 		model.createplayer(4);
 		model.createball();
 		//this.setResizable(false);
-		System.out.println(this.getBounds().height+"     " + this.getBounds().width);
 		actionpanel.setSize(this.getHeight(),this.getHeight());
 		leftpanelpos=0;
 		
@@ -69,51 +68,37 @@ public class vbhitView extends JFrame{
 		this.add(leftpanel);
 		this.add(actionpanel);
 		this.add(rightpanel);
-		//this.add(panel);
-		j=1;
-		i=50;
 		this.addKeyListener(controller);
 		this.setFocusableWindowState(true);
-		
-		/*this.model=model;
-		panel =new ActionPanel(model);
-		this.add(panel);
-		i=50;
-		time = new Timer(5,new ActionListener(){	
+		time = new Timer(Controls.VIEW_TIME,new ActionListener(){	
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				if (i==800)
-					i=50;
-				else
-					i=i+1;;
-				panel.paint1(i);
-				//System.out.println(i);
-			}
-			
-		});*/
-		//time.start();
+				vbhitView.this.updateratio();
+			}		
+		});
 		
+	}
+	public void start(){
+		this.time.start();
+	}
+	public void stop(){
+		this.time.stop();
 	}
 	
 	public void updateratio(){
 		
 		
-		//actionpanel.setSize(this.getHeight(),this.getHeight());
 		actionpanel.setRatiox((float)actionpanel.getSize().width/1000);
 		actionpanel.setRatioy((float)actionpanel.getSize().height/1000);
-		System.out.println(actionpanel.getRatiox());
 		leftpanelpos=0;
 		actpanelpos=(int) ((this.getSize().getWidth()-this.getSize().height)/2);
 		rightpanelpos=actpanelpos+this.getHeight();
-		//leftpanel.setSize((this.getWidth()-this.getWidth())/2,this.getHeight());
-		//rightpanel.setSize((this.getWidth()-this.getWidth())/2,this.getHeight());
 		rightpanel.setBackground(Color.BLUE);
 		leftpanel.setBackground(Color.CYAN);
 		actionpanel.setBackground(Color.GREEN);
 		leftpanel.setBounds(leftpanelpos, 0, actpanelpos, this.getSize().height);
 		actionpanel.setBounds(actpanelpos, 0, this.getHeight(), this.getSize().height);
 		rightpanel.setBounds(rightpanelpos, 0, actpanelpos, this.getHeight());
-		//System.out.println(this.leftpanelpos+ "   "+ this.getBounds().height+"     " + this.getBounds().width);
+		this.repaint();
 	}
 	
 	

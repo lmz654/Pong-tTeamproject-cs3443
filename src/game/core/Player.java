@@ -1,5 +1,6 @@
 package game.core;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import game.components.item.Item;
@@ -10,56 +11,62 @@ public class Player {
 	private Paddle paddle;
 	private Score score;
 	private ArrayList<Item> item;
-	private char keyupright;
-	private char keydownleft;
-	private int keyuprightpress;
-	private int keydownleftpress;
+	private char keydecrease;
+	private char keyincrease;
+	private int keydecreasepress;//the value is 0 or -1
+	private int keyincreasepress;//the value is 0 or 1
+	private ArrayList<BufferedImage> ballimage;
+	private ArrayList<BufferedImage> paddleimage;
 	
+	
+
 	private char motionAxis; // X is for Top and Bottom Players,  Y is for Side Players
 	
-	public Player(String name, Paddle paddle,char keyupright, char keydownleft, char motionAxis) {
+	public Player(String name, Paddle paddle,char keydecrease, char keyincrease, char motionAxis) {
 		this.name = name;
 		this.paddle = paddle;
 		this.item = new ArrayList<Item>();
 		this.score = new Score(0,0);
-		this.keydownleft=keydownleft;
-		this.keyupright=keyupright;
-		this.keyuprightpress=0;
-		this.keydownleft=0;
+		this.keydecrease=keydecrease;
+		this.keyincrease=keyincrease;
+		this.keyincreasepress=0;
+		this.keydecreasepress=0;
 		this.motionAxis = motionAxis;
 		this.paddle = paddle;
+		this.ballimage = new ArrayList<BufferedImage>();
+		this.paddleimage = new ArrayList<BufferedImage>();
 	}
 	
-	public char getKeyupright() {
-		return keyupright;
+	public char getKeyincrease() {
+		return keyincrease;
 	}
 
-	public void setKeyupright(char keyupright) {
-		this.keyupright = keyupright;
+	public void setKeyincrease(char keyincrease) {
+		this.keyincrease = keyincrease;
 	}
 
-	public char getKeydownleft() {
-		return keydownleft;
+	public char getKeydecrease() {
+		return keydecrease;
 	}
 
-	public void setKeydownleft(char keydownleft) {
-		this.keydownleft = keydownleft;
+	public void setkeydecrease(char keydecrease) {
+		this.keydecrease = keydecrease;
 	}
 
-	public int getKeyuprightpress() {
-		return keyuprightpress;
+	public int getkeydecreasepress() {
+		return keydecreasepress;
 	}
 
-	public void setKeyuprightpress(int keyuprightpress) {
-		this.keyuprightpress = keyuprightpress;
+	public void setkeydecreasepress(int keydecreasepress) {
+		this.keydecreasepress = keydecreasepress;
 	}
 
-	public int getKeydownleftpress() {
-		return keydownleftpress;
+	public int getKeyincreasepress() {
+		return keyincreasepress;
 	}
 	
-	public void setKeydownleftpress(int keydownleftpress) {
-		this.keydownleftpress = keydownleftpress;
+	public void setKeyincreasepress(int keyincreasepress) {
+		this.keyincreasepress = keyincreasepress;
 	}
 	
 	public char getMotionAxis() {
@@ -68,6 +75,27 @@ public class Player {
 
 	public void setMotionAxis(char axis) {
 		this.motionAxis = axis;
+	}
+	public ArrayList<BufferedImage> getBallimage() {
+		return ballimage;
+	}
+
+	public void addBallimage(BufferedImage ballimage) {
+		this.ballimage.add(ballimage);
+	}
+	public void setBallimage(ArrayList<BufferedImage> paddleimage){
+		this.paddleimage=paddleimage;
+	}
+
+	public ArrayList<BufferedImage> getPaddleimage() {
+		return paddleimage;
+	}
+
+	public void setPaddleimage(ArrayList<BufferedImage> paddleimage) {
+		this.paddleimage = paddleimage;
+	}
+	public void addpaddleimage(BufferedImage paddleimage){
+		this.paddleimage.add(paddleimage);
 	}
 	
 	public Score getScore() {
@@ -95,7 +123,8 @@ public class Player {
 	
 	public void movePaddle() {
 		try {
-			paddle.move(motionAxis);
+				paddle.move(motionAxis,this.keydecreasepress+this.keyincreasepress);
+			
 		} catch (Exception e) {
 			// TODO Figure out how to handle movePaddle Error
 			e.printStackTrace();
