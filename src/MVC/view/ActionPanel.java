@@ -61,7 +61,7 @@ public class ActionPanel extends JPanel {
 				}else{
 					length=(int) (p.getPaddle().getLength()*this.ratioy);
 					height=(int) (p.getPaddle().getHeight()*this.ratiox);
-					g.fillRect(p1.x-length/2, p1.y-height/2, length, height);
+					g.fillRect(p1.x-height/2, p1.y-length/2, height, length);
 				}
 					
 			}

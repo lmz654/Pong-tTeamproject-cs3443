@@ -49,10 +49,10 @@ public class vbhitView extends JFrame{
 		leftpanel.setLayout(null);
 		rightpanel.setLayout(null);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		model.createdefaultplayer();
+		//model.createdefaultplayer();
 		model.createball();
 		//this.setResizable(false);
-		actionpanel.setSize(this.getHeight(),this.getHeight());
+		//actionpanel.setSize(this.getHeight(),this.getHeight());
 		leftpanelpos=0;
 		
 		actpanelpos=(this.getWidth()-this.getWidth())/2;
@@ -69,6 +69,9 @@ public class vbhitView extends JFrame{
 		this.add(actionpanel);
 		this.add(rightpanel);
 		this.addKeyListener(controller);
+		this.actionpanel.setFocusable(false);
+		this.leftpanel.setFocusable(false);
+		this.rightpanel.setFocusable(false);
 		this.setFocusableWindowState(true);
 		time = new Timer(Controls.VIEW_TIME,new ActionListener(){	
 			public void actionPerformed(ActionEvent arg0) {

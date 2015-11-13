@@ -23,7 +23,7 @@ import game.math.Vector;
 public class vbhitModel {
 	private ArrayList<Item> item;
 	private ArrayList<Obstacle> obstacle;
-	private static ArrayList<Player> player;
+	private ArrayList<Player> player;
 	private ArrayList<Ball> ball;
 	private Timer timer;
 	private BufferedImage defaultballimage;
@@ -36,7 +36,6 @@ public class vbhitModel {
 		this.ball = new ArrayList<Ball>();
 		player= new ArrayList<Player>();
 		this.createdefaultplayer();
-		this.activateplayer(0);
 		ActionListener action = new ActionListener(){
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -73,7 +72,10 @@ public class vbhitModel {
 		timer = new Timer(Controls.MODEL_TIME, action);
 	}*/
 	public void activateplayer(int player){
+	//	System.out.println(this.player.get(player).getMotionAxis());
+		//System.out.println(this.player.get(player).getPaddle().getLength());
 		this.player.get(player).setActivestatus(true);
+		//System.out.println(this.player.get(player).getPaddle().getLength());
 	}
 	public void createball(){
 		Ball ball = Controls.getDefaultBall();
@@ -81,10 +83,12 @@ public class vbhitModel {
 		this.ball.add(ball);
 	}
 	public void createdefaultplayer(){
-		this.addPlayer(Controls.player1default());
-		this.addPlayer(Controls.player2default());
-		this.addPlayer(Controls.player3default());
-		this.addPlayer(Controls.player4default());
+		if(this.player.size()==0){
+			this.player.add(0, Controls.player1default());
+			this.player.add(1,Controls.player2default());
+			this.player.add(2,Controls.player3default());
+			this.player.add(3,Controls.player4default());
+		}
 	}
 	
 	public void removeItem(Item out){
@@ -108,7 +112,7 @@ public class vbhitModel {
 	}
 
 	public ArrayList<Player> getAllPlayer() {
-		return player;
+		return this.player;
 	}
 	public Player getPlayer(int index){
 		return this.player.get(index);
@@ -118,7 +122,7 @@ public class vbhitModel {
 	}*/
 
 	public ArrayList<Ball> getBall() {
-		return ball;
+		return this.ball;
 	}
 
 	public void setBall(ArrayList<Ball> ball) {
@@ -158,7 +162,6 @@ public class vbhitModel {
 	}
 	//update total action  in the game
 	public void update(){
-		this.checkCollisions();
 		this.moveBalls();
 		for(Player p: player){
 			if(p.isActivestatus()==true){
@@ -170,46 +173,84 @@ public class vbhitModel {
 	public void moveBalls() {
 		if (Controls.MODEL_HEIGHT == 0) return;
 		int posX, posY, radius;
+		boolean remove = false;
 		
 		//Collision collision;
-		
-		for (Ball b : ball) {
-			b.move();
-			
-			posX = (int)b.getPosition().cartesian(0);
-			posY = (int)b.getPosition().cartesian(1);
-			radius = b.getRadius();
-			
-			// Check boundries
-			// Checking X
-			if (posX > (Controls.MODEL_WIDTH - radius) || posX < radius) {
-				b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
-				//change image of the ball to player who hit the ball
-				if(posX<radius){
-					b.setLastHit(player.get(0));
-					b.setimage(b.getLastHit().getBallimage().get(0));
-				}else{
-					b.setLastHit(player.get(1));
-					b.setimage(b.getLastHit().getBallimage().get(0));
+		try{
+			for (Ball b : ball) {
+				b.move();
+				
+				posX = (int)b.getPosition().cartesian(0);
+				posY = (int)b.getPosition().cartesian(1);
+				radius = b.getRadius();
+				
+				
+				// Check boundries
+				// Checking X
+				if (posX > (Controls.MODEL_WIDTH) || posX < 0) {
+					if((posY + b.getRadius()< Controls.CONER_LENGTH) || (posY - b.getRadius()> Controls.MODEL_HEIGHT-Controls.CONER_LENGTH)){
+						b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
+						//check the ball within paddle on leftside
+					}else if(posX<0 && Math.abs(posY-this.player.get(0).getPaddle().getPosition().cartesian(1))<=(this.player.get(0).getPaddle().getLength()/2+b.getRadius())){
+						b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
+						b.setLastHit(player.get(0));
+						b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
+						//check the ball within paddle on rightside
+					}else if(posX > (Controls.MODEL_WIDTH) && Math.abs(posY-this.player.get(1).getPaddle().getPosition().cartesian(1))<=(this.player.get(0).getPaddle().getLength()/2+b.getRadius())){
+						b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
+						b.setLastHit(player.get(1));
+						b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
+					}else{// ball go out of the panel
+						remove=true;
+						/*try{
+							this.ball.remove(b);
+							this.createball();
+							remove=true;
+						}catch(Exception e){
+							System.err.println("remove ball problem in moveball in vbhmodel");
+						}*/
+							
+					}
 				}
+				//check Y
+				if ((posY > (Controls.MODEL_HEIGHT ) || posY <0)&& remove==false) {
+					if((posX + b.getRadius()< Controls.CONER_LENGTH) || (posX - b.getRadius()> Controls.MODEL_WIDTH-Controls.CONER_LENGTH)){
+						b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
+						//check the ball within paddle on the top side
+					}else if(posY<0 && Math.abs(posX-this.player.get(2).getPaddle().getPosition().cartesian(0))<=(this.player.get(2).getPaddle().getLength()/2+b.getRadius())){
+						b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
+						b.setLastHit(player.get(2));
+						b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
+						//check the ball within paddle on the bottom side
+					}else if(posY>Controls.MODEL_HEIGHT && Math.abs(posX-this.player.get(3).getPaddle().getPosition().cartesian(0))<=(this.player.get(3).getPaddle().getLength()/2+b.getRadius())){
+						b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
+						b.setLastHit(player.get(3));
+						b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
+					}else{
+						remove=true;
+						/*try{
+							this.ball.remove(b);
+							this.createball();
+						}catch(Exception e){
+							System.err.println("remove ball problem in moveball in vbhmodel");
+						}*/
+					}			
+				}
+				if(remove==true){
+					this.ball.remove(b);
+					remove=false;
+				}
+					
+				
 			}
-			// Checking Y
-			if (posY > (Controls.MODEL_HEIGHT - radius) || posY < radius) {
-				b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
-				//change image of the ball to player who hit the ball
-				if(posY<radius){
-					b.setLastHit(player.get(2));
-					b.setimage(b.getLastHit().getBallimage().get(0));
-				}else{
-					b.setLastHit(player.get(3));
-					b.setimage(b.getLastHit().getBallimage().get(0));
-				}
+		}catch(Exception e){
+				System.err.println(e.getMessage());
 			}
 			
 			/*
 			 * Checking for Collisions
 			 */
-			CollisionDetector.checkCollisions(this);
+			//CollisionDetector.checkCollisions(this);
 			
 //			for (Ball c : balls) {
 //				if (b.equals(c)) continue;
@@ -220,7 +261,7 @@ public class vbhitModel {
 //			}
 			
 			
-		}
+		
 		
 	}
 	public void start(){
