@@ -1,6 +1,5 @@
 package game.math;
 
-import java.awt.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -12,19 +11,50 @@ public class CollisionDetector {
 	
 	public static void checkCollisions(vbhitModel model) {
 		
+		ArrayList<Collidable> collidableUnits = new ArrayList<Collidable>();
+		
+		for (Ball ball: model.getBall()) {
+			collidableUnits.add(new CollidableCircle(ball));
+		}
+		
+		checkCollisions(collidableUnits);
+		
 	}
 	
 	public static void checkCollisions(CollisionModel model) {
-		ArrayList<Collidable> collidableUnits = new ArrayList<Collidable>();
-		
+		//ArrayList<Collidable> collidableUnits = new ArrayList<Collidable>();
+		int depth = 2;
+		CollidableQTree collidableUnits = new CollidableQTree(model.getWidth(), model.getHeight(), depth);
 		// Load Collision Detector with Collidable Units from the Model
 		for (Ball ball : model.getBalls()) {
 			collidableUnits.add(new CollidableCircle(ball));
 		}
 		
-		Collections.sort(collidableUnits, Collidable.magnitudeComparator);
+		//Collections.sort(collidableUnits, Collidable.magnitudeComparator);
+		
 		
 		adjustTrajectories(checkCollisions(collidableUnits));
+	}
+	
+	private static CollisionList checkCollisions(CollidableQTree cUnits) {
+		CollisionList collisions = new CollisionList();
+		
+		/*
+		 *  New Algorithm
+		 */
+		
+		//ArrayList<QuadTree<Collidable>> bins = cUnits.getChildren();
+		
+		/*for (QuadTree<Collidable> leaf: bins) {
+			if (leaf.getContents().size() < 2) continue;
+			else {
+				collisions.addAll(checkCollisions(leaf.getContents()));
+			}
+		}*/
+		
+		System.out.println(cUnits + "\n----------------------------------------------------------");
+		
+		return collisions;
 	}
 	
 	private static CollisionList checkCollisions(ArrayList<Collidable> cUnits) {
@@ -32,11 +62,10 @@ public class CollisionDetector {
 		
 		Collision c;
 		/* Finding Collisions
-		 *  TODO Figure out a more efficient Algorithm
+		 * 
 		 */
-		/*
-		 *  Old Algorithm
-		 * for (Collidable cUnitA : cUnits) {
+	
+		for (Collidable cUnitA : cUnits) {
 			for (Collidable cUnitB : cUnits) {
 				if (cUnitA.equals(cUnitB)) continue;
 				// else
@@ -44,24 +73,17 @@ public class CollisionDetector {
 					c = cUnitA.intersects(cUnitB);
 					if (c != null && !collisions.contains(c)) {
 						collisions.add(c);
-						//System.out.println("Collision @" + c.getCollisionPoint().toString());
+						System.out.println("Collision @" + c.getCollisionPoint().toString());
 					}
 				}					
 			}
-			System.out.println(collisions + "\n");
-		}*/
-		
-		/*
-		 *  New Algorithm
-		 */
-		for (int i = 0; i < cUnits.size()-1; i++) {
-			c = cUnits.get(i).intersects(cUnits.get(i+1)); 
+			//System.out.println(collisions + "\n");
 		}
 		
-		
 		return collisions;
+		
 	}
-	
+
 	private static void adjustTrajectories(CollisionList collisions) {
 		for (Collision collision: collisions) {
 			collision.adjustTrajectories();
