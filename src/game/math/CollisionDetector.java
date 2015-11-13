@@ -11,6 +11,14 @@ public class CollisionDetector {
 	
 	public static void checkCollisions(vbhitModel model) {
 		
+		ArrayList<Collidable> collidableUnits = new ArrayList<Collidable>();
+		
+		for (Ball ball: model.getBall()) {
+			collidableUnits.add(new CollidableCircle(ball));
+		}
+		
+		checkCollisions(collidableUnits);
+		
 	}
 	
 	public static void checkCollisions(CollisionModel model) {
