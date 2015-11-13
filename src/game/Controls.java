@@ -50,16 +50,16 @@ public class Controls {
 		Paddle paddle;
 		switch(player) {
 		case 1:
-			paddle = new Paddle(new Vector(0 + X_OFST, MODEL_HEIGHT/2), PADDLE_WIDTH, PADDLE_LENGTH);
+			paddle = new Paddle(new Vector(0 + X_OFST, MODEL_HEIGHT/2), PADDLE_WIDTH, Controls.MODEL_HEIGHT-(2*Controls.PADDLE_MINREACH_LIMIT));
 			break;
 		case 2:
-			paddle = new Paddle(new Vector(MODEL_WIDTH - X_OFST, MODEL_HEIGHT/2), PADDLE_WIDTH, PADDLE_LENGTH);
+			paddle = new Paddle(new Vector(MODEL_WIDTH - X_OFST, MODEL_HEIGHT/2), PADDLE_WIDTH, Controls.MODEL_HEIGHT-(2*Controls.PADDLE_MINREACH_LIMIT));
 			break;
 		case 3:
-			paddle = new Paddle(new Vector(MODEL_WIDTH/2, 0 + Y_OFST), PADDLE_LENGTH, PADDLE_WIDTH);
+			paddle = new Paddle(new Vector(MODEL_WIDTH/2, 0 + Y_OFST), Controls.MODEL_WIDTH-(2*Controls.PADDLE_MINREACH_LIMIT), PADDLE_WIDTH);
 			break;
 		case 4:
-			paddle = new Paddle(new Vector(MODEL_WIDTH/2, MODEL_HEIGHT - Y_OFST), PADDLE_LENGTH, PADDLE_WIDTH);
+			paddle = new Paddle(new Vector(MODEL_WIDTH/2, MODEL_HEIGHT - Y_OFST), Controls.MODEL_WIDTH-(2*Controls.PADDLE_MINREACH_LIMIT), PADDLE_WIDTH);
 			break;
 		default:
 			paddle = null;

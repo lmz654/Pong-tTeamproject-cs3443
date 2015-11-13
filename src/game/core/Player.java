@@ -3,10 +3,11 @@ package game.core;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import game.Controls;
 import game.components.item.Item;
 
 public class Player {
-	
+	private boolean activestatus;
 	private String name;
 	private Paddle paddle;
 	private Score score;
@@ -17,9 +18,6 @@ public class Player {
 	private int keyincreasepress;//the value is 0 or 1
 	private ArrayList<BufferedImage> ballimage;
 	private ArrayList<BufferedImage> paddleimage;
-	
-	
-
 	private char motionAxis; // X is for Top and Bottom Players,  Y is for Side Players
 	
 	public Player(String name, Paddle paddle,char keydecrease, char keyincrease, char motionAxis) {
@@ -120,14 +118,21 @@ public class Player {
 		// TODO Item Validation
 		this.item.add(i);
 	}
+	public boolean isActivestatus() {
+		return activestatus;
+	}
+
+	public void setActivestatus(boolean activestatus) {
+		this.activestatus = activestatus;
+		this.paddle.setLength(Controls.PADDLE_LENGTH);
+	}
 	
 	public void movePaddle() {
 		try {
 				paddle.move(motionAxis,this.keydecreasepress+this.keyincreasepress);
 			
 		} catch (Exception e) {
-			// TODO Figure out how to handle movePaddle Error
-			e.printStackTrace();
+			System.err.println("fail to movePaddle in player");
 		}
 	}
 

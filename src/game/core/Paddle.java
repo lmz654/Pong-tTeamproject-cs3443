@@ -10,8 +10,8 @@ public class Paddle {
 	// Paddle Mechanics
 	private Vector position;
 	private int velocity;
-	private int length;//the x
-	private int height;//the y
+	private int length;//the real length
+	private int height;//the thickness
 	
 	
 	public Paddle(Vector position, int length, int height) {
@@ -71,9 +71,9 @@ public class Paddle {
 				break;
 			case 'y':
 			case 'Y':
-				if((this.position.cartesian(1)-this.height/2)>Controls.PADDLE_MINREACH_LIMIT && orient==-1){
+				if((this.position.cartesian(1)-this.length/2)>Controls.PADDLE_MINREACH_LIMIT && orient==-1){
 					moveYAxis(orient);
-				}else if((this.position.cartesian(1)+this.height/2)<Controls.PADDLE_MAXREACH_LIMIT && orient==1){
+				}else if((this.position.cartesian(1)+this.length/2)<Controls.PADDLE_MAXREACH_LIMIT && orient==1){
 					moveYAxis(orient);
 				}
 				break;

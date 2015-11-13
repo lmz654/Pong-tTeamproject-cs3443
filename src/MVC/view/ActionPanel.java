@@ -32,7 +32,7 @@ public class ActionPanel extends JPanel {
 		this.ratiox=(float)this.getSize().width/1000;
 		this.ratioy=(float)this.getSize().height/1000;
 		try {
-			image = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\1actionbg.jpeg"));
+			image = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\actionbg.jpeg"));
 		} catch (Exception e) {
 			System.err.println("actionpanel image input fail in actionpanel");
 		}
@@ -50,7 +50,7 @@ public class ActionPanel extends JPanel {
 			g.setColor(Color.CYAN);
 			//calculate paddles from real to display screen then draw paddles
 		try{
-			for(Player p:model.getPlayer()){
+			for(Player p:model.getAllPlayer()){
 				p1.x=(int) (p.getPaddle().getPosition().toPoint().x*this.ratiox);
 				p1.y=(int) (p.getPaddle().getPosition().toPoint().y*this.ratioy);
 				

@@ -49,7 +49,7 @@ public class vbhitView extends JFrame{
 		leftpanel.setLayout(null);
 		rightpanel.setLayout(null);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		model.createplayer(4);
+		model.createdefaultplayer();
 		model.createball();
 		//this.setResizable(false);
 		actionpanel.setSize(this.getHeight(),this.getHeight());

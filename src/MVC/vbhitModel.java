@@ -23,7 +23,7 @@ import game.math.Vector;
 public class vbhitModel {
 	private ArrayList<Item> item;
 	private ArrayList<Obstacle> obstacle;
-	private ArrayList<Player> player;
+	private static ArrayList<Player> player;
 	private ArrayList<Ball> ball;
 	private Timer timer;
 	private BufferedImage defaultballimage;
@@ -32,8 +32,11 @@ public class vbhitModel {
 		super();
 		this.item = new ArrayList<Item>();
 		this.obstacle = new ArrayList<Obstacle>();
-		this.player = new ArrayList<Player>();
+		//this.player = new ArrayList<Player>();
 		this.ball = new ArrayList<Ball>();
+		player= new ArrayList<Player>();
+		this.createdefaultplayer();
+		this.activateplayer(0);
 		ActionListener action = new ActionListener(){
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -44,11 +47,11 @@ public class vbhitModel {
 		try {
 			defaultballimage = ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\default.png"));
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("defautballimage input is fail in vbhitModel");
 		}
 		timer = new Timer(Controls.MODEL_TIME, action);
 	}
-	public vbhitModel(ArrayList<Item> item, ArrayList<Obstacle> obstacle, ArrayList<Player> player, ArrayList<Ball> ball) {
+	/*public vbhitModel(ArrayList<Item> item, ArrayList<Obstacle> obstacle, Player[] player, ArrayList<Ball> ball) {
 		super();
 		this.item = item;
 		this.obstacle = obstacle;
@@ -68,26 +71,20 @@ public class vbhitModel {
 			e.printStackTrace();
 		}
 		timer = new Timer(Controls.MODEL_TIME, action);
+	}*/
+	public void activateplayer(int player){
+		this.player.get(player).setActivestatus(true);
 	}
 	public void createball(){
 		Ball ball = Controls.getDefaultBall();
 		ball.setimage(this.defaultballimage);
 		this.ball.add(ball);
 	}
-	public void createplayer(int number){
-		for(int i =0;i<number;i++){
-			if(i==0){
-				this.addPlayer(Controls.player1default());
-			}else if(i==1){
-				this.addPlayer(Controls.player2default());
-			}else if (i==2){
-				this.addPlayer(Controls.player3default());
-			}else if(i==3){
-				this.addPlayer(Controls.player4default());
-			}
-			
-				
-		}
+	public void createdefaultplayer(){
+		this.addPlayer(Controls.player1default());
+		this.addPlayer(Controls.player2default());
+		this.addPlayer(Controls.player3default());
+		this.addPlayer(Controls.player4default());
 	}
 	
 	public void removeItem(Item out){
@@ -110,13 +107,15 @@ public class vbhitModel {
 		this.obstacle = obstacle;
 	}
 
-	public ArrayList<Player> getPlayer() {
+	public ArrayList<Player> getAllPlayer() {
 		return player;
 	}
-
-	public void setPlayer(ArrayList<Player> player) {
-		this.player = player;
+	public Player getPlayer(int index){
+		return this.player.get(index);
 	}
+	/*public void setPlayer(ArrayList<Player> player) {
+		this.player = player;
+	}*/
 
 	public ArrayList<Ball> getBall() {
 		return ball;
@@ -162,7 +161,10 @@ public class vbhitModel {
 		this.checkCollisions();
 		this.moveBalls();
 		for(Player p: player){
-			p.movePaddle();
+			if(p.isActivestatus()==true){
+				p.movePaddle();
+			}
+			
 		}
 	}
 	public void moveBalls() {
@@ -190,7 +192,6 @@ public class vbhitModel {
 					b.setLastHit(player.get(1));
 					b.setimage(b.getLastHit().getBallimage().get(0));
 				}
-				//System.out.println("Pos: " + b.getPosition().toString() + " V: " + b.getVelocity().toString());
 			}
 			// Checking Y
 			if (posY > (Controls.MODEL_HEIGHT - radius) || posY < radius) {
@@ -203,7 +204,6 @@ public class vbhitModel {
 					b.setLastHit(player.get(3));
 					b.setimage(b.getLastHit().getBallimage().get(0));
 				}
-				//System.out.println("Pos: " + b.getPosition().toString() + " V: " + b.getVelocity().toString());
 			}
 			
 			/*

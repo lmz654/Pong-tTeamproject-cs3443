@@ -45,7 +45,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			model.createball();
 		}
 		else{
-			for(Player temp:model.getPlayer()){
+			for(Player temp:model.getAllPlayer()){
 				if(temp.getKeydecrease()==arg0.getKeyChar())
 					temp.setkeydecreasepress(-1);
 				if(temp.getKeyincrease()==arg0.getKeyChar())
@@ -55,7 +55,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 	}
 
 	public void keyReleased(KeyEvent arg0) {
-		for(Player temp:model.getPlayer()){
+		for(Player temp:model.getAllPlayer()){
 			if(temp.getKeydecrease()==arg0.getKeyChar())
 				temp.setkeydecreasepress(0);
 			if(temp.getKeyincrease()==arg0.getKeyChar())
