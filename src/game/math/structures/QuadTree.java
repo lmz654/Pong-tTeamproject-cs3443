@@ -8,23 +8,23 @@ public abstract class QuadTree<T extends Object> {
 	protected final int MAX_LEVELS = 5;
 	
 	protected int level;
-	protected Boundaries bounds;
+	protected BoundList bounds;
 	protected List<T> objects;
 	protected QuadTree<T>[] nodes;
 	
 	public QuadTree(int level, Bound...bounds) {
 		this.level = level;
+		this.bounds = new BoundList();
 		for (Bound b : bounds)
 			this.bounds.add(b);
-		this.objects = null;
-		this.nodes = null;
 	}
 	
 	public abstract void clear();
 	public abstract void split();
 	public abstract int getIndex(T t);
 	public abstract void insert(T t);
-	public abstract List<T> retrieve();
+	public abstract List<T> retrieve(T t);
+	public abstract List<T> retrieve(List<T> returnObjects, T t);
 
 	public int getLevel() {
 		return level;
@@ -58,19 +58,20 @@ public abstract class QuadTree<T extends Object> {
 		return MAX_LEVELS;
 	}
 	
-	public Boundaries getBounds() {
+	public BoundList getBounds() {
 		return bounds;
 	}
 
-	public void setBounds(Boundaries bounds) {
+	public void setBounds(BoundList bounds) {
 		this.bounds = bounds;
 	}
 
 	public String toString() {
 		StringBuilder s = new StringBuilder();
-		for (int i = 0; i < this.level+1; i++)
-			s.append("-");
-		s.append(objects);
+		for (int i = 0; i < this.level; i++)
+			s.append("\t");
+		s.append("-->" + objects);
 		return s.toString();
 	}
+
 }

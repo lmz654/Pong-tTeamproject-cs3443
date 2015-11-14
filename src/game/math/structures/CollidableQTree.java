@@ -11,8 +11,10 @@ public class CollidableQTree extends QuadTree<Collidable> {
 	
 	public CollidableQTree(int level, Bound...bound) {
 		// TODO Auto-generated constructor stub
-		super(level, bound);
-		this.setObjects(new ArrayList<Collidable>());
+		super(level,bound);
+		this.objects = new ArrayList<Collidable>();
+		this.nodes = new CollidableQTree[4];
+		
 	}
 	
 	public CollidableQTree(int level, int xL, int xU, int yL, int yU) {
@@ -79,35 +81,82 @@ public class CollidableQTree extends QuadTree<Collidable> {
 
 	@Override
 	public void insert(Collidable c) {
-		int index = this.getIndex(c);
-		
-		if (index == -1) { // Collidable does not fit fully into children
-			if (this.level == 0) {
-				// TODO Handle Out of Bounds
-			} else if (this.getObjects().size() >= this.MAX_OBJECTS) {
-				// TODO Handle Bin full
-			} else {
-				this.objects.add(c);
-			}			
-		} else { // Collidable fits into a child
-			if (this.nodes == null) {
-				this.split();
+		if (nodes[0] != null) {
+			int index = this.getIndex(c);
+			
+			if (index != -1) {
 				nodes[index].insert(c);
+				return;
 			}
 		}
 		
+		objects.add(c);
 		
+		if (objects.size() > MAX_OBJECTS && this.level < MAX_LEVELS) {
+			if (nodes[0] == null) {
+				this.split();
+			}
+			
+			for (int i = 0; i < this.objects.size(); i++) {
+				int index = this.getIndex(this.objects.get(i));
+				if (index != -1) {
+					nodes[index].insert(this.objects.remove(i));
+				} else
+					continue;
+			}
+		}		
 	}
 
 	@Override
-	public List<Collidable> retrieve() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Collidable> retrieve(Collidable c) {
+		List<Collidable> returnObjects = new ArrayList<Collidable>();
+		
+		return retrieve(returnObjects, c);
+	}
+	
+	public List<Collidable> retrieve(List<Collidable> returnObjects, Collidable c) {
+		int index = getIndex(c);
+		if (index != -1 && nodes[0] != null) {
+			nodes[index].retrieve(returnObjects, c);
+		}
+		
+		returnObjects.addAll(objects);
+		
+		return returnObjects;
 	}
 	
 	public String printTree() {
+		if (nodes[0] == null)
+			return this.toString();
 		
-		return "";
+		StringBuilder s = new StringBuilder();
+		
+		s.append(this.toString()+"\n");
+		s.append(((CollidableQTree)nodes[0]).printTree()+"\n");
+		s.append(((CollidableQTree)nodes[1]).printTree()+"\n");
+		s.append(((CollidableQTree)nodes[2]).printTree()+"\n");
+		s.append(((CollidableQTree)nodes[3]).printTree()+"\n");
+		
+		return s.toString();
+	}
+	
+	public String printBounds() {
+		if (nodes[0] == null) {
+			StringBuilder s = new StringBuilder();
+			for (int i = 0; i < this.level; i++)
+				s.append("\t");
+			s.append(bounds.toString());
+			return s.toString();
+		}
+		
+		StringBuilder s = new StringBuilder();
+		s.append(bounds.toString()+"\n");
+		s.append(((CollidableQTree)nodes[0]).printBounds()+"\n");
+		s.append(((CollidableQTree)nodes[1]).printBounds()+"\n");
+		s.append(((CollidableQTree)nodes[2]).printBounds()+"\n");
+		s.append(((CollidableQTree)nodes[3]).printBounds()+"\n");
+		
+		return s.toString();
 	}
 
 }
