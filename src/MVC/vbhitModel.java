@@ -187,62 +187,47 @@ public class vbhitModel {
 				
 				// Check boundries
 				// Checking X
-				if (posX > (Controls.MODEL_WIDTH) || posX < 0) {
-					if((posY + b.getRadius()< Controls.CONER_LENGTH) || (posY - b.getRadius()> Controls.MODEL_HEIGHT-Controls.CONER_LENGTH)){
+				if (posX > (Controls.MODEL_WIDTH-radius) || posX < radius) {
+					if((posY + radius< Controls.CONER_LENGTH) || (posY - b.getRadius()> Controls.MODEL_HEIGHT-Controls.CONER_LENGTH)){
 						b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
 						//check the ball within paddle on leftside
-					}else if(posX<0 && Math.abs(posY-this.player.get(0).getPaddle().getPosition().cartesian(1))<=(this.player.get(0).getPaddle().getLength()/2+b.getRadius())){
+					}else if(posX<radius && Math.abs(posY-this.player.get(0).getPaddle().getPosition().cartesian(1))<=(this.player.get(0).getPaddle().getLength()/2+radius)){
 						b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
 						b.setLastHit(player.get(0));
 						b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
 						//check the ball within paddle on rightside
-					}else if(posX > (Controls.MODEL_WIDTH) && Math.abs(posY-this.player.get(1).getPaddle().getPosition().cartesian(1))<=(this.player.get(0).getPaddle().getLength()/2+b.getRadius())){
+					}else if(posX > (Controls.MODEL_WIDTH-radius) && Math.abs(posY-this.player.get(1).getPaddle().getPosition().cartesian(1))<=(this.player.get(1).getPaddle().getLength()/2+radius)){
 						b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
 						b.setLastHit(player.get(1));
 						b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
 					}else{// ball go out of the panel
 						remove=true;
-						/*try{
-							this.ball.remove(b);
-							this.createball();
-							remove=true;
-						}catch(Exception e){
-							System.err.println("remove ball problem in moveball in vbhmodel");
-						}*/
-							
+						this.ball.remove(b);
+						this.createball();	
 					}
 				}
 				//check Y
-				if ((posY > (Controls.MODEL_HEIGHT ) || posY <0)&& remove==false) {
+				if ((posY > (Controls.MODEL_HEIGHT -radius ) || posY <radius)&& remove==false) {
 					if((posX + b.getRadius()< Controls.CONER_LENGTH) || (posX - b.getRadius()> Controls.MODEL_WIDTH-Controls.CONER_LENGTH)){
 						b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
 						//check the ball within paddle on the top side
-					}else if(posY<0 && Math.abs(posX-this.player.get(2).getPaddle().getPosition().cartesian(0))<=(this.player.get(2).getPaddle().getLength()/2+b.getRadius())){
+					}else if(posY<radius && Math.abs(posX-this.player.get(2).getPaddle().getPosition().cartesian(0))<=(this.player.get(2).getPaddle().getLength()/2+radius)){
 						b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
 						b.setLastHit(player.get(2));
 						b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
 						//check the ball within paddle on the bottom side
-					}else if(posY>Controls.MODEL_HEIGHT && Math.abs(posX-this.player.get(3).getPaddle().getPosition().cartesian(0))<=(this.player.get(3).getPaddle().getLength()/2+b.getRadius())){
+					}else if(posY>(Controls.MODEL_HEIGHT-radius) && Math.abs(posX-this.player.get(3).getPaddle().getPosition().cartesian(0))<=(this.player.get(3).getPaddle().getLength()/2+radius)){
 						b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
 						b.setLastHit(player.get(3));
 						b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
 					}else{
-						remove=true;
-						/*try{
-							this.ball.remove(b);
-							this.createball();
-						}catch(Exception e){
-							System.err.println("remove ball problem in moveball in vbhmodel");
-						}*/
+						this.ball.remove(b);
+						this.createball();
 					}			
 				}
-				if(remove==true){
-					this.ball.remove(b);
-					remove=false;
-				}
-					
-				
+				remove=false;
 			}
+			
 		}catch(Exception e){
 				System.err.println(e.getMessage());
 			}

@@ -47,7 +47,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			model.activateplayer(1);
 		}else if(arg0.getKeyChar()=='3'){
 			model.activateplayer(2);
-		}else if(arg0.getKeyChar()=='n'){
+		}else if(arg0.getKeyChar()=='4'){
 			model.activateplayer(3);
 		}else if(arg0.getKeyChar()=='1'){
 			model.activateplayer(0);

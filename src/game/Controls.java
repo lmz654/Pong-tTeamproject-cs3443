@@ -23,17 +23,17 @@ public class Controls {
 	
 	// Control Variables for Model
 	public static final int MODEL_WIDTH = 1000;
-	public static final int MODEL_HEIGHT = 1000;
-	public static final int CONER_LENGTH=100;
+	public static final int MODEL_HEIGHT = MODEL_WIDTH;
+	public static final int CONER_LENGTH=150;
 	
 	// Control Variables for Paddles
-	public static final int X_OFST = 0;
-	public static final int Y_OFST= 0;
+	public static final int X_OFST = 5;
+	public static final int Y_OFST= 5;
 	public static final int PADDLE_LENGTH = 100;
 	public static final int PADDLE_WIDTH = 10;
 	public static final int PADDLE_VELOCITY=7;
-	public static final int PADDLE_MAXREACH_LIMIT=900;
-	public static final int PADDLE_MINREACH_LIMIT=100;
+	public static final int PADDLE_MAXREACH_LIMIT= MODEL_WIDTH-CONER_LENGTH;
+	public static final int PADDLE_MINREACH_LIMIT=CONER_LENGTH;
 	
 	// Control Variables for Ball
 	public static final int BALL_MAX_SPEED = 10;
