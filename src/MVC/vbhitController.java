@@ -43,9 +43,17 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 		}
 		else if(arg0.getKeyChar()=='n'){
 			model.createball();
+		}else if(arg0.getKeyChar()=='2'){
+			model.activateplayer(1);
+		}else if(arg0.getKeyChar()=='3'){
+			model.activateplayer(2);
+		}else if(arg0.getKeyChar()=='4'){
+			model.activateplayer(3);
+		}else if(arg0.getKeyChar()=='1'){
+			model.activateplayer(0);
 		}
 		else{
-			for(Player temp:model.getPlayer()){
+			for(Player temp:model.getAllPlayer()){
 				if(temp.getKeydecrease()==arg0.getKeyChar())
 					temp.setkeydecreasepress(-1);
 				if(temp.getKeyincrease()==arg0.getKeyChar())
@@ -55,7 +63,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 	}
 
 	public void keyReleased(KeyEvent arg0) {
-		for(Player temp:model.getPlayer()){
+		for(Player temp:model.getAllPlayer()){
 			if(temp.getKeydecrease()==arg0.getKeyChar())
 				temp.setkeydecreasepress(0);
 			if(temp.getKeyincrease()==arg0.getKeyChar())
