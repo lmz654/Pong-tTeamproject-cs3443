@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import MVC.vbhitModel;
 import game.core.Ball;
 import game.math.structures.CollidableQTree;
+import game.math.structures.CollisionList;
 import test.collision.CollisionModel;
 
 public class CollisionDetector {

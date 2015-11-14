@@ -1,7 +1,9 @@
-package game.math;
+package game.math.structures;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import game.math.Collision;
 
 public class CollisionList extends ArrayList<Collision> {
 
