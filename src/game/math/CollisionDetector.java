@@ -9,6 +9,15 @@ import test.collision.CollisionModel;
 
 public class CollisionDetector {
 	
+	// Print Collisions
+	public static final boolean PRT_COLLISIONS = true;
+	
+	// Boolean to use Quad Tree for Collision Detection
+	public static final boolean Q_TREE = false;
+	
+	// Boolean to Run Collision Mechanics in Parallel
+	public static final boolean PARALLEL = false;
+	
 	public static void checkCollisions(vbhitModel model) {
 		
 		ArrayList<Collidable> collidableUnits = new ArrayList<Collidable>();
@@ -22,25 +31,36 @@ public class CollisionDetector {
 	}
 	
 	public static void checkCollisions(CollisionModel model) {
-		//ArrayList<Collidable> collidableUnits = new ArrayList<Collidable>();
-		int depth = 2;
-		CollidableQTree collidableUnits = new CollidableQTree(model.getWidth(), model.getHeight(), depth);
-		// Load Collision Detector with Collidable Units from the Model
-		for (Ball ball : model.getBalls()) {
-			collidableUnits.add(new CollidableCircle(ball));
-		}
 		
-		//Collections.sort(collidableUnits, Collidable.magnitudeComparator);
-		
-		
-		adjustTrajectories(checkCollisions(collidableUnits));
+		if (Q_TREE) { // Collision Detection using Quad Trees for Geometric Binning
+			int depth = 2;
+			CollidableQTree collidableUnits = new CollidableQTree(model.getWidth(), model.getHeight(), depth);
+			
+			// Load Collision Detector with Collidable Units from the Model
+			for (Ball ball : model.getBalls()) {
+				collidableUnits.add(new CollidableCircle(ball));
+			}
+			
+			adjustTrajectories(checkQTreeCollisions(collidableUnits));
+			
+		} else {
+			ArrayList<Collidable> collidableUnits = new ArrayList<Collidable>();
+			
+			// Load Collision Detector with Collidable Units from the Model
+			for (Ball ball : model.getBalls()) {
+				collidableUnits.add(new CollidableCircle(ball));
+			}
+			
+			adjustTrajectories(checkCollisions(collidableUnits));
+		}		
 	}
 	
-	private static CollisionList checkCollisions(CollidableQTree cUnits) {
+	private static CollisionList checkQTreeCollisions(CollidableQTree cUnits) {
 		CollisionList collisions = new CollisionList();
 		
 		/*
 		 *  New Algorithm
+		 *  Using QuadTrees for binning to reduce number of checks needed
 		 */
 		
 		//ArrayList<QuadTree<Collidable>> bins = cUnits.getChildren();
@@ -73,11 +93,11 @@ public class CollisionDetector {
 					c = cUnitA.intersects(cUnitB);
 					if (c != null && !collisions.contains(c)) {
 						collisions.add(c);
-						System.out.println("Collision @" + c.getCollisionPoint().toString());
+						if (PRT_COLLISIONS) System.out.println("Collision @" + c.getCollisionPoint().toString());
 					}
 				}					
 			}
-			//System.out.println(collisions + "\n");
+			
 		}
 		
 		return collisions;

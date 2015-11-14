@@ -20,5 +20,9 @@ public class Bound {
 	public boolean intersects(Bound other) {
 		return (this.upper > other.lower && this.lower < other.upper) || (this.lower < other.upper && this.upper > other.lower);
 	}
+	
+	public boolean equals(Bound b) {
+		return this.lower == b.lower && this.upper == b.upper;
+	}
 
 }
