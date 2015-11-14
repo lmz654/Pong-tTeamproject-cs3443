@@ -1,23 +1,14 @@
 package test;
 
-import javax.swing.JFrame;
-
-import MVC.vbhitModel;
-import MVC.view.vbhitView;
-import game.math.Vector;
+import game.math.structures.Vector;
 
 
 public class VectorTest {
-	public static void creatframe(){
-		JFrame temp = new JFrame();
-	}
 	
 	public static void main(String[] args) {
         double[] xdata = { 1.0, 2.0, 3.0, 4.0 };
         double[] ydata = { 5.0, 2.0, 4.0, 1.0 };
-        vbhitModel model = new vbhitModel();
-        vbhitView view = new vbhitView(model);
-        view.setVisible(true);
+
         Vector x = new Vector(xdata);
         Vector y = new Vector(ydata);
 

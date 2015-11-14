@@ -1,9 +1,7 @@
 package game.core;
 
-import java.awt.Point;
-
 import game.Controls;
-import game.math.Vector;
+import game.math.structures.Vector;
 
 public class Paddle {
 	

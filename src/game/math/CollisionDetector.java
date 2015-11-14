@@ -1,10 +1,9 @@
 package game.math;
 
 import java.util.ArrayList;
-import java.util.Collections;
-
 import MVC.vbhitModel;
 import game.core.Ball;
+import game.math.structures.CollidableQTree;
 import test.collision.CollisionModel;
 
 public class CollisionDetector {
@@ -34,11 +33,11 @@ public class CollisionDetector {
 		
 		if (Q_TREE) { // Collision Detection using Quad Trees for Geometric Binning
 			int depth = 2;
-			CollidableQTree collidableUnits = new CollidableQTree(model.getWidth(), model.getHeight(), depth);
+			CollidableQTree collidableUnits = new CollidableQTree(0, 0, model.getWidth(), 0, model.getHeight());
 			
 			// Load Collision Detector with Collidable Units from the Model
 			for (Ball ball : model.getBalls()) {
-				collidableUnits.add(new CollidableCircle(ball));
+				collidableUnits.insert(new CollidableCircle(ball));
 			}
 			
 			adjustTrajectories(checkQTreeCollisions(collidableUnits));

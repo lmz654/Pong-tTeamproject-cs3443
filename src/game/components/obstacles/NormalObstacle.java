@@ -1,7 +1,7 @@
 package game.components.obstacles;
 
 import game.Controls;
-import game.math.Vector;
+import game.math.structures.Vector;
 
 public class NormalObstacle extends Obstacle {
 	

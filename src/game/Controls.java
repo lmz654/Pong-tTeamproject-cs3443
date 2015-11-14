@@ -1,13 +1,12 @@
 package game;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import game.core.Ball;
 import game.core.Paddle;
 import game.core.Player;
-import game.math.Vector;
+import game.math.structures.Vector;
 
 // Class that contains all of the control variables for the Game
 public class Controls {

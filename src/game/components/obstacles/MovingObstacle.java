@@ -1,6 +1,6 @@
 package game.components.obstacles;
 
-import game.math.Vector;
+import game.math.structures.Vector;
 
 public class MovingObstacle extends Obstacle {
 	

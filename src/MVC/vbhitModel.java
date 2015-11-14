@@ -8,17 +8,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.Control;
 import javax.swing.Timer;
 
 import game.Controls;
 import game.components.item.Item;
 import game.components.obstacles.Obstacle;
 import game.core.Ball;
-import game.core.Paddle;
 import game.core.Player;
 import game.math.CollisionDetector;
-import game.math.Vector;
+import game.math.structures.Vector;
 
 public class vbhitModel {
 	private ArrayList<Item> item;

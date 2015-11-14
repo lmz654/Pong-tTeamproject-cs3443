@@ -3,6 +3,9 @@ package game.math;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import game.math.structures.Bound;
+import game.math.structures.Vector;
+
 public abstract class Collidable {
 	protected Object obj;
 	protected Collidable lastCollided;

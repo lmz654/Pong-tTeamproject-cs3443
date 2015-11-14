@@ -1,9 +1,8 @@
 package game.core;
 
-import java.awt.Point;
 import java.awt.image.BufferedImage;
 
-import game.math.Vector;
+import game.math.structures.Vector;
 
 public class Ball {
 	// --- Ball Mechanics ---

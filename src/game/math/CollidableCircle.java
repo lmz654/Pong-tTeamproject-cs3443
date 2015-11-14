@@ -3,6 +3,8 @@ package game.math;
 import java.util.ArrayList;
 
 import game.core.Ball;
+import game.math.structures.Bound;
+import game.math.structures.Vector;
 
 public class CollidableCircle extends Collidable {
 	private int radius;

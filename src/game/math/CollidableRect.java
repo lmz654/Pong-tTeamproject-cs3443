@@ -3,6 +3,8 @@ package game.math;
 import java.util.ArrayList;
 
 import game.core.Paddle;
+import game.math.structures.Bound;
+import game.math.structures.Vector;
 
 public class CollidableRect extends Collidable {
 	private int width, height;

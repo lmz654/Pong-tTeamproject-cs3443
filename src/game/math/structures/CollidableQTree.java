@@ -1,7 +1,9 @@
-package game.math;
+package game.math.structures;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import game.math.Collidable;
 
 public class CollidableQTree extends QuadTree<Collidable> {
 	

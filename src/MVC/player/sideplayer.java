@@ -1,11 +1,8 @@
 package MVC.player;
 
-import java.awt.Component;
 import java.awt.GridLayout;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;

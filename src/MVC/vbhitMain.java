@@ -3,8 +3,6 @@ package MVC;
 import javax.swing.JFrame;
 
 import MVC.view.vbhitView;
-import game.Controls;
-import game.core.Player;
 
 public class vbhitMain {
 	public static void creatwindow(){

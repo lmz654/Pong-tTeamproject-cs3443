@@ -1,9 +1,6 @@
 package test.collision;
 
-import java.awt.*;
 import javax.swing.*;
-
-import game.core.Ball;
 
 public class CollisionProjectionPanel extends JPanel {
 

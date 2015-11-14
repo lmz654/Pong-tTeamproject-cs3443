@@ -4,7 +4,6 @@ import java.awt.*;
 import javax.swing.*;
 
 import game.core.Ball;
-import game.math.CollidableCircle;
 
 @SuppressWarnings("serial")
 public class CollisionPanel extends JPanel {

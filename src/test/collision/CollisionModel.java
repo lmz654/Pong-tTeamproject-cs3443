@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import game.Controls;
 import game.core.Ball;
 import game.math.*;
+import game.math.structures.Vector;
 
 public class CollisionModel {
 	private ArrayList<Ball> balls;

@@ -1,4 +1,4 @@
-package game.math;
+package game.math.structures;
 
 public class Bound {
 	private int upper;

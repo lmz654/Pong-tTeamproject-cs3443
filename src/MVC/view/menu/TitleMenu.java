@@ -1,7 +1,6 @@
 package MVC.view.menu;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 
 // class

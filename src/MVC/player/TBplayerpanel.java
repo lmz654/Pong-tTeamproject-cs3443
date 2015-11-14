@@ -7,8 +7,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import MVC.player.sideplayer.itempanel;
-import MVC.player.sideplayer.scorepanel;
 import game.components.item.Item;
 import game.core.Player;
 

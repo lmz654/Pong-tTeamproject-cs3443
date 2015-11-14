@@ -1,5 +1,7 @@
 package game.math;
 
+import game.math.structures.Vector;
+
 public class Collision {
 	private Collidable a;
 	private Collidable b;
