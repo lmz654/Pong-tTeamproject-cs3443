@@ -141,20 +141,21 @@ public class CollidableQTree extends QuadTree<Collidable> {
 	}
 	
 	public String printBounds() {
+		StringBuilder lvl = new StringBuilder();
+		
+		for (int i = 0; i < this.level; i++)
+			lvl.append("\t");
+		
 		if (nodes[0] == null) {
-			StringBuilder s = new StringBuilder();
-			for (int i = 0; i < this.level; i++)
-				s.append("\t");
-			s.append(bounds.toString());
-			return s.toString();
+			return lvl.toString() + bounds.toString();
 		}
 		
 		StringBuilder s = new StringBuilder();
-		s.append(bounds.toString()+"\n");
-		s.append(((CollidableQTree)nodes[0]).printBounds()+"\n");
-		s.append(((CollidableQTree)nodes[1]).printBounds()+"\n");
-		s.append(((CollidableQTree)nodes[2]).printBounds()+"\n");
-		s.append(((CollidableQTree)nodes[3]).printBounds()+"\n");
+		s.append(lvl.toString()+bounds.toString()+"\n");
+		s.append(lvl.toString()+((CollidableQTree)nodes[0]).printBounds()+"\n");
+		s.append(lvl.toString()+((CollidableQTree)nodes[1]).printBounds()+"\n");
+		s.append(lvl.toString()+((CollidableQTree)nodes[2]).printBounds()+"\n");
+		s.append(lvl.toString()+((CollidableQTree)nodes[3]).printBounds()+"\n");
 		
 		return s.toString();
 	}
