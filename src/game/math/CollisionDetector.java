@@ -1,6 +1,8 @@
 package game.math;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import MVC.vbhitModel;
 import game.core.Ball;
 import game.math.structures.CollidableQTree;
@@ -13,7 +15,7 @@ public class CollisionDetector {
 	public static final boolean PRT_COLLISIONS = true;
 	
 	// Boolean to use Quad Tree for Collision Detection
-	public static final boolean Q_TREE = false;
+	public static final boolean Q_TREE = true;
 	
 	// Boolean to Run Collision Mechanics in Parallel
 	public static final boolean PARALLEL = false;
@@ -31,19 +33,55 @@ public class CollisionDetector {
 	}
 	
 	public static void checkCollisions(CollisionModel model) {
+		CollisionList collisions = new CollisionList();
 		
 		if (Q_TREE) { // Collision Detection using Quad Trees for Geometric Binning
-			int depth = 2;
-			CollidableQTree collidableUnits = new CollidableQTree(0, 0, model.getWidth(), 0, model.getHeight());
+			CollidableQTree qT = new CollidableQTree(0, 0, model.getWidth(), 0, model.getHeight());
+			List<Collidable> cUnits = new ArrayList<Collidable>();
 			
 			// Load Collision Detector with Collidable Units from the Model
 			for (Ball ball : model.getBalls()) {
-				collidableUnits.insert(new CollidableCircle(ball));
+				cUnits.add(new CollidableCircle(ball));
+				qT.insert(new CollidableCircle(ball));
 			}
 			
-			adjustTrajectories(checkQTreeCollisions(collidableUnits));
-			
-		} else {
+			if (PARALLEL) {
+				List<Thread> threads = new ArrayList<Thread>();
+				Runnable task;
+				for (Collidable c: cUnits) {
+					List<Collidable> posCollisions = qT.retrieve(c);
+					if (!posCollisions.isEmpty()) {
+						task = new CollisionDetectorParallel(c, posCollisions, collisions);
+						Thread worker = new Thread(task);
+					
+						worker.start();
+						threads.add(worker);
+					}
+				}
+				
+				int running = 0;
+				do {
+					running = 0;
+					for (Thread thread: threads)
+						if(thread.isAlive())
+							running++;
+					// System.out.println(running + " Threads still running");
+				} while (running > 0);
+			} else {
+				for (Collidable a: cUnits) {
+					List<Collidable> pCollisions = qT.retrieve(a);
+					for (Collidable b: pCollisions) {
+						if (pCollisions.isEmpty() || a.equals(b)) continue;
+						Collision collision = a.intersects(b);
+						if (collision != null) {
+							//collisions.add(collision);
+							//System.out.println(collision);
+						}
+					}
+				}
+			}
+			//System.out.println(qT.printTree());
+		} else { // Not QTree
 			ArrayList<Collidable> collidableUnits = new ArrayList<Collidable>();
 			
 			// Load Collision Detector with Collidable Units from the Model
@@ -52,7 +90,7 @@ public class CollisionDetector {
 			}
 			
 			adjustTrajectories(checkCollisions(collidableUnits));
-		}		
+		}
 	}
 	
 	private static CollisionList checkQTreeCollisions(CollidableQTree cUnits) {

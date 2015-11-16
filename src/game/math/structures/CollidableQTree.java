@@ -23,7 +23,14 @@ public class CollidableQTree extends QuadTree<Collidable> {
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		objects.clear();
+		
+		for (QuadTree<Collidable> node: nodes) {
+			if (node != null) {
+				node.clear();
+				node = null;
+			}				
+		}
 		
 	}
 
