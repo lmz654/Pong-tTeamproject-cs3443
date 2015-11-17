@@ -25,7 +25,7 @@ public class QuadTreeTest {
 		CollidableCircle cTest = new CollidableCircle(new Ball(Vector.getRand(new int[] { 80, 10 }, new int[] { 80, 10 }),
 				Vector.getRand(0, 0), 5));
 		
-		while (run < nRuns) {
+		/*while (run < nRuns) {
 			int numBalls = (int) (base*(Math.pow(multiplier, run+1)));
 							
 			while (subRun < nSubRuns) {	
@@ -177,7 +177,22 @@ public class QuadTreeTest {
 				//avg /= nSubRuns;
 				System.out.print("\n");
 			}
+		}*/
+		
+		CollidableQTree qT = new CollidableQTree(0, 0, 100, 0, 100);
+		List<Collidable> cUnits = new ArrayList<Collidable>();
+		
+		for (int i = 0; i < 15; i++) {
+			Collidable c = new CollidableCircle(new Ball(Vector.getRand(new int[] {80, 10}, new int[] {80, 10}),
+					Vector.getRand(0, 0), 5));
+			
+			qT.insert(c);
+			System.out.println(c.getBounds());
 		}
+		
+		System.out.println(qT.printTree());
+		System.out.println(qT.printBounds());
+		
 
 	}
 	

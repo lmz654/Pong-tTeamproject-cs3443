@@ -63,21 +63,23 @@ public class CollidableQTree extends QuadTree<Collidable> {
  		//int cXMid = (cX.getUpper()-cX.getLower())/2;
  		//int cYMid = (cY.getUpper()-cY.getLower())/2;
  		
+ 		//System.out.println("Bounds on object: " + c.getBounds());
+ 		
  		if (cX.getUpper() < xMid && cX.getLower() > x.getLower()) {
  			// Lower X boundary
  			if (cY.getUpper() < yMid && cY.getLower() > y.getLower()) {
  				// Lower Y boundary
  				return 0;
- 			} else if (cY.getUpper() < y.getUpper()) {
+ 			} else if (cY.getLower() >= yMid && cY.getUpper() < y.getUpper()) {
  				// Upper Y boundary
  				return 2;
  			}
-  		} else if( cX.getUpper() < x.getUpper()) {
+  		} else if(cX.getLower() >= xMid && cX.getUpper() < x.getUpper()) {
   			// Upper X boundary
   			if (cY.getUpper() < yMid && cY.getLower() > y.getLower()) {
   				// Lower Y boundary
   				return 1;
- 			} else if (cY.getUpper() < y.getUpper()) {
+ 			} else if (cY.getLower() >= yMid && cY.getUpper() < y.getUpper()) {
  				// Upper Y boundary
  				return 3;
  			}
@@ -107,7 +109,7 @@ public class CollidableQTree extends QuadTree<Collidable> {
 			for (int i = 0; i < this.objects.size(); i++) {
 				int index = this.getIndex(this.objects.get(i));
 				if (index != -1) {
-					nodes[index].insert(this.objects.remove(i));
+					nodes[index].insert(this.objects.remove(i--));
 				} else
 					continue;
 			}
