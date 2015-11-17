@@ -34,6 +34,7 @@ public class vbhitModel {
 		this.ball = new ArrayList<Ball>();
 		player= new ArrayList<Player>();
 		this.createdefaultplayer();
+		this.createball();
 		ActionListener action = new ActionListener(){
 
 			public void actionPerformed(ActionEvent arg0) {

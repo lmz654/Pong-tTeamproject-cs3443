@@ -1,21 +1,33 @@
 package MVC.view;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class RightPanel extends JPanel {
 	BufferedImage image;
+	PlayerPanel player[];
 	public RightPanel(){
+		player = new PlayerPanel[2];
+		this.setBorder(BorderFactory.createEtchedBorder(Color.green, Color.blue));
+		this.setLayout(new GridLayout(2,0));
 		try {
-			image= ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\rightblackhole1.jpg"));
+			image= ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\leftblackhole.jpg"));
 		} catch (IOException e) {
 			System.err.println("rightpanel image input fail");
 		}
+		player[0]=new PlayerPanel();
+		player[1]=new PlayerPanel();
+		this.add(player[0]);
+		this.add(player[1]);
 		
 	}
 	@Override
