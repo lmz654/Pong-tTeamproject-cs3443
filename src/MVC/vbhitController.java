@@ -108,7 +108,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 
 	public void windowStateChanged(WindowEvent arg0) {
 		// TODO Auto-generated method stub
-		view.updateratio();
+		this.view.updateratio();
 	}
 
 	

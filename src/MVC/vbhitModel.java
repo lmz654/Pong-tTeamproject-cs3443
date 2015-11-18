@@ -30,11 +30,8 @@ public class vbhitModel {
 		super();
 		this.item = new ArrayList<Item>();
 		this.obstacle = new ArrayList<Obstacle>();
-		//this.player = new ArrayList<Player>();
 		this.ball = new ArrayList<Ball>();
 		player= new ArrayList<Player>();
-		this.createdefaultplayer();
-		this.createball();
 		ActionListener action = new ActionListener(){
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -47,6 +44,8 @@ public class vbhitModel {
 		} catch (IOException e) {
 			System.err.println("defautballimage input is fail in vbhitModel");
 		}
+		this.createdefaultplayer();
+		this.createball();
 		timer = new Timer(Controls.MODEL_TIME, action);
 	}
 	/*public vbhitModel(ArrayList<Item> item, ArrayList<Obstacle> obstacle, Player[] player, ArrayList<Ball> ball) {
@@ -71,10 +70,7 @@ public class vbhitModel {
 		timer = new Timer(Controls.MODEL_TIME, action);
 	}*/
 	public void activateplayer(int player){
-	//	System.out.println(this.player.get(player).getMotionAxis());
-		//System.out.println(this.player.get(player).getPaddle().getLength());
 		this.player.get(player).setActivestatus(true);
-		//System.out.println(this.player.get(player).getPaddle().getLength());
 	}
 	public void createball(){
 		Ball ball = Controls.getDefaultBall();
@@ -159,7 +155,7 @@ public class vbhitModel {
 	public void checkCollisions() {
 		CollisionDetector.checkCollisions(this);
 	}
-	//update total action  in the game
+	//update totally action  in the game
 	public void update(){
 		this.moveBalls();
 		for(Player p: player){
@@ -228,7 +224,7 @@ public class vbhitModel {
 			}
 			
 		}catch(Exception e){
-				System.err.println(e.getMessage());
+				System.err.println("the ball pointer is " + e.getMessage());
 			}
 			
 			/*

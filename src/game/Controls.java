@@ -77,7 +77,7 @@ public class Controls {
 	}
 	public static Player player1default(){
 		Paddle paddle = Controls.getPaddle(1);
-		Player player = new Player("Huu", paddle,'w','s','y');
+		Player player = new Player("Huu", paddle,'w','s','q','y');
 		try {
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p11.png")));
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p12.png")));
@@ -88,7 +88,7 @@ public class Controls {
 	}
 	public static Player player2default(){
 		Paddle paddle = Controls.getPaddle(2);
-		Player player = new Player("Fernando", paddle,'[',';','y');
+		Player player = new Player("Fernando", paddle,'[',';',']','y');
 		try {
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p21.png")));
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p22.png")));
@@ -100,7 +100,7 @@ public class Controls {
 	}
 	public static Player player3default(){
 		Paddle paddle = Controls.getPaddle(3);
-		Player player = new Player("Christian", paddle,'x','c','x');
+		Player player = new Player("Christian", paddle,'x','c','z','x');
 		try {
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p31.png")));
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p32.png")));
@@ -112,7 +112,7 @@ public class Controls {
 	}
 	public static Player player4default(){
 		Paddle paddle = Controls.getPaddle(4);
-		Player player = new Player("Christian", paddle,',','.','x');
+		Player player = new Player("Christian", paddle,',','.','/','x');
 		try {
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p41.png")));
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p42.png")));

@@ -25,6 +25,7 @@ public class vbhitView extends JFrame{
 	
 	public vbhitView(vbhitModel model){
 		super();
+		this.model=model;
 		this.setName("vbhit-pong");
 		this.setLayout(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,6 +35,7 @@ public class vbhitView extends JFrame{
 		controller=new vbhitController(model,this);
 		this.addKeyListener(controller);
 		this.addComponentListener(controller);
+		this.addWindowStateListener(controller);
 		actionpanel =new ActionPanel(model,this);
 		leftpanel=new LeftPanel();
 		rightpanel=new RightPanel();
@@ -48,7 +50,7 @@ public class vbhitView extends JFrame{
 		this.add(leftpanel);
 		this.add(actionpanel);
 		this.add(rightpanel);
-		actionpanel.setVisible(false);
+		actionpanel.setVisible(true);
 		this.addKeyListener(controller);
 		this.actionpanel.setFocusable(false);
 		this.leftpanel.setFocusable(false);

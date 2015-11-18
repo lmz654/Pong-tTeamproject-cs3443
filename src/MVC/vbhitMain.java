@@ -12,8 +12,6 @@ public class vbhitMain {
 		vbhitView view = new vbhitView(model);
 		vbhitController controller = new vbhitController(model, view);
 		view.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		//frame.pack();
-		//frame.setUndecorated(false);
 		view.setVisible(true);
 	}
 

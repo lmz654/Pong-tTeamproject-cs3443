@@ -26,8 +26,8 @@ public class ActionPanel extends JPanel {
 		this.view=view;
 		pausemenu = new PauseMenu(view.getcontroller());
 		pausemenu.setBounds(Math.round(this.WIDTH/2-this.WIDTH/8),Math.round(this.HEIGHT/2-this.HEIGHT/8),Math.round(this.WIDTH/4),Math.round(this.HEIGHT/4));
-		this.add(pausemenu);
-		pausemenu.setVisible(true);
+		//this.add(pausemenu);
+		//pausemenu.setVisible(true);
 		this.setBackground(null);
 		this.ratio=(float)this.getSize().width/1000;
 		try {
@@ -38,7 +38,6 @@ public class ActionPanel extends JPanel {
 	}
 	@Override
 	protected void paintComponent(Graphics g) {
-		this.pausemenu.setBounds(Math.round(this.WIDTH/2-this.WIDTH/8),Math.round(this.HEIGHT/2-this.HEIGHT/8),Math.round(this.WIDTH/4),Math.round(this.HEIGHT/4));
 		super.paintComponent(g);
 		try{
 			g.drawImage(image.getSubimage((image.getWidth()-this.getWidth())/2, (image.getHeight()-this.getHeight())/2, this.getWidth(), this.getWidth()), 0, 0, this.getWidth(), this.getHeight(), null);
