@@ -23,6 +23,7 @@ public class ActionPanel extends JPanel {
 	private vbhitController	controller;
 	private float ratio;
 	private BufferedImage image,image1;
+	//panel belong to actionpanel
 	private PauseMenu pausemenu;
 	private SaveKeyMapPanel savekeymappanel;
 	private SetupMenu setupmenu;
@@ -45,6 +46,7 @@ public class ActionPanel extends JPanel {
 		this.pausemenu.setVisible(false);
 		this.savekeymappanel.setVisible(false);
 		this.setupmenu.setVisible(false);
+		this.titlemenu.setVisible(false);
 		this.setBackground(null);
 		this.ratio=(float)this.getSize().width/1000;
 		try {
@@ -104,23 +106,33 @@ public class ActionPanel extends JPanel {
 		this.savekeymappanel.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
 		this.ratio= (float)this.getHeight()/1000;
 	}
+	
 	public PauseMenu getPauseMenu(){
 		return this.pausemenu;
 	}
+	
 	public void showSaveMenu(){
-		this.pausemenu.setVisible(false);
 		this.savekeymappanel.setVisible(true);
-		
 	}
+	
 	public void hideSaveMenu(){
 		this.savekeymappanel.setVisible(false);
 	}
+	
 	public void showPauseMenu(){
-		this.savekeymappanel.setVisible(false);
 		this.pausemenu.setVisible(true);
 	}
+	
 	public void hidePauseMenu(){
 		this.pausemenu.setVisible(false);
+	}
+	
+	public void showTitleMenu(){
+		this.titlemenu.setVisible(true);
+	}
+	
+	public void hideTitleMenu(){
+		this.titlemenu.setVisible(false);
 	}
 	
 	

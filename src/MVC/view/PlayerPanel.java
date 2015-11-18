@@ -23,7 +23,7 @@ public class PlayerPanel extends JPanel {
 	private BufferedImage bg;
 	private Queue<Item> item;
 	private Player player;
-	
+	private JPanel itempanel;
 	public PlayerPanel(Player player){
 		bg=null;
 		this.player=player;
@@ -39,11 +39,12 @@ public class PlayerPanel extends JPanel {
 		JPanel centercontainer = new JPanel(new GridLayout(2,0));
 		centercontainer.setBackground(null);
 		centercontainer.setOpaque(false);
-		JPanel itempanel = new JPanel();
+		itempanel = new JPanel();
 		itempanel.setBackground(null);
 		itempanel.setOpaque(false);
-		itempanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		itempanel.setLayout(new GridLayout(3,3,10,10));
+		//BorderFactory.createem
+		itempanel.setBorder(BorderFactory.createEmptyBorder(10,Math.abs((itempanel.getWidth()-itempanel.getHeight())/2), 0,Math.abs((itempanel.getWidth()-itempanel.getHeight())/2)));
+		itempanel.setLayout(new GridLayout(3,3,10,0));
 		item = new PriorityQueue<Item>();
 		
 		try{
@@ -118,6 +119,9 @@ public class PlayerPanel extends JPanel {
 
 	public void setPlayer(Player player) {
 		this.player = player;
+	}
+	public void update(){
+		itempanel.setBorder(BorderFactory.createEmptyBorder(10,Math.abs((itempanel.getWidth()-itempanel.getHeight())/2), 0,Math.abs((itempanel.getWidth()-itempanel.getHeight())/2)));
 	}
 	
 }
