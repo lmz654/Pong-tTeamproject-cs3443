@@ -26,19 +26,19 @@ public class vbhitView extends JFrame{
 	public vbhitView(vbhitModel model){
 		super();
 		this.model=model;
+		controller=new vbhitController(model,this);
+		this.addKeyListener(controller);
 		this.setName("vbhit-pong");
 		this.setLayout(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setSize(1200, 700);
 		this.setUndecorated(false);//set fullscreen
-		controller=new vbhitController(model,this);
-		this.addKeyListener(controller);
 		this.addComponentListener(controller);
 		this.addWindowStateListener(controller);
-		actionpanel =new ActionPanel(model,this);
-		leftpanel=new LeftPanel();
-		rightpanel=new RightPanel();
+		actionpanel =new ActionPanel(this.controller);
+		leftpanel=new LeftPanel(this.controller);
+		rightpanel=new RightPanel(this.controller);
 		actionpanel.setLayout(null);
 		actionpanel.setBorder(null);
 		leftpanelpos=0;
@@ -83,13 +83,14 @@ public class vbhitView extends JFrame{
 		leftpanelpos=0;
 		actpanelpos= Math.round((this.getContentPane().getWidth()-this.getContentPane().getHeight())/2);
 		rightpanelpos=actpanelpos+this.getContentPane().getHeight();
-		rightpanel.setBackground(Color.BLUE);
+		/*rightpanel.setBackground(Color.BLUE);
 		leftpanel.setBackground(Color.CYAN);
-		actionpanel.setBackground(Color.GREEN);
+		actionpanel.setBackground(Color.GREEN);*/
 		leftpanel.setBounds(leftpanelpos, 0, actpanelpos, this.getContentPane().getHeight());
 		actionpanel.setBounds(actpanelpos, 0,this.getContentPane().getHeight(), this.getContentPane().getHeight());
 		rightpanel.setBounds(rightpanelpos, 0, actpanelpos, this.getContentPane().getHeight());
-		actionpanel.setRatio((float)this.getContentPane().getHeight()/1000);
+		actionpanel.update();
+		//actionpanel.setRatio((float)this.getContentPane().getHeight()/1000);
 		this.repaint();
 	}
 	

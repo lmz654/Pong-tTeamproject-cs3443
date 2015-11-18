@@ -12,6 +12,7 @@ public class Player {
 	private Paddle paddle;
 	private Score score;
 	private ArrayList<Item> item;
+	private Ball ballholded;
 	private char keyhole;
 	private boolean keyholepress;
 	private char keydecrease;
@@ -29,6 +30,9 @@ public class Player {
 		this.score = new Score(0,0);
 		this.keydecrease=keydecrease;
 		this.keyincrease=keyincrease;
+		this.keyhole=keyhold;
+		this.keyholepress=false;
+		this.ballholded=null;
 		this.keyincreasepress=0;
 		this.keydecreasepress=0;
 		this.keyholepress=false;
@@ -127,6 +131,10 @@ public class Player {
 		return name;
 	}
 	
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public Paddle getPaddle() {
 		return paddle;
 	}

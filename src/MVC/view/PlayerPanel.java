@@ -1,5 +1,6 @@
 package MVC.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
@@ -23,19 +24,28 @@ public class PlayerPanel extends JPanel {
 	private Queue<Item> item;
 	private Player player;
 	
-	public PlayerPanel(){
+	public PlayerPanel(Player player){
 		bg=null;
-		player=null;
-		this.setLayout(new GridLayout(2,0));
+		this.player=player;
+		this.setLayout(new BorderLayout());
 		this.setBackground(null);
 		this.setOpaque(false);
+		JLabel label;
+		label = new JLabel(this.player.getName(),SwingConstants.CENTER);
+		label.setBackground(null);
+		label.setOpaque(false);
+		label.setForeground(Color.green);
+		this.add(label,BorderLayout.NORTH);
+		JPanel centercontainer = new JPanel(new GridLayout(2,0));
+		centercontainer.setBackground(null);
+		centercontainer.setOpaque(false);
 		JPanel itempanel = new JPanel();
 		itempanel.setBackground(null);
 		itempanel.setOpaque(false);
 		itempanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		itempanel.setLayout(new GridLayout(3,3,10,10));
 		item = new PriorityQueue<Item>();
-		JLabel label;
+		
 		try{
 			for(Item t:item){
 				itempanel.add(new JLabel(new ImageIcon(t.getImage())));
@@ -50,10 +60,10 @@ public class PlayerPanel extends JPanel {
 			}
 			
 		}catch(Exception e){
-			System.err.println("can not load player");
+			System.err.println("can not load item int playerpanel");
 		}
-		
-		this.add(itempanel);
+		centercontainer.add(itempanel);
+		//this.add(itempanel);
 		JPanel scorepanel = new JPanel();
 		scorepanel.setOpaque(false);
 		scorepanel.setBackground(null);
@@ -77,7 +87,8 @@ public class PlayerPanel extends JPanel {
 		label.setBackground(null);
 		label.setOpaque(false);
 		scorepanel.add(label);
-		this.add(scorepanel);
+		centercontainer.add(scorepanel);
+		this.add(centercontainer, BorderLayout.CENTER);
 		
 		
 		

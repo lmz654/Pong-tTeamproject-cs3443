@@ -17,7 +17,6 @@ import game.core.Player;
 public class vbhitController implements KeyListener, ActionListener, ComponentListener,WindowStateListener  {
 	private vbhitModel model;
 	private vbhitView view;
-	private Timer time;
 	public vbhitController(vbhitModel model, vbhitView view) {
 		super();
 		this.model = model;
@@ -109,6 +108,22 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 	public void windowStateChanged(WindowEvent arg0) {
 		// TODO Auto-generated method stub
 		this.view.updateratio();
+	}
+
+	public vbhitModel getModel() {
+		return model;
+	}
+
+	public void setModel(vbhitModel model) {
+		this.model = model;
+	}
+
+	public vbhitView getView() {
+		return view;
+	}
+
+	public void setView(vbhitView view) {
+		this.view = view;
 	}
 
 	

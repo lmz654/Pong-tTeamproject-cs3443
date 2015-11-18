@@ -66,7 +66,7 @@ public class SetupMenu extends JPanel {
 	public SetupMenu(vbhitController control){
 		this.setBackground(null);
 		this.setOpaque(false);
-		this.setLayout(new GridLayout(5,0));
+		this.setLayout(new GridLayout(5,0,10,10));
 		
 		// First combo box, 1st item
 		box = new JComboBox(gameModes);
@@ -98,6 +98,7 @@ public class SetupMenu extends JPanel {
 		button.setBackground(null);
 		button.setOpaque(false);
 		button.addActionListener(control);
+		button.setContentAreaFilled(false);
 		this.add(button);
 		
 		// Second button, 5th item
@@ -106,6 +107,7 @@ public class SetupMenu extends JPanel {
 		button.setBackground(null);
 		button.setOpaque(false);
 		button.addActionListener(control);
+		button.setContentAreaFilled(false);
 		this.add(button);
 	}
 }

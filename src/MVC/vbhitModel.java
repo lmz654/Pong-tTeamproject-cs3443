@@ -45,7 +45,7 @@ public class vbhitModel {
 			System.err.println("defautballimage input is fail in vbhitModel");
 		}
 		this.createdefaultplayer();
-		this.createball();
+		//this.createball();
 		timer = new Timer(Controls.MODEL_TIME, action);
 	}
 	/*public vbhitModel(ArrayList<Item> item, ArrayList<Obstacle> obstacle, Player[] player, ArrayList<Ball> ball) {

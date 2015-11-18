@@ -100,7 +100,7 @@ public class Controls {
 	}
 	public static Player player3default(){
 		Paddle paddle = Controls.getPaddle(3);
-		Player player = new Player("Christian", paddle,'x','c','z','x');
+		Player player = new Player("Taylor", paddle,'x','c','z','x');
 		try {
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p31.png")));
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p32.png")));
