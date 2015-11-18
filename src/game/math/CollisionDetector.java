@@ -86,6 +86,7 @@ public class CollisionDetector {
 					if (pCollisions.isEmpty() || a.equals(b)) continue;
 					Collision collision = a.intersects(b);
 					if (collision != null) {
+						//collision.adjustTrajectories();
 						//collisions.add(collision);
 						//System.out.println(collision);
 					}
