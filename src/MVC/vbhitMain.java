@@ -10,10 +10,8 @@ public class vbhitMain {
 		//actionpanel.setVisible(true);
 		vbhitModel model = new vbhitModel();
 		vbhitView view = new vbhitView(model);
-		vbhitController controller = new vbhitController(model, view);
+		//vbhitController controller = new vbhitController(model, view);
 		view.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		//frame.pack();
-		//frame.setUndecorated(false);
 		view.setVisible(true);
 	}
 

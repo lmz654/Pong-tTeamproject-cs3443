@@ -12,6 +12,9 @@ public class Player {
 	private Paddle paddle;
 	private Score score;
 	private ArrayList<Item> item;
+	private Ball ballholded;
+	private char keyhole;
+	private boolean keyholepress;
 	private char keydecrease;
 	private char keyincrease;
 	private int keydecreasepress;//the value is 0 or -1
@@ -20,15 +23,19 @@ public class Player {
 	private ArrayList<BufferedImage> paddleimage;
 	private char motionAxis; // X is for Top and Bottom Players,  Y is for Side Players
 	
-	public Player(String name, Paddle paddle,char keydecrease, char keyincrease, char motionAxis) {
+	public Player(String name, Paddle paddle,char keydecrease, char keyincrease,char keyhold, char motionAxis) {
 		this.name = name;
 		this.paddle = paddle;
 		this.item = new ArrayList<Item>();
 		this.score = new Score(0,0);
 		this.keydecrease=keydecrease;
 		this.keyincrease=keyincrease;
+		this.keyhole=keyhold;
+		this.keyholepress=false;
+		this.ballholded=null;
 		this.keyincreasepress=0;
 		this.keydecreasepress=0;
+		this.keyholepress=false;
 		this.motionAxis = motionAxis;
 		this.paddle = paddle;
 		this.ballimage = new ArrayList<BufferedImage>();
@@ -67,6 +74,22 @@ public class Player {
 		this.keyincreasepress = keyincreasepress;
 	}
 	
+	public char getKeyhole() {
+		return keyhole;
+	}
+
+	public void setKeyhole(char keyhole) {
+		this.keyhole = keyhole;
+	}
+
+	public boolean isKeyholepress() {
+		return keyholepress;
+	}
+
+	public void setKeyholepress(boolean keyholepress) {
+		this.keyholepress = keyholepress;
+	}
+
 	public char getMotionAxis() {
 		return motionAxis;
 	}
@@ -108,6 +131,10 @@ public class Player {
 		return name;
 	}
 	
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public Paddle getPaddle() {
 		return paddle;
 	}

@@ -1,107 +1,72 @@
 package MVC.view.menu;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.GridLayout;
 
-// class
-public class TitleMenu {
-    public JMenuBar createMenuBar() {
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.setLayout(new BoxLayout(menuBar, BoxLayout.PAGE_AXIS));
-        menuBar.add(createMenu("Game Setup"));
-        menuBar.add(createMenu("Instructions"));
-        menuBar.add(createMenu("Options"));
-        menuBar.add(createMenu("Start!"));
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
-        menuBar.setBorder(BorderFactory.createMatteBorder(0,0,0,1,
-                                                          Color.BLACK));
-        return menuBar;
-    }
+import MVC.vbhitController;
 
-    // used by createMenuBar
-    public JMenu createMenu(String title) {
-        JMenu m = new HorizontalMenu(title);
-        m.add("Menu item #1 in " + title);
-        m.add("Menu item #2 in " + title);
-        m.add("Menu item #3 in " + title);
-
-        JMenu submenu = new HorizontalMenu("Submenu");
-        submenu.add("Submenu item #1");
-        submenu.add("Submenu item #2");
-        m.add(submenu);
-        return m;
-    }
-
-    /**
-     * Create the GUI and show it.  For thread safety,
-     * this method should be invoked from the
-     * event-dispatching thread.
-     */
-    private static void createAndShowGUI() {
-        //Create and set up the window.
-        JFrame frame = new JFrame("Title Menu");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        //Create and set up the content pane.
-        TitleMenu demo = new TitleMenu();
-        Container contentPane = frame.getContentPane();
-        contentPane.setBackground(Color.WHITE); //contrasting bg
-        contentPane.add(demo.createMenuBar(),
-                        BorderLayout.LINE_START);
-
-        //Display the window.
-        frame.setSize(500, 500); // this needs to change to dynamically sized
-        frame.setVisible(true);
-    }
-
-    // main
-    public static void main(String[] args) {
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
-    }
-
-    // class
-    class HorizontalMenu extends JMenu {
-        HorizontalMenu(String label) {
-            super(label);
-            JPopupMenu pm = getPopupMenu();
-            pm.setLayout(new BoxLayout(pm, BoxLayout.LINE_AXIS));
-        }
-
-        public Dimension getMinimumSize() {
-            return getPreferredSize();
-        }
-
-        public Dimension getMaximumSize() {
-            return getPreferredSize();
-        }
-
-        public void setPopupMenuVisible(boolean b) {
-            boolean isVisible = isPopupMenuVisible();
-            if (b != isVisible) {
-                if ((b==true) && isShowing()) {
-                    //Set location of popupMenu (pulldown or pullright).
-                    //Perhaps this should be dictated by L&F.
-                    int x = 0;
-                    int y = 0;
-                    Container parent = getParent();
-                    if (parent instanceof JPopupMenu) {
-                        x = 0;
-                        y = getHeight();
-                    } else {
-                        x = getWidth();
-                        y = 0;
-                    }
-                    getPopupMenu().show(this, x, y);
-                } else {
-                    getPopupMenu().setVisible(false);
-                }
-            }
-        }
-    }
+public class TitleMenu extends JPanel {
+	
+	private JButton button;
+	private vbhitController control;
+	
+	public TitleMenu(vbhitController control){
+		this.control=control;
+		this.setBackground(null);
+		this.setOpaque(false);
+		this.setLayout(new GridLayout(5,0,10,10));
+		
+		// 1st button, 1st item
+		button = new JButton("Game Setup");
+		button.setForeground(Color.blue);
+		button.setBackground(null);
+		button.setOpaque(false);
+		button.addActionListener(this.control);
+		button.setFocusable(false);
+		button.setContentAreaFilled(false);
+		this.add(button);
+		
+		// 2nd button, 2nd item
+		button = new JButton("Instructions");
+		button.setForeground(Color.blue);
+		button.setBackground(null);
+		button.setOpaque(false);
+		button.addActionListener(this.control);
+		button.setFocusable(false);
+		button.setContentAreaFilled(false);
+		this.add(button);
+		
+		// 3rd button, 3rd item
+		button = new JButton("Options");
+		button.setForeground(Color.blue);
+		button.setBackground(null);
+		button.setOpaque(false);
+		button.addActionListener(this.control);
+		button.setFocusable(false);
+		button.setContentAreaFilled(false);
+		this.add(button);
+		
+		// 4th button, 4th item
+		button = new JButton("Start");
+		button.setForeground(Color.blue);
+		button.setBackground(null);
+		button.setOpaque(false);
+		button.addActionListener(this.control);
+		button.setFocusable(false);
+		button.setContentAreaFilled(false);
+		this.add(button);
+		
+		// 5th button, 5th item
+		button = new JButton("Exit");
+		button.setForeground(Color.blue);
+		button.setBackground(null);
+		button.setOpaque(false);
+		button.addActionListener(this.control);
+		button.setFocusable(false);
+		button.setContentAreaFilled(false);
+		this.add(button);
+	}
 }
