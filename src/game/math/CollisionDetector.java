@@ -63,7 +63,7 @@ public class CollisionDetector {
 			for (Collidable c: cUnits) {
 				List<Collidable> posCollisions = qT.retrieve(c);
 				if (!posCollisions.isEmpty()) {
-					task = new CollisionDetectorParallel(c, posCollisions, null);
+					task = new CollisionDetectorThread(c, posCollisions, null);
 					Thread worker = new Thread(task);
 				
 					worker.start();
@@ -86,6 +86,7 @@ public class CollisionDetector {
 					if (pCollisions.isEmpty() || a.equals(b)) continue;
 					Collision collision = a.intersects(b);
 					if (collision != null) {
+						//collision.adjustTrajectories();
 						//collisions.add(collision);
 						//System.out.println(collision);
 					}

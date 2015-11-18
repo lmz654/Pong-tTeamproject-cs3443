@@ -4,12 +4,12 @@ import java.util.List;
 
 import game.math.structures.CollisionList;
 
-public class CollisionDetectorParallel implements Runnable{
+public class CollisionDetectorThread implements Runnable{
 	private Collidable c;
 	private List<Collidable> possibleCollisions;
 	private CollisionList collisions;
 	
-	public CollisionDetectorParallel(Collidable c, List<Collidable> possibleCollisions, CollisionList collisions) {
+	public CollisionDetectorThread(Collidable c, List<Collidable> possibleCollisions, CollisionList collisions) {
 		this.c = c;
 		this.possibleCollisions = possibleCollisions;
 		this.collisions = collisions;

@@ -11,10 +11,10 @@ public class CollisionModel {
 	private ArrayList<Ball> balls;
 	
 	//Information Markers
-	public boolean showVelocityVectors = false;
-	public boolean showPositionVectors = false;
-	public boolean showProjections = false;
-	public boolean showMoreInfo = false;
+	public boolean showVelocityVectors = true;
+	public boolean showPositionVectors = true;
+	public boolean showProjections = true;
+	public boolean showMoreInfo = true;
 	
 	// Simulation Properties
 	public int numBalls = Controls.SIM_NUM_BALLS; // 50 Still ran, seems like good upper limit. 100 Lagged.
