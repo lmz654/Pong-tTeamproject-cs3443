@@ -7,7 +7,7 @@ import java.util.List;
 import game.core.Ball;
 import game.math.Collidable;
 import game.math.CollidableCircle;
-import game.math.CollisionDetectorParallel;
+import game.math.CollisionDetectorThread;
 import game.math.structures.CollidableQTree;
 import game.math.structures.Vector;
 
