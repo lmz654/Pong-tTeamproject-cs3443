@@ -19,7 +19,7 @@ public class SidePanel extends JPanel{
 	private KeyMap	playertopkey,playerbottomkey;
 	private vbhitController controller;
 	
-	public SidePanel(vbhitController control, int side){
+	public SidePanel(vbhitController controller, int side){
 		this.controller=controller;
 		this.setLayout(new GridLayout(2,0,10,10));
 		this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));

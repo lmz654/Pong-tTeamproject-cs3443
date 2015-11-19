@@ -23,17 +23,16 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 		this.view = view;
 	}
 	
+	public void repaintall(){
+		this.view.repaint();
+		/*this.view.getLeftpanel().repaint();
+		this.view.getRightpanel().repaint();*/
+		/*this.view.start();
+		this.model.start();*/
+	}
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		if(arg0.getKeyChar()=='q'){
-			System.exit(1);
-		}else if(arg0.getKeyChar()=='r'){
-			//this.view.getActionPanel().getPauseMenu().setVisible(false);
-			//this.view.getActionPanel().setVisible(true);
-			this.view.getActionPanel().hidePauseMenu();
-			model.start();
-			view.start();
-		}else if(arg0.getKeyChar()=='t'){
+		if(arg0.getKeyChar()==KeyEvent.VK_ESCAPE){
 			model.stop();
 			view.stop();
 			this.view.getActionPanel().showPauseMenu();
@@ -98,6 +97,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			
 		}else if(e.getActionCommand().equals("Start")){
 			vbhitController.this.view.getActionPanel().hideTitleMenu();
+			model.createball();
 			model.start();
 			view.start();
 		}else if(e.getActionCommand().equals("Exit")){

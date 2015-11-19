@@ -24,11 +24,16 @@ public class vbhitView extends JFrame{
 	
 	public vbhitView(vbhitModel model){
 		super();
+		//setup line between model, view, and controller
 		this.model=model;
-		controller=new vbhitController(model,this);
-		actionpanel =new ActionPanel(this.controller);
-		leftpanel=new SidePanel(this.controller,1);
-		rightpanel=new SidePanel(this.controller,2);
+		controller=new vbhitController(this.model,this);
+		this.model.addController(controller);
+		
+		//create panels
+		this.actionpanel =new ActionPanel(this.controller);
+		this.leftpanel=new SidePanel(this.controller,1);
+		this.rightpanel=new SidePanel(this.controller,2);
+		//setup for view
 		this.addKeyListener(controller);
 		this.setName("vbhit-pong");
 		this.setLayout(null);
@@ -36,9 +41,11 @@ public class vbhitView extends JFrame{
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setSize(1200, 700);
 		this.setUndecorated(false);//set fullscreen
+		//add listener for view
 		this.addComponentListener(controller);
 		this.addWindowStateListener(controller);
-		
+		this.addKeyListener(controller);
+		//setup for submenu
 		actionpanel.setLayout(null);
 		actionpanel.setBorder(null);
 		leftpanelpos=0;
@@ -47,15 +54,21 @@ public class vbhitView extends JFrame{
 		leftpanel.setBounds(leftpanelpos, 0, actpanelpos, this.getContentPane().getHeight());
 		actionpanel.setBounds(actpanelpos, 0, this.getContentPane().getHeight(), this.getContentPane().getHeight());
 		rightpanel.setBounds(rightpanelpos, 0, actpanelpos, this.getContentPane().getHeight());
+		
 		this.add(leftpanel);
 		this.add(actionpanel);
 		this.add(rightpanel);
 		actionpanel.setVisible(true);
-		this.addKeyListener(controller);
+		
 		this.actionpanel.setFocusable(false);
 		this.leftpanel.setFocusable(false);
 		this.rightpanel.setFocusable(false);
 		this.setFocusableWindowState(true);
+		
+		this.leftpanel.showPlayer();
+		this.rightpanel.showPlayer();
+		this.actionpanel.showTitleMenu();
+		
 		time = new Timer(Controls.VIEW_TIME,new ActionListener(){	
 			public void actionPerformed(ActionEvent arg0) {
 				vbhitView.this.actionpanel.repaint();
@@ -72,10 +85,19 @@ public class vbhitView extends JFrame{
 	public ActionPanel getActionPanel(){
 		return this.actionpanel;
 	}
+	public void udatesidepanel(){
+		this.leftpanel.update();
+		this.rightpanel.update();
+	}
 	public vbhitController getcontroller(){
 		return this.controller;
 	}
-	
+	public SidePanel getLeftpanel(){
+		return this.leftpanel;
+	}
+	public SidePanel getRightpanel(){
+		return this.rightpanel;
+	}
 	public void updateratio(){
 		
 		//System.out.println(this.getContentPane().getHeight()+ "  " + this.getContentPane().getWidth());
@@ -92,7 +114,6 @@ public class vbhitView extends JFrame{
 		leftpanel.update();
 		rightpanel.update();
 		actionpanel.update();
-		//actionpanel.setRatio((float)this.getContentPane().getHeight()/1000);
 		this.repaint();
 		
 	}

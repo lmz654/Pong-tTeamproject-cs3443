@@ -69,7 +69,7 @@ public class Controls {
 		return paddle;
 	}
 	
-	public static Ball getDefaultBall() {
+	public static Ball getDefaultBall(){
 		Ball ball = new Ball(new Vector(MODEL_WIDTH/2, MODEL_HEIGHT/2), 
 				Vector.getRand(new int[]{BALL_MAX_SPEED - BALL_MIN_SPEED, -BALL_MIN_SPEED}, 
 							   new int[]{BALL_MAX_SPEED - BALL_MIN_SPEED, -BALL_MIN_SPEED}), BALL_DEFAULT_RADIUS);
@@ -78,22 +78,38 @@ public class Controls {
 	public static Player player1default(){
 		Paddle paddle = Controls.getPaddle(1);
 		Player player = new Player("Huu", paddle,'w','s','q','y');
+		player.getScore().setScore(0);
+		player.getScore().setMiss(0);
 		try {
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p11.png")));
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p12.png")));
 		} catch (IOException e) {
 			System.out.println("p1 ballimage input fail");
 		}
+		try{
+			player.addpaddleimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\paddle\\p1.png")));
+			
+		}catch(IOException e){
+			System.err.println("P1 paddleinmage input fail");
+		}
 		return player;
 	}
 	public static Player player2default(){
 		Paddle paddle = Controls.getPaddle(2);
 		Player player = new Player("Fernando", paddle,'[',';',']','y');
+		player.getScore().setScore(0);
+		player.getScore().setMiss(0);
 		try {
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p21.png")));
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p22.png")));
 		} catch (IOException e) {
 			System.out.println("p2 ballimage input fail");
+		}
+		try{
+			player.addpaddleimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\paddle\\p2.png")));
+			
+		}catch(IOException e){
+			System.err.println("P2 paddleinmage input fail");
 		}
 		
 		return player;
@@ -101,25 +117,39 @@ public class Controls {
 	public static Player player3default(){
 		Paddle paddle = Controls.getPaddle(3);
 		Player player = new Player("Taylor", paddle,'x','c','z','x');
+		player.getScore().setScore(0);
+		player.getScore().setMiss(0);
 		try {
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p31.png")));
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p32.png")));
 		} catch (IOException e) {
 			System.out.println("p3 ballimage input fail");
 		}
-		
+		try{
+			player.addpaddleimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\paddle\\p3.png")));
+			
+		}catch(IOException e){
+			System.err.println("P3 paddleinmage input fail");
+		}
 		return player;
 	}
 	public static Player player4default(){
 		Paddle paddle = Controls.getPaddle(4);
 		Player player = new Player("Christian", paddle,',','.','/','x');
+		player.getScore().setScore(0);
+		player.getScore().setMiss(0);
 		try {
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p41.png")));
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p42.png")));
 		} catch (IOException e) {
 			System.out.println("p4 ballimage input fail");
 		}
-		
+		try{
+			player.addpaddleimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\paddle\\p4.png")));
+			
+		}catch(IOException e){
+			System.err.println("P4 paddleinmage input fail");
+		}
 		return player;
 	}
 

@@ -76,9 +76,11 @@ public class ActionPanel extends JPanel {
 				py=(float)p.getPaddle().getPosition().cartesian(1)*this.ratio;
 				
 				if(p.getMotionAxis()=='x'||p.getMotionAxis()=='X'){
-					g.fillRect(Math.round(px-length/2),Math.round(py-height/2) ,Math.round(length), Math.round(height) );
+					g.drawImage(p.getPaddleimage().get(0), Math.round(px-length/2),Math.round(py-height/2)-12 ,Math.round(length), Math.round(height)+25, null);
+					//g.fillRect(Math.round(px-length/2),Math.round(py-height/2) ,Math.round(length), Math.round(height) );
 				}else{
-					g.fillRect(Math.round(px-height/2),Math.round(py-length/2) ,Math.round(height) ,Math.round(length));
+					g.drawImage(p.getPaddleimage().get(0), Math.round(px-height/2)-12,Math.round(py-length/2) ,Math.round(height)+25 ,Math.round(length), null);
+					//g.fillRect(Math.round(px-height/2),Math.round(py-length/2) ,Math.round(height) ,Math.round(length));
 				}
 					
 			}

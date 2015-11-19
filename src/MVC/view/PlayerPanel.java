@@ -21,15 +21,18 @@ import game.core.Player;
 
 public class PlayerPanel extends JPanel {
 	private BufferedImage bg;
-	private Queue<Item> item;
+	//private Queue<Item> item;
 	private Player player;
 	private JPanel itempanel;
+	private JLabel score, miss;
+	private JLabel[] item;
 	public PlayerPanel(Player player){
 		bg=null;
 		this.player=player;
 		this.setLayout(new BorderLayout());
 		this.setBackground(null);
 		this.setOpaque(false);
+		item = new JLabel[6];
 		JLabel label;
 		label = new JLabel(this.player.getName(),SwingConstants.CENTER);
 		label.setBackground(null);
@@ -45,19 +48,19 @@ public class PlayerPanel extends JPanel {
 		//BorderFactory.createem
 		itempanel.setBorder(BorderFactory.createEmptyBorder(10,Math.abs((itempanel.getWidth()-itempanel.getHeight())/2), 0,Math.abs((itempanel.getWidth()-itempanel.getHeight())/2)));
 		itempanel.setLayout(new GridLayout(3,3,10,0));
-		item = new PriorityQueue<Item>();
-		
 		try{
-			for(Item t:item){
-				itempanel.add(new JLabel(new ImageIcon(t.getImage())));
+			int i;
+			for(i=0;i<this.player.getItem().size();i++){
+				this.item[i]=new JLabel(new ImageIcon(this.player.getItem().get(i).getImage()));
+				itempanel.add(this.item[i]);
 			}
-			for(int i=item.size();i<6;i++){
-				label=new JLabel("emty" + i,SwingConstants.CENTER);
-				label.setBorder(BorderFactory.createEtchedBorder(Color.BLUE, Color.CYAN));
-				label.setBackground(Color.BLUE);
-				label.setBackground(null);
-				label.setOpaque(false);
-				itempanel.add(label);
+			for(int j=i;j<6;j++){
+				item[j]=new JLabel("emty" + j,SwingConstants.CENTER);
+				item[j].setBorder(BorderFactory.createEtchedBorder(Color.BLUE, Color.CYAN));
+				item[j].setBackground(Color.BLUE);
+				item[j].setBackground(null);
+				item[j].setOpaque(false);
+				itempanel.add(item[j]);
 			}
 			
 		}catch(Exception e){
@@ -74,20 +77,20 @@ public class PlayerPanel extends JPanel {
 		label.setBackground(null);
 		label.setOpaque(false);
 		scorepanel.add(label);
-		label= new JLabel("0",SwingConstants.CENTER);
-		label.setForeground(Color.GREEN);
-		label.setBackground(null);
-		label.setOpaque(false);
-		scorepanel.add(label);
+		score= new JLabel(""+this.player.getScore().getScore(),SwingConstants.CENTER);
+		score.setForeground(Color.GREEN);
+		score.setBackground(null);
+		score.setOpaque(false);
+		scorepanel.add(score);
 		label= new JLabel("Miss:",SwingConstants.CENTER);
 		label.setBackground(null);
 		label.setOpaque(false);
 		scorepanel.add(label);
-		label= new JLabel("0",SwingConstants.CENTER);
-		label.setForeground(Color.red);
-		label.setBackground(null);
-		label.setOpaque(false);
-		scorepanel.add(label);
+		miss= new JLabel("" + this.player.getScore().getMiss(),SwingConstants.CENTER);
+		miss.setForeground(Color.red);
+		miss.setBackground(null);
+		miss.setOpaque(false);
+		scorepanel.add(miss);
 		centercontainer.add(scorepanel);
 		this.add(centercontainer, BorderLayout.CENTER);
 		
@@ -103,16 +106,6 @@ public class PlayerPanel extends JPanel {
 		this.bg = background;
 	}
 
-	public Item getItem() {
-		return item.remove();
-	}
-
-	public void pushItem(Item item) {
-		if(this.item.add(item)){
-			System.out.println("can not add item into queue in player panel");
-		}
-	}
-
 	public Player getPlayer() {
 		return player;
 	}
@@ -122,6 +115,21 @@ public class PlayerPanel extends JPanel {
 	}
 	public void update(){
 		itempanel.setBorder(BorderFactory.createEmptyBorder(10,Math.abs((itempanel.getWidth()-itempanel.getHeight())/2), 0,Math.abs((itempanel.getWidth()-itempanel.getHeight())/2)));
+		
+		try{
+			int i;
+			for(i=0;i<this.player.getItem().size();i++){
+				this.item[i].setIcon(new ImageIcon(this.player.getItem().get(i).getImage()));
+			}
+			for(int j=i;j<6;j++){
+				this.item[j].setIcon(null);
+			}
+			
+		}catch(Exception e){
+			System.err.println("can not load item int playerpanel");
+		}
+		score.setText(""+this.player.getScore().getScore());
+		miss.setText(""+this.player.getScore().getMiss());
 	}
 	
 }

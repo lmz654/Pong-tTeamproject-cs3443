@@ -126,6 +126,12 @@ public class Player {
 	public void setScore(Score score) {
 		this.score = score;
 	}
+	public void increaseScore(){
+		this.score.setScore(this.score.getScore()+1);
+	}
+	public void increaseMiss(){
+		this.score.setMiss(this.score.getMiss()+1);
+	}
 
 	public String getName() {
 		return name;
