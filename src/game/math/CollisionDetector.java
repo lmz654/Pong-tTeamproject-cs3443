@@ -23,6 +23,8 @@ public class CollisionDetector {
 	// Boolean to Run Collision Mechanics in Parallel
 	public static final boolean PARALLEL = true;
 	
+	public static final boolean ADJUST_TRAJECTORIES = true;
+	
 	public static void checkCollisions(vbhitModel model) {
 		
 		ArrayList<Collidable> collidableUnits = new ArrayList<Collidable>();
@@ -65,7 +67,7 @@ public class CollisionDetector {
 			for (Collidable c: cUnits) {
 				List<Collidable> posCollisions = qT.retrieve(c);
 				if (!posCollisions.isEmpty()) {
-					task = new CollisionDetectorThread(c, posCollisions, null);
+					task = new CollisionDetectorThread(c, posCollisions, ADJUST_TRAJECTORIES);
 					threadPool.execute(task);
 				}
 			}
@@ -80,11 +82,12 @@ public class CollisionDetector {
 				for (Collidable b: pCollisions) {
 					if (pCollisions.isEmpty() || a.equals(b)) continue;
 					Collision collision = a.intersects(b);
-					if (collision != null) {
-						//collision.adjustTrajectories();
+					if (collision != null && ADJUST_TRAJECTORIES) {
+						collision.adjustTrajectories();
 						//collisions.add(collision);
 						//System.out.println(collision);
-					}
+					} else
+						continue;
 				}
 			}
 		}
@@ -105,18 +108,13 @@ public class CollisionDetector {
 					c = cUnitA.intersects(cUnitB);
 					if (c != null) {
 						if (PRT_COLLISIONS) System.out.println("Collision @" + c.getCollisionPoint().toString());
+						if (ADJUST_TRAJECTORIES) c.adjustTrajectories();
 					}
 				}					
 			}
 			
 		}
 		
-	}
-
-	private static void adjustTrajectories(CollisionList collisions) {
-		for (Collision collision: collisions) {
-			collision.adjustTrajectories();
-		}
 	}
 
 }
