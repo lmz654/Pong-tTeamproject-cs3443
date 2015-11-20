@@ -71,8 +71,8 @@ public class Controls {
 	
 	public static Ball getDefaultBall(){
 		Ball ball = new Ball(new Vector(MODEL_WIDTH/2, MODEL_HEIGHT/2), 
-				Vector.getRand(new int[]{BALL_MAX_SPEED - BALL_MIN_SPEED, -BALL_MIN_SPEED}, 
-							   new int[]{BALL_MAX_SPEED - BALL_MIN_SPEED, -BALL_MIN_SPEED}), BALL_DEFAULT_RADIUS);
+				Vector.getRand(new int[]{BALL_MAX_SPEED, -BALL_MIN_SPEED}, 
+							   new int[]{BALL_MAX_SPEED, -BALL_MIN_SPEED}), BALL_DEFAULT_RADIUS);
 		return ball;
 	}
 	public static Player player1default(){

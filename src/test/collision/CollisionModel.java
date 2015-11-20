@@ -20,7 +20,7 @@ public class CollisionModel {
 	// Simulation Properties
 	public int numBalls = Controls.SIM_NUM_BALLS; // 50 Still ran, seems like good upper limit. 100 Lagged.
 	public int radius = Controls.SIM_BALL_DEFAULT_RADIUS;
-	public int tolerance = 5;	
+	public int tolerance = 20;	
 	public int redux = 2*(radius+tolerance);
 	public int ofst = radius + tolerance;
 	
