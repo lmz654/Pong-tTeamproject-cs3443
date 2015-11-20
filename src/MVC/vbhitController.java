@@ -22,28 +22,20 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 		this.model = model;
 		this.view = view;
 	}
-	public class updategame implements ActionListener{
-
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	}
 	
+	public void repaintall(){
+		this.view.repaint();
+		/*this.view.getLeftpanel().repaint();
+		this.view.getRightpanel().repaint();*/
+		/*this.view.start();
+		this.model.start();*/
+	}
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		if(arg0.getKeyChar()=='q'){
-			System.exit(1);
-		}else if(arg0.getKeyChar()=='r'){
-			this.view.getActionPanel().getPauseMenu().setVisible(false);
-			this.view.getActionPanel().setVisible(true);
-			model.start();
-			view.start();
-		}else if(arg0.getKeyChar()=='t'){
+		if(arg0.getKeyChar()==KeyEvent.VK_ESCAPE){
 			model.stop();
 			view.stop();
-			this.view.getActionPanel().getPauseMenu().setVisible(true);
+			this.view.getActionPanel().showPauseMenu();
 		}
 		else if(arg0.getKeyChar()=='n'){
 			model.createball();
@@ -81,7 +73,36 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		//actionmenu
+		if(e.getActionCommand().equals("Full Screen")){
+			
+		}else if(e.getActionCommand().equals("Main Menu")){
+			vbhitController.this.view.getActionPanel().hidePauseMenu();
+			vbhitController.this.view.getActionPanel().showTitleMenu();
+			
+		}else if(e.getActionCommand().equals("Resume")){
+			vbhitController.this.view.getActionPanel().hidePauseMenu();
+			model.start();
+			view.start();
+		}else if(e.getActionCommand().equals("Quit")){
+			System.exit(1);
+		}
+		//TitleMenu
+		else if(e.getActionCommand().equals("Game Setup")){
+			
+		}
+		else if(e.getActionCommand().equals("Instructions")){
+			
+		}else if(e.getActionCommand().equals("Options")){
+			
+		}else if(e.getActionCommand().equals("Start")){
+			vbhitController.this.view.getActionPanel().hideTitleMenu();
+			model.createball();
+			model.start();
+			view.start();
+		}else if(e.getActionCommand().equals("Exit")){
+			System.exit(1);
+		}
 	}
 
 	public void componentHidden(ComponentEvent e) {
@@ -107,7 +128,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 
 	public void windowStateChanged(WindowEvent arg0) {
 		// TODO Auto-generated method stub
-		this.view.updateratio();
+		view.updateratio();
 	}
 
 	public vbhitModel getModel() {

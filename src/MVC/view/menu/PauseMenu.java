@@ -12,10 +12,12 @@ import MVC.vbhitController;
 public class PauseMenu extends JPanel {
 	
 	private JButton button;
+	private vbhitController control;
 	public PauseMenu(vbhitController control){
 		this.setBackground(null);
 		this.setOpaque(false);
 		this.setLayout(new GridLayout(4,0,10,10));
+		this.control=control;
 		//this.setBorder(BorderFactory.createEtchedBorder(Color.green, Color.blue));
 		
 		// 1st button, 1st item
@@ -25,7 +27,7 @@ public class PauseMenu extends JPanel {
 		//button.setBorderPainted(false);
 		button.setBackground(null);
 		button.setOpaque(false);
-		button.addActionListener(control);
+		button.addActionListener(this.control);
 		button.setFocusable(false);
 		this.add(button);
 		
@@ -36,7 +38,7 @@ public class PauseMenu extends JPanel {
 		//button.setBorderPainted(false);
 		button.setBackground(null);
 		button.setOpaque(false);
-		button.addActionListener(control);
+		button.addActionListener(this.control);
 		button.setFocusable(false);
 		this.add(button);
 		
@@ -47,7 +49,7 @@ public class PauseMenu extends JPanel {
 		//button.setBorderPainted(false);
 		button.setBackground(null);
 		button.setOpaque(false);
-		button.addActionListener(control);
+		button.addActionListener(this.control);
 		button.setFocusable(false);
 		this.add(button);
 		
@@ -58,7 +60,7 @@ public class PauseMenu extends JPanel {
 		//button.setBorderPainted(false);
 		button.setBackground(null);
 		button.setOpaque(false);
-		button.addActionListener(control);
+		button.addActionListener(this.control);
 		button.setFocusable(false);
 		this.add(button);
 	}

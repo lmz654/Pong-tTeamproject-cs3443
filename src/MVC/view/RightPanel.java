@@ -44,6 +44,10 @@ public class RightPanel extends JPanel {
 		this.add(keymap[1]);*/
 		
 	}
+	public void update(){
+		player[0].update();
+		player[1].update();
+	}
 	@Override
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
