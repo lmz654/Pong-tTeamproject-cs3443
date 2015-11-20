@@ -1,4 +1,4 @@
-package MVC.view;
+package MVC;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -6,8 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-import MVC.vbhitController;
-import MVC.vbhitModel;
+import MVC.action.ActionPanel;
+import MVC.side.SidePanel;
 import game.Controls;
 
 public class vbhitView extends JFrame{
@@ -64,7 +64,7 @@ public class vbhitView extends JFrame{
 		this.leftpanel.setFocusable(false);
 		this.rightpanel.setFocusable(false);
 		this.setFocusableWindowState(true);
-		
+	
 		this.leftpanel.showPlayer();
 		this.rightpanel.showPlayer();
 		this.actionpanel.showTitleMenu();
@@ -84,6 +84,14 @@ public class vbhitView extends JFrame{
 	}
 	public ActionPanel getActionPanel(){
 		return this.actionpanel;
+	}
+	public void showPlayer(){
+		this.leftpanel.showPlayer();
+		this.rightpanel.showPlayer();
+	}
+	public void showPlayerKey(){
+		this.leftpanel.showPlayerkey();
+		this.rightpanel.showPlayerkey();
 	}
 	public void udatesidepanel(){
 		this.leftpanel.update();

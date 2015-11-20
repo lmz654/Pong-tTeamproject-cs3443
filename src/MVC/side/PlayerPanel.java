@@ -1,4 +1,4 @@
-package MVC.view;
+package MVC.side;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

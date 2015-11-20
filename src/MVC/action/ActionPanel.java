@@ -1,4 +1,4 @@
-package MVC.view;
+package MVC.action;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,10 +10,6 @@ import javax.swing.JPanel;
 
 import MVC.vbhitController;
 import MVC.vbhitModel;
-import MVC.player.SaveKeyMapPanel;
-import MVC.view.menu.PauseMenu;
-import MVC.view.menu.SetupMenu;
-import MVC.view.menu.TitleMenu;
 import game.core.Ball;
 import game.core.Player;
 
@@ -23,11 +19,12 @@ public class ActionPanel extends JPanel {
 	private vbhitController	controller;
 	private float ratio;
 	private BufferedImage image,image1;
-	//panel belong to actionpanel
+	//subpanel
 	private PauseMenu pausemenu;
 	private SaveKeyMapPanel savekeymappanel;
 	private SetupMenu setupmenu;
 	private TitleMenu titlemenu;
+	private InstructionsMenu instruction;
 	public ActionPanel(vbhitController controller){
 		super();
 		this.controller=controller;
@@ -39,6 +36,7 @@ public class ActionPanel extends JPanel {
 		this.setupmenu.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
 		this.savekeymappanel.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
 		this.titlemenu.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
+		//this.instruction.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
 		this.add(this.titlemenu);
 		this.add(this.pausemenu);
 		this.add(this.savekeymappanel);
@@ -107,6 +105,13 @@ public class ActionPanel extends JPanel {
 		this.pausemenu.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
 		this.savekeymappanel.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
 		this.ratio= (float)this.getHeight()/1000;
+	}
+	
+	public void hiddAllSubMenu(){
+		this.pausemenu.setVisible(false);
+		this.setupmenu.setVisible(false);
+		this.titlemenu.setVisible(false);
+		this.savekeymappanel.setVisible(false);
 	}
 	
 	public PauseMenu getPauseMenu(){

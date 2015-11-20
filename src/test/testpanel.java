@@ -2,11 +2,11 @@ package test;
 
 import javax.swing.JFrame;
 
-import MVC.view.PlayerPanel;
-import MVC.view.menu.InstructionsMenu;
-import MVC.view.menu.PauseMenu;
-import MVC.view.menu.SetupMenu;
-import MVC.view.menu.TitleMenu;
+import MVC.action.InstructionsMenu;
+import MVC.action.PauseMenu;
+import MVC.action.SetupMenu;
+import MVC.action.TitleMenu;
+import MVC.side.PlayerPanel;
 
 public class testpanel {
 
