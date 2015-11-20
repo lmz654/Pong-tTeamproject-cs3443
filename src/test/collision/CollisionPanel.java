@@ -30,7 +30,14 @@ public class CollisionPanel extends JPanel {
 			if (model.showMoreInfo)
 				this.fillBallInfo(b, g);
 		}
-			
+		
+		StringBuilder cT = new StringBuilder().append(model.collisionTime);
+		StringBuilder mT = new StringBuilder().append(model.modelTime);
+		StringBuilder rT = new StringBuilder().append(model.repaintTime);
+		g.setColor(Color.BLACK);
+		g.drawString(cT.toString(), 5, 15);
+		g.drawString(mT.toString(), 5, 25);
+		g.drawString(rT.toString(), 5, 35);
 		
 	}
 	
@@ -63,12 +70,9 @@ public class CollisionPanel extends JPanel {
 		int radius = ball.getRadius();
 		
 		g.setColor(Color.BLACK);
-		g.drawString("Pos:" + ball.getPosition().toString(), posX+10, posY-10);
-		g.drawString("Vel:" +ball.getVelocity().toString(), posX+10, posY);
-		
-		
-		
-		
+		g.drawString("Pos:" + ball.getPosition().toString(), posX+10, posY-20);
+		g.drawString("Vel:" +ball.getVelocity().toString(), posX+10, posY-10);
+		g.drawString("Radius: " + radius, posX+10, posY);		
 	}
 	
 	private void drawPositionVector(Ball ball, Graphics g) {

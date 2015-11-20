@@ -2,6 +2,8 @@ package game.math;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import MVC.vbhitModel;
 import game.Controls;
@@ -19,7 +21,7 @@ public class CollisionDetector {
 	public static final boolean Q_TREE = true;
 	
 	// Boolean to Run Collision Mechanics in Parallel
-	public static final boolean PARALLEL = false;
+	public static final boolean PARALLEL = true;
 	
 	public static void checkCollisions(vbhitModel model) {
 		
@@ -58,27 +60,20 @@ public class CollisionDetector {
 	
 	private static void checkQTreeCollisions(CollidableQTree qT, List<Collidable> cUnits) {		
 		if (PARALLEL) {
-			List<Thread> threads = new ArrayList<Thread>();
+			ExecutorService threadPool = Executors.newCachedThreadPool();
 			Runnable task;
 			for (Collidable c: cUnits) {
 				List<Collidable> posCollisions = qT.retrieve(c);
 				if (!posCollisions.isEmpty()) {
 					task = new CollisionDetectorThread(c, posCollisions, null);
-					Thread worker = new Thread(task);
-				
-					worker.start();
-					threads.add(worker);
+					threadPool.execute(task);
 				}
 			}
+			threadPool.shutdown();
+			while(!threadPool.isTerminated()) {
+				
+			}
 			
-			int running = 0;
-			do {
-				running = 0;
-				for (Thread thread: threads)
-					if(thread.isAlive())
-						running++;
-				// System.out.println(running + " Threads still running");
-			} while (running > 0);
 		} else {
 			for (Collidable a: cUnits) {
 				List<Collidable> pCollisions = qT.retrieve(a);

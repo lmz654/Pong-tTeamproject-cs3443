@@ -1,6 +1,7 @@
 package test.collision;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import game.Controls;
 import game.core.Ball;
@@ -11,10 +12,10 @@ public class CollisionModel {
 	private ArrayList<Ball> balls;
 	
 	//Information Markers
-	public boolean showVelocityVectors = true;
-	public boolean showPositionVectors = true;
-	public boolean showProjections = true;
-	public boolean showMoreInfo = true;
+	public boolean showVelocityVectors = false;
+	public boolean showPositionVectors = false;
+	public boolean showProjections = false;
+	public boolean showMoreInfo = false;
 	
 	// Simulation Properties
 	public int numBalls = Controls.SIM_NUM_BALLS; // 50 Still ran, seems like good upper limit. 100 Lagged.
@@ -22,6 +23,11 @@ public class CollisionModel {
 	public int tolerance = 5;	
 	public int redux = 2*(radius+tolerance);
 	public int ofst = radius + tolerance;
+	
+	// Simulation Times
+	public long collisionTime = 0;
+	public long modelTime = 0;
+	public long repaintTime = 0;
 	
 	// Panel Properties
 	private int width, height;
@@ -86,10 +92,6 @@ public class CollisionModel {
 				//System.out.println("Pos: " + b.getPosition().toString() + " V: " + b.getVelocity().toString());
 			}
 			
-			/*
-			 * Checking for Collisions
-			 */
-			CollisionDetector.checkCollisions(this);
 			
 //			for (Ball c : balls) {
 //				if (b.equals(c)) continue;
@@ -101,6 +103,14 @@ public class CollisionModel {
 			
 			
 		}
+		
+		
+		/*
+		 * Checking for Collisions
+		 */
+		long start = new Date().getTime();
+		CollisionDetector.checkCollisions(this);
+		collisionTime = new Date().getTime() - start;
 		
 	}
 

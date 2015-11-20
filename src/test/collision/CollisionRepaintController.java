@@ -1,6 +1,7 @@
 package test.collision;
 
 import java.awt.event.*;
+import java.util.Date;
 
 public class CollisionRepaintController implements ActionListener{
 	private CollisionModel model;
@@ -12,9 +13,13 @@ public class CollisionRepaintController implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent event) {
-		model.moveBalls();
+		long start = new Date().getTime();
+		model.moveBalls();		
+		model.modelTime = new Date().getTime() - start;
 		
+		start = new Date().getTime();
 		view.repaint();
+		model.repaintTime = new Date().getTime() - start;
 	}
 
 }
