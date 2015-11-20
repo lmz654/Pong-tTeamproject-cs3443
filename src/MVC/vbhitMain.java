@@ -2,8 +2,6 @@ package MVC;
 
 import javax.swing.JFrame;
 
-import MVC.view.vbhitView;
-
 public class vbhitMain {
 	public static void creatwindow(){
 		//ActionPanel actionpanel = new ActionPanel(new vbhitModel());

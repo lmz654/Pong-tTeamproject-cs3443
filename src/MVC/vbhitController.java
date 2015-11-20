@@ -11,7 +11,6 @@ import java.awt.event.WindowStateListener;
 
 import javax.swing.Timer;
 
-import MVC.view.vbhitView;
 import game.core.Player;
 
 public class vbhitController implements KeyListener, ActionListener, ComponentListener,WindowStateListener  {
@@ -24,7 +23,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 	}
 	
 	public void repaintall(){
-		this.view.repaint();
+		//this.view.repaint();
 		/*this.view.getLeftpanel().repaint();
 		this.view.getRightpanel().repaint();*/
 		/*this.view.start();
@@ -93,8 +92,11 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 		}
 		else if(e.getActionCommand().equals("Instructions")){
 			
-		}else if(e.getActionCommand().equals("Options")){
 			
+		}else if(e.getActionCommand().equals("Options")){
+			this.view.getActionPanel().hiddAllSubMenu();
+			this.view.showPlayerKey();
+			this.view.getActionPanel().showSaveMenu();
 		}else if(e.getActionCommand().equals("Start")){
 			vbhitController.this.view.getActionPanel().hideTitleMenu();
 			model.createball();
@@ -103,6 +105,15 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 		}else if(e.getActionCommand().equals("Exit")){
 			System.exit(1);
 		}
+		//savekeypanel
+		else if(e.getActionCommand().equals("savekeymap")){
+			System.exit(1);
+		}
+		else if(e.getActionCommand().equals("skipkeymap")){
+			this.view.getActionPanel().hiddAllSubMenu();
+			this.view.getActionPanel().showTitleMenu();
+		}
+		
 	}
 
 	public void componentHidden(ComponentEvent e) {

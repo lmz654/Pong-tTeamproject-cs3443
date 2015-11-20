@@ -1,4 +1,4 @@
-package MVC.view;
+package MVC.side;
 
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -11,7 +11,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import MVC.vbhitController;
-import MVC.player.KeyMap;
+import MVC.action.KeyMap;
 
 public class SidePanel extends JPanel{
 	private BufferedImage image;

@@ -1,4 +1,4 @@
-package MVC.player;
+package MVC.action;
 
 import java.awt.Color;
 import java.awt.GridLayout;
