@@ -72,4 +72,5 @@ public abstract class Collidable {
 	public abstract ArrayList<Bound> getBounds();
 
 	public abstract void setVelocity(Vector velocity);
+	public abstract void adjustTrajectory(Vector hyperPlane);
 }

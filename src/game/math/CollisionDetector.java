@@ -9,7 +9,6 @@ import MVC.vbhitModel;
 import game.Controls;
 import game.core.Ball;
 import game.math.structures.CollidableQTree;
-import game.math.structures.CollisionList;
 import test.collision.CollisionModel;
 
 public class CollisionDetector {
@@ -21,7 +20,7 @@ public class CollisionDetector {
 	public static final boolean Q_TREE = true;
 	
 	// Boolean to Run Collision Mechanics in Parallel
-	public static final boolean PARALLEL = true;
+	public static final boolean PARALLEL = false;
 	
 	public static final boolean ADJUST_TRAJECTORIES = true;
 	
@@ -86,8 +85,7 @@ public class CollisionDetector {
 						collision.adjustTrajectories();
 						//collisions.add(collision);
 						//System.out.println(collision);
-					} else
-						continue;
+					}
 				}
 			}
 		}

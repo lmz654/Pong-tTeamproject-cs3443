@@ -35,4 +35,10 @@ public class CollidableRect extends Collidable {
 		
 	}
 
+	@Override
+	public void adjustTrajectory(Vector hyperPlane) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

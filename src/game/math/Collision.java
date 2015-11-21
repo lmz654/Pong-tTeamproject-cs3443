@@ -51,36 +51,17 @@ public class Collision {
 		return s.toString();
 	}
 	
-	public void adjustTrajectories() {
+	public synchronized void adjustTrajectories() {
 		// TODO Math to find reflection velocities of the objects
 		Vector hyperplane = this.getHyperplane();
 		//System.out.println(a.getPosition().toString() + b.getPosition().toString() + hyperplane.toString());
-		Vector aPrime, bPrime;
+	
 		
 		if (a instanceof CollidableCircle && b instanceof CollidableCircle) {
-			aPrime = ((CollidableCircle)a).getVelocity();
-			bPrime = ((CollidableCircle)b).getVelocity();
-			
-			if (aPrime == null || bPrime == null) return;
-			
-			try {
-				aPrime = aPrime.rotate2D(2*aPrime.angleTo(hyperplane));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			try {
-				bPrime = bPrime.rotate2D(2*bPrime.angleTo(hyperplane));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			//System.out.println(aPrime.toString() + bPrime.toString());
-			
-			a.setVelocity(aPrime);
-			b.setVelocity(bPrime);
-		}
+			a.adjustTrajectory(hyperplane);
+			b.adjustTrajectory(hyperplane);
+		} else 
+			return;
 		
 	}
 	

@@ -268,7 +268,7 @@ public class vbhitModel {
 			/*
 			 * Checking for Collisions
 			 */
-			//CollisionDetector.checkCollisions(this);
+			CollisionDetector.checkCollisions(this);
 			
 //			for (Ball c : balls) {
 //				if (b.equals(c)) continue;

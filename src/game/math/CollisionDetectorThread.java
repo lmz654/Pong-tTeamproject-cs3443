@@ -2,8 +2,6 @@ package game.math;
 
 import java.util.List;
 
-import game.math.structures.CollisionList;
-
 public class CollisionDetectorThread implements Runnable{
 	private Collidable c;
 	private List<Collidable> possibleCollisions;
@@ -19,9 +17,7 @@ public class CollisionDetectorThread implements Runnable{
 		for (Collidable b: possibleCollisions) {
 			Collision collision = c.intersects(b);
 			if (collision != null && adjTraj)
-				collision.adjustTrajectories();
-			else
-				continue;
+					collision.adjustTrajectories();
 		}
 	}
 	

@@ -9,6 +9,7 @@ public class Ball {
 	private Vector position;
 	private Vector velocity;
 	private final int radius;
+	private boolean collided;
 	private BufferedImage image;
 	
 	// --- Game Metrics ---
@@ -19,6 +20,7 @@ public class Ball {
 		this.position = position;
 		this.velocity = velocity;
 		this.radius = radius;
+		this.collided = false;
 	}
 	
 	// Setters and Getters
@@ -38,6 +40,14 @@ public class Ball {
 		return this.radius;
 	}
 	
+	public void setCollided() {
+		this.collided = true;
+	}
+	
+	public boolean collided() {
+		return this.collided;
+	}
+	
 	public Player getLastHit() {
 		return this.lastHit;
 	}
@@ -45,8 +55,14 @@ public class Ball {
 	public void setLastHit(Player player) {
 		this.lastHit = player;
 	}
-	public void move(){
-		position = position.plus(velocity);
+	public void move() {
+		if (!collided)
+			position = position.plus(velocity);
+		collided = false;
+	}
+	
+	public void setPosition(Vector position) {
+		this.position = position;
 	}
 	
 	public boolean intersects(Ball ball) {
