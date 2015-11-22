@@ -53,5 +53,32 @@ public class CollidableCircle extends Collidable {
 		}
 		return null;
 	}
+	
+	@Override
+	public void adjustTrajectory(Vector hyperPlane) {
+		if (this.obj instanceof Ball) {
+			Ball b = (Ball)this.obj;
+			Vector vPrime = b.getVelocity();
+			double reflectionAngle = vPrime.angleTo(hyperPlane);
+			double energyLoss = .06;
+			double energyBias = 1;
+			
+			// Set next positions of the balls
+			b.collided();
+			b.setPosition(b.getPosition().plus(b.getVelocity().unit().times(b.getVelocity().distanceTo(hyperPlane)-b.getRadius())));
+			
+			try {
+				vPrime = vPrime.rotate2D(2*(Math.min(reflectionAngle, Math.PI - reflectionAngle)));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			energyBias += energyLoss;
+			
+			b.setVelocity(vPrime.times(energyBias));
+			
+		}
+	}
 
 }

@@ -40,7 +40,7 @@ public class Controls {
 	public static final int BALL_DEFAULT_RADIUS = 30;
 	
 	// Control Variables for Collision Model
-	public static final int SIM_NUM_BALLS = 1250; // qT Algorithm allows for 1000 no problem up to 1500 is where performance starts taking a hit 2000 is unplayable
+	public static final int SIM_NUM_BALLS = 10; // qT Algorithm allows for 1000 no problem up to 1500 is where performance starts taking a hit 2000 is unplayable
 	public static final int SIM_BALL_MAX_SPEED = 10;
 	public static final int SIM_BALL_MIN_SPEED = 5;
 	public static final int SIM_BALL_DEFAULT_RADIUS = 10;
