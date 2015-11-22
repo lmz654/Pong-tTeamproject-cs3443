@@ -11,7 +11,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import MVC.vbhitController;
-import MVC.action.KeyMap;
 
 public class SidePanel extends JPanel{
 	private BufferedImage image;
@@ -39,6 +38,7 @@ public class SidePanel extends JPanel{
 			playertopkey = new KeyMap(playertop.getPlayer());
 			playerbottomkey= new KeyMap (playerbottom.getPlayer());
 		}
+		
 	}
 	
 	public void update(){
@@ -47,6 +47,7 @@ public class SidePanel extends JPanel{
 	}
 	
 	public void showPlayer(){
+		System.out.println(this.playertop.getPlayer().getName());
 		this.remove(playertopkey);
 		this.remove(playerbottomkey);
 		this.add(playertop);
@@ -54,10 +55,15 @@ public class SidePanel extends JPanel{
 	}
 	
 	public void showPlayerkey(){
+		System.out.println(playertopkey.getPlayer().getName());
 		this.remove(playertop);
 		this.remove(playerbottom);
 		this.add(playertopkey);
 		this.add(playerbottomkey);
+	}
+	public void saveKeyMap(){
+		this.playerbottomkey.savekey();
+		this.playertopkey.savekey();
 	}
 	@Override
 	protected void paintComponent(Graphics g) {

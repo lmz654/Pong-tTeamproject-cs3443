@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowStateListener;
 
+import javax.swing.JFrame;
 import javax.swing.Timer;
 
 import game.core.Player;
@@ -31,7 +32,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 	}
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		if(arg0.getKeyChar()==KeyEvent.VK_ESCAPE){
+		if(arg0.getKeyChar()==KeyEvent.VK_ESCAPE ){
 			model.stop();
 			view.stop();
 			this.view.getActionPanel().showPauseMenu();
@@ -59,9 +60,9 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 
 	public void keyReleased(KeyEvent arg0) {
 		for(Player temp:model.getAllPlayer()){
-			if(temp.getKeydecrease()==arg0.getKeyChar())
+			if(temp.getKeydecrease()==arg0.getKeyChar()){
 				temp.setkeydecreasepress(0);
-			if(temp.getKeyincrease()==arg0.getKeyChar())
+			}else if(temp.getKeyincrease()==arg0.getKeyChar())
 				temp.setKeyincreasepress(0);
 		}
 	}
@@ -72,45 +73,94 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		System.out.println(e.getActionCommand());
 		//actionmenu
 		if(e.getActionCommand().equals("Full Screen")){
+			this.view.dispose();
+			this.view= new vbhitView(this.model);
+			this.view.setExtendedState(JFrame.MAXIMIZED_BOTH);
+			this.view.setUndecorated(true);
+			this.view.getActionPanel().hideAllSubMenu();
+			this.view.getActionPanel().showPauseMenu();
+			//this.view.getActionPanel().getPauseMenu().getScreenButton().setName("Normal Screen");
+			this.view.getActionPanel().getPauseMenu().getScreenButton().setText("Normal Screen");
+			this.view.setVisible(true);
+		
+		}else if(e.getActionCommand().equals("Normal Screen")){
+			this.view.dispose();
+			this.view= new vbhitView(this.model);
+			this.view.setExtendedState(JFrame.MAXIMIZED_BOTH);
+			this.view.setUndecorated(false);
+			this.view.getActionPanel().hideAllSubMenu();
+			this.view.getActionPanel().showPauseMenu();
+			//this.view.getActionPanel().getPauseMenu().getScreenButton().setName("Full Screen");
+			this.view.getActionPanel().getPauseMenu().getScreenButton().setText("Full Screen");
+			this.view.setVisible(true);
 			
-		}else if(e.getActionCommand().equals("Main Menu")){
-			vbhitController.this.view.getActionPanel().hidePauseMenu();
-			vbhitController.this.view.getActionPanel().showTitleMenu();
-			
-		}else if(e.getActionCommand().equals("Resume")){
-			vbhitController.this.view.getActionPanel().hidePauseMenu();
+		}
+		else if(e.getActionCommand().equals("Resume")){
+			vbhitController.this.view.getActionPanel().hideAllSubMenu();
+			this.view.requestFocus();
 			model.start();
 			view.start();
 		}else if(e.getActionCommand().equals("Quit")){
-			System.exit(1);
+			this.model.setGameStart(false);
+			this.model.resetgame();
+			vbhitController.this.view.getActionPanel().hideAllSubMenu();
+			vbhitController.this.view.getActionPanel().showTitleMenu();
 		}
 		//TitleMenu
 		else if(e.getActionCommand().equals("Game Setup")){
-			
+			this.view.getActionPanel().hideAllSubMenu();
+			this.view.getActionPanel().showSetupMenu();
 		}
 		else if(e.getActionCommand().equals("Instructions")){
-			
+			this.view.getActionPanel().hideAllSubMenu();
+			this.view.getActionPanel().showInstruction();
 			
 		}else if(e.getActionCommand().equals("Options")){
-			this.view.getActionPanel().hiddAllSubMenu();
+			this.view.getActionPanel().hideAllSubMenu();
 			this.view.showPlayerKey();
 			this.view.getActionPanel().showSaveMenu();
 		}else if(e.getActionCommand().equals("Start")){
-			vbhitController.this.view.getActionPanel().hideTitleMenu();
+			vbhitController.this.view.getActionPanel().hideAllSubMenu();
+			this.model.setGameStart(true);
+			this.view.requestFocus();
 			model.createball();
+			this.view.updateratio();
 			model.start();
 			view.start();
 		}else if(e.getActionCommand().equals("Exit")){
 			System.exit(1);
 		}
 		//savekeypanel
-		else if(e.getActionCommand().equals("savekeymap")){
-			System.exit(1);
+		else if(e.getActionCommand().equals("Save")){
+			this.view.getActionPanel().hideAllSubMenu();
+			this.view.savePlayerKey();
+			if(this.model.getGameStart()==true){
+				this.view.showPlayer();
+				this.view.getActionPanel().showPauseMenu();
+			}else{
+				this.view.showPlayer();
+				this.view.getActionPanel().showTitleMenu();
+			}
+			
+			
 		}
-		else if(e.getActionCommand().equals("skipkeymap")){
-			this.view.getActionPanel().hiddAllSubMenu();
+		else if(e.getActionCommand().equals("Don't Save")){
+			this.view.getActionPanel().hideAllSubMenu();
+			if(this.model.getGameStart()==true){
+				this.view.showPlayer();
+				this.view.getActionPanel().showPauseMenu();
+			}else{
+				this.view.showPlayer();
+				this.view.getActionPanel().showTitleMenu();
+			}
+			
+		}
+		//instruction menu
+		else if(e.getActionCommand().equals("Main Menu")){
+			this.view.getActionPanel().hideAllSubMenu();
 			this.view.getActionPanel().showTitleMenu();
 		}
 		

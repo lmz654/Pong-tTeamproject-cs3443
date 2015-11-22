@@ -25,6 +25,7 @@ public class SetupMenu extends JPanel {
 		
 		// First combo box, 1st item
 		box = new JComboBox(gameModes);
+		box.setEditable(false);
 		box.setForeground(Color.red);
 		box.setBackground(null);
 		box.setOpaque(false);
@@ -33,6 +34,7 @@ public class SetupMenu extends JPanel {
 		
 		// Second combo box, 2nd item
 		box = new JComboBox(playerModes);
+		box.setEditable(false);
 		box.setForeground(Color.red);
 		box.setBackground(null);
 		box.setOpaque(false);

@@ -88,10 +88,16 @@ public class vbhitView extends JFrame{
 	public void showPlayer(){
 		this.leftpanel.showPlayer();
 		this.rightpanel.showPlayer();
+		this.repaint();
 	}
 	public void showPlayerKey(){
 		this.leftpanel.showPlayerkey();
 		this.rightpanel.showPlayerkey();
+		this.repaint();
+	}
+	public void savePlayerKey(){
+		this.leftpanel.saveKeyMap();
+		this.rightpanel.saveKeyMap();
 	}
 	public void udatesidepanel(){
 		this.leftpanel.update();
@@ -108,20 +114,18 @@ public class vbhitView extends JFrame{
 	}
 	public void updateratio(){
 		
-		//System.out.println(this.getContentPane().getHeight()+ "  " + this.getContentPane().getWidth());
-		//System.out.println("view");
 		leftpanelpos=0;
 		actpanelpos= Math.round((this.getContentPane().getWidth()-this.getContentPane().getHeight())/2);
 		rightpanelpos=actpanelpos+this.getContentPane().getHeight();
-		/*rightpanel.setBackground(Color.BLUE);
-		leftpanel.setBackground(Color.CYAN);
-		actionpanel.setBackground(Color.GREEN);*/
 		leftpanel.setBounds(leftpanelpos, 0, actpanelpos, this.getContentPane().getHeight());
 		actionpanel.setBounds(actpanelpos, 0,this.getContentPane().getHeight(), this.getContentPane().getHeight());
 		rightpanel.setBounds(rightpanelpos, 0, actpanelpos, this.getContentPane().getHeight());
 		leftpanel.update();
 		rightpanel.update();
 		actionpanel.update();
+		if(this.isFocusableWindow()==false){
+			this.setFocusableWindowState(true);
+		}
 		this.repaint();
 		
 	}

@@ -26,6 +26,7 @@ public class vbhitModel {
 	private Timer timer;
 	private BufferedImage defaultballimage;
 	private vbhitController controller;
+	private boolean gamestart;
 	
 	public vbhitModel() {
 		super();
@@ -33,6 +34,7 @@ public class vbhitModel {
 		this.obstacle = new ArrayList<Obstacle>();
 		this.ball = new ArrayList<Ball>();
 		player= new ArrayList<Player>();
+		this.gamestart=false;
 		ActionListener action = new ActionListener(){
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -48,6 +50,23 @@ public class vbhitModel {
 		this.createdefaultplayer();
 		//this.createball();
 		timer = new Timer(Controls.MODEL_TIME, action);
+	}
+	
+	public void resetgame(){
+		this.ball.clear();
+		for(Player pl:this.player){
+			pl.getScore().reset();
+		}
+		//this.player.clear();
+		//this.createdefaultplayer();
+	}
+	
+	public boolean getGameStart(){
+		return this.gamestart;
+	}
+	
+	public void setGameStart(boolean start){
+		this.gamestart=start;
 	}
 	public void addController (vbhitController controller){
 		this.controller=controller;
@@ -207,9 +226,11 @@ public class vbhitModel {
 							this.player.get(1).increaseMiss();
 						}
 						try{
-							b.getLastHit().increaseScore();
+							if(b.getLastHit()!=null){
+								b.getLastHit().increaseScore();
+							}
 						}catch(NullPointerException e){
-							//System.err.println(e.getMessage());
+							System.err.println("fail to increase score of 1");
 						}
 						
 						this.controller.getView().udatesidepanel();
@@ -241,7 +262,9 @@ public class vbhitModel {
 							this.player.get(3).increaseMiss();
 						}
 						try{
-							b.getLastHit().increaseScore();
+							if(b.getLastHit()!=null){
+								b.getLastHit().increaseScore();
+							}
 						}catch(Exception e){
 							System.err.println("fail to increase score of 2");
 						}
@@ -249,7 +272,7 @@ public class vbhitModel {
 						remove=true;
 						//this.ball.remove(b);
 						this.createball();
-						this.controller.repaintall();;
+						//this.controller.repaintall();;
 					}			
 				}
 				if(remove==true){

@@ -21,6 +21,10 @@ public class Score {
 	public void setScore(int score) {
 		this.score = score;
 	}
+	public void reset(){
+		this.miss=0;
+		this.score=0;
+	}
 	
 
 }

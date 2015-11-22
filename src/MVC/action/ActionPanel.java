@@ -28,23 +28,26 @@ public class ActionPanel extends JPanel {
 	public ActionPanel(vbhitController controller){
 		super();
 		this.controller=controller;
-		pausemenu = new PauseMenu(this.controller);
+		this.instruction = new InstructionsMenu(this.controller);
+		this.pausemenu = new PauseMenu(this.controller);
 		this.savekeymappanel = new SaveKeyMapPanel(this.controller);
 		this.setupmenu = new SetupMenu(this.controller);
 		this.titlemenu = new TitleMenu(this.controller);
 		this.pausemenu.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
 		this.setupmenu.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
 		this.savekeymappanel.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
-		this.titlemenu.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
-		//this.instruction.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
+		this.instruction.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
+		//this.view.getActionPanel().showPauseMenu();
 		this.add(this.titlemenu);
 		this.add(this.pausemenu);
 		this.add(this.savekeymappanel);
 		this.add(this.setupmenu);
+		this.add(this.instruction);
+		this.titlemenu.setVisible(false);
 		this.pausemenu.setVisible(false);
 		this.savekeymappanel.setVisible(false);
 		this.setupmenu.setVisible(false);
-		this.titlemenu.setVisible(false);
+		this.instruction.setVisible(false);
 		this.setBackground(null);
 		this.ratio=(float)this.getSize().width/1000;
 		try {
@@ -104,10 +107,12 @@ public class ActionPanel extends JPanel {
 		this.setupmenu.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
 		this.pausemenu.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
 		this.savekeymappanel.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
+		this.instruction.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
 		this.ratio= (float)this.getHeight()/1000;
 	}
 	
-	public void hiddAllSubMenu(){
+	public void hideAllSubMenu(){
+		this.instruction.setVisible(false);
 		this.pausemenu.setVisible(false);
 		this.setupmenu.setVisible(false);
 		this.titlemenu.setVisible(false);
@@ -117,29 +122,24 @@ public class ActionPanel extends JPanel {
 	public PauseMenu getPauseMenu(){
 		return this.pausemenu;
 	}
+	public void showInstruction(){
+		this.instruction.setVisible(true);
+	}
 	
 	public void showSaveMenu(){
 		this.savekeymappanel.setVisible(true);
-	}
-	
-	public void hideSaveMenu(){
-		this.savekeymappanel.setVisible(false);
 	}
 	
 	public void showPauseMenu(){
 		this.pausemenu.setVisible(true);
 	}
 	
-	public void hidePauseMenu(){
-		this.pausemenu.setVisible(false);
-	}
-	
 	public void showTitleMenu(){
 		this.titlemenu.setVisible(true);
 	}
 	
-	public void hideTitleMenu(){
-		this.titlemenu.setVisible(false);
+	public void showSetupMenu(){
+		this.setupmenu.setVisible(true);
 	}
 	
 	

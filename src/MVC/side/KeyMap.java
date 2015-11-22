@@ -1,4 +1,4 @@
-package MVC.action;
+package MVC.side;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -83,11 +83,31 @@ public class KeyMap extends JPanel {
 		this.add(label);
 		this.add(this.keyhold);
 	}
+	public void setfocusable(boolean b){
+		this.name.setFocusable(b);
+		this.keydecrease.setFocusable(b);
+		this.keyincrease.setFocusable(b);
+		this.keyhold.setFocusable(b);
+	}
+	public Player getPlayer(){
+		return this.player;
+	}
 	public void UpdatePlayerKey(){
 		player.setName(name.getText());
 		player.setkeydecrease(this.keydecrease.getText().charAt(0));
 		player.setKeyincrease(this.keyincrease.getText().charAt(0));
 		player.setKeyhole(this.keyhold.getText().charAt(0));
+	}
+	public void savekey(){
+		if(this.keyincrease.getText().length()>0){
+			this.player.setKeyincrease(this.keyincrease.getText().charAt(0));
+		}
+		if(this.keydecrease.getText().length()>0){
+			this.player.setKeyincrease(this.keydecrease.getText().charAt(0));
+		}
+		if(this.keyhold.getText().length()>0){
+			this.player.setKeyincrease(this.keyhold.getText().charAt(0));
+		}
 	}
 	
 }
