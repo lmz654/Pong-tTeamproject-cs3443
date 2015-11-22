@@ -12,6 +12,7 @@ import java.awt.event.WindowStateListener;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
+import game.Controls;
 import game.core.Player;
 
 public class vbhitController implements KeyListener, ActionListener, ComponentListener,WindowStateListener  {
@@ -32,7 +33,8 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 	}
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		if(arg0.getKeyChar()==KeyEvent.VK_ESCAPE ){
+		if(arg0.getKeyChar()==KeyEvent.VK_ESCAPE && this.model.getGameState()==Controls.GAME_PLAY ){
+			this.model.setGameState(Controls.GAME_PAUSE);
 			model.stop();
 			view.stop();
 			this.view.getActionPanel().showPauseMenu();
@@ -73,7 +75,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		System.out.println(e.getActionCommand());
+		
 		//actionmenu
 		if(e.getActionCommand().equals("Full Screen")){
 			this.view.dispose();
@@ -82,7 +84,6 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			this.view.setUndecorated(true);
 			this.view.getActionPanel().hideAllSubMenu();
 			this.view.getActionPanel().showPauseMenu();
-			//this.view.getActionPanel().getPauseMenu().getScreenButton().setName("Normal Screen");
 			this.view.getActionPanel().getPauseMenu().getScreenButton().setText("Normal Screen");
 			this.view.setVisible(true);
 		
@@ -93,19 +94,21 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			this.view.setUndecorated(false);
 			this.view.getActionPanel().hideAllSubMenu();
 			this.view.getActionPanel().showPauseMenu();
-			//this.view.getActionPanel().getPauseMenu().getScreenButton().setName("Full Screen");
 			this.view.getActionPanel().getPauseMenu().getScreenButton().setText("Full Screen");
 			this.view.setVisible(true);
 			
 		}
 		else if(e.getActionCommand().equals("Resume")){
 			vbhitController.this.view.getActionPanel().hideAllSubMenu();
+			this.model.setGameState(Controls.GAME_PLAY);
+			this.view.showPlayer();
 			this.view.requestFocus();
 			model.start();
 			view.start();
 		}else if(e.getActionCommand().equals("Quit")){
-			this.model.setGameStart(false);
+			this.model.setGameState(Controls.GAME_STOP);
 			this.model.resetgame();
+			this.view.getActionPanel().getSaveKeyMapPanel().getBackorResume().setText("Main Menu");
 			vbhitController.this.view.getActionPanel().hideAllSubMenu();
 			vbhitController.this.view.getActionPanel().showTitleMenu();
 		}
@@ -124,7 +127,8 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			this.view.getActionPanel().showSaveMenu();
 		}else if(e.getActionCommand().equals("Start")){
 			vbhitController.this.view.getActionPanel().hideAllSubMenu();
-			this.model.setGameStart(true);
+			this.view.getActionPanel().getSaveKeyMapPanel().getBackorResume().setText("Resume");
+			this.model.setGameState(Controls.GAME_PLAY);
 			this.view.requestFocus();
 			model.createball();
 			this.view.updateratio();
@@ -135,7 +139,8 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 		}
 		//savekeypanel
 		else if(e.getActionCommand().equals("Save")){
-			this.view.getActionPanel().hideAllSubMenu();
+			
+			/*this.view.getActionPanel().hideAllSubMenu();
 			this.view.savePlayerKey();
 			if(this.model.getGameStart()==true){
 				this.view.showPlayer();
@@ -143,25 +148,36 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			}else{
 				this.view.showPlayer();
 				this.view.getActionPanel().showTitleMenu();
-			}
+			}*/
 			
 			
 		}
 		else if(e.getActionCommand().equals("Don't Save")){
-			this.view.getActionPanel().hideAllSubMenu();
+			/*this.view.getActionPanel().hideAllSubMenu();
 			if(this.model.getGameStart()==true){
 				this.view.showPlayer();
 				this.view.getActionPanel().showPauseMenu();
 			}else{
 				this.view.showPlayer();
 				this.view.getActionPanel().showTitleMenu();
-			}
+			}*/
 			
 		}
 		//instruction menu
 		else if(e.getActionCommand().equals("Main Menu")){
 			this.view.getActionPanel().hideAllSubMenu();
+			this.view.showPlayer();
 			this.view.getActionPanel().showTitleMenu();
+		}
+		//SetupMenu
+		else if(e.getActionCommand().equals("Start Game!")){
+			vbhitController.this.view.getActionPanel().hideAllSubMenu();
+			this.model.setGameState(Controls.GAME_PLAY);
+			this.view.requestFocus();
+			model.createball();
+			this.view.updateratio();
+			model.start();
+			view.start();
 		}
 		
 	}

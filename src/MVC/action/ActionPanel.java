@@ -122,6 +122,10 @@ public class ActionPanel extends JPanel {
 	public PauseMenu getPauseMenu(){
 		return this.pausemenu;
 	}
+	public SaveKeyMapPanel getSaveKeyMapPanel(){
+		return this.savekeymappanel;
+	}
+	
 	public void showInstruction(){
 		this.instruction.setVisible(true);
 	}
@@ -141,6 +145,8 @@ public class ActionPanel extends JPanel {
 	public void showSetupMenu(){
 		this.setupmenu.setVisible(true);
 	}
+	
+	
 	
 	
 	

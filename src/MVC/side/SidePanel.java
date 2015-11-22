@@ -33,8 +33,8 @@ public class SidePanel extends JPanel{
 			playertopkey = new KeyMap(playertop.getPlayer());
 			playerbottomkey= new KeyMap (playerbottom.getPlayer());
 		}else if(side == 2){
-			playertop=new PlayerPanel(this.controller.getModel().getPlayer(1));
-			playerbottom=new PlayerPanel(this.controller.getModel().getPlayer(2));
+			playertop=new PlayerPanel(this.controller.getModel().getPlayer(2));
+			playerbottom=new PlayerPanel(this.controller.getModel().getPlayer(1));
 			playertopkey = new KeyMap(playertop.getPlayer());
 			playerbottomkey= new KeyMap (playerbottom.getPlayer());
 		}

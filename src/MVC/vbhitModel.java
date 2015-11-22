@@ -26,7 +26,7 @@ public class vbhitModel {
 	private Timer timer;
 	private BufferedImage defaultballimage;
 	private vbhitController controller;
-	private boolean gamestart;
+	private int gamestate;
 	
 	public vbhitModel() {
 		super();
@@ -34,7 +34,7 @@ public class vbhitModel {
 		this.obstacle = new ArrayList<Obstacle>();
 		this.ball = new ArrayList<Ball>();
 		player= new ArrayList<Player>();
-		this.gamestart=false;
+		this.gamestate=Controls.GAME_STOP;
 		ActionListener action = new ActionListener(){
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -61,12 +61,12 @@ public class vbhitModel {
 		//this.createdefaultplayer();
 	}
 	
-	public boolean getGameStart(){
-		return this.gamestart;
+	public int getGameState(){
+		return this.gamestate;
 	}
 	
-	public void setGameStart(boolean start){
-		this.gamestart=start;
+	public void setGameState(int state){
+		this.gamestate=state;
 	}
 	public void addController (vbhitController controller){
 		this.controller=controller;
@@ -291,7 +291,7 @@ public class vbhitModel {
 			/*
 			 * Checking for Collisions
 			 */
-			CollisionDetector.checkCollisions(this);
+			//CollisionDetector.checkCollisions(this);
 			
 //			for (Ball c : balls) {
 //				if (b.equals(c)) continue;

@@ -10,7 +10,10 @@ import game.math.structures.Vector;
 
 // Class that contains all of the control variables for the Game
 public class Controls {
-	
+	//game status
+	public static final int GAME_STOP=0;
+	public static final int GAME_PAUSE=1;
+	public static final int GAME_PLAY=2;
 	//time repeat for model and view
 	public static final int MODEL_TIME=20;
 	public static final int VIEW_TIME=20;
