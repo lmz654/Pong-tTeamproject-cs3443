@@ -47,7 +47,6 @@ public class SidePanel extends JPanel{
 	}
 	
 	public void showPlayer(){
-		System.out.println(this.playertop.getPlayer().getName());
 		this.remove(playertopkey);
 		this.remove(playerbottomkey);
 		this.add(playertop);
@@ -55,7 +54,6 @@ public class SidePanel extends JPanel{
 	}
 	
 	public void showPlayerkey(){
-		System.out.println(playertopkey.getPlayer().getName());
 		this.remove(playertop);
 		this.remove(playerbottom);
 		this.add(playertopkey);

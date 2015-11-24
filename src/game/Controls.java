@@ -18,6 +18,26 @@ public class Controls {
 	public static final int MODEL_TIME=20;
 	public static final int VIEW_TIME=20;
 	
+	//Player1 key default
+	public static final char P1_KEY_INCREASE='s';
+	public static final char P1_KEY_DECREASE='w';
+	public static final char P1_KEY_HOLE='q';
+	
+	//Player2 key default
+	public static final char P2_KEY_INCREASE=';';
+	public static final char P2_KEY_DECREASE='[';
+	public static final char P2_KEY_HOLE=']';
+	
+	//Player3 key default
+	public static final char P3_KEY_INCREASE='c';
+	public static final char P3_KEY_DECREASE='x';
+	public static final char P3_KEY_HOLE='v';
+	
+	//Player4 key default
+	public static final char P4_KEY_INCREASE='.';
+	public static final char P4_KEY_DECREASE=',';
+	public static final char P4_KEY_HOLE='M';
+	
 	// Control Variables for Obstacle Probabilities
 	public static final double NORMALOBSTACLE_PROBABILITY = .4;
 	public static final double WHACKYOBSTACLE_PROBABILITY = .05;
@@ -80,7 +100,7 @@ public class Controls {
 	}
 	public static Player player1default(){
 		Paddle paddle = Controls.getPaddle(1);
-		Player player = new Player("Huu", paddle,'w','s','q','y');
+		Player player = new Player("Huu", paddle,Controls.P1_KEY_DECREASE,Controls.P1_KEY_INCREASE,Controls.P1_KEY_HOLE,'y');
 		player.getScore().setScore(0);
 		player.getScore().setMiss(0);
 		try {
@@ -99,7 +119,7 @@ public class Controls {
 	}
 	public static Player player2default(){
 		Paddle paddle = Controls.getPaddle(2);
-		Player player = new Player("Fernando", paddle,'[',';',']','y');
+		Player player = new Player("Fernando", paddle,Controls.P2_KEY_DECREASE,Controls.P2_KEY_INCREASE,Controls.P2_KEY_HOLE,'y');
 		player.getScore().setScore(0);
 		player.getScore().setMiss(0);
 		try {
@@ -119,7 +139,7 @@ public class Controls {
 	}
 	public static Player player3default(){
 		Paddle paddle = Controls.getPaddle(3);
-		Player player = new Player("Taylor", paddle,'x','c','z','x');
+		Player player = new Player("Taylor", paddle,Controls.P3_KEY_DECREASE,Controls.P3_KEY_INCREASE,Controls.P3_KEY_HOLE,'x');
 		player.getScore().setScore(0);
 		player.getScore().setMiss(0);
 		try {
@@ -138,7 +158,7 @@ public class Controls {
 	}
 	public static Player player4default(){
 		Paddle paddle = Controls.getPaddle(4);
-		Player player = new Player("Christian", paddle,',','.','/','x');
+		Player player = new Player("Christian", paddle,Controls.P4_KEY_DECREASE,Controls.P4_KEY_INCREASE,Controls.P4_KEY_HOLE,'x');
 		player.getScore().setScore(0);
 		player.getScore().setMiss(0);
 		try {

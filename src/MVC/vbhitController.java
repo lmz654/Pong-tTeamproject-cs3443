@@ -76,6 +76,9 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 
 	public void actionPerformed(ActionEvent e) {
 		
+		//sound when click any button
+		this.model.getGameSound().buttonclick();
+		
 		//actionmenu
 		if(e.getActionCommand().equals("Full Screen")){
 			this.view.dispose();

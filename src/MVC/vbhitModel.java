@@ -7,10 +7,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
+
 import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
 import game.Controls;
+import game.Sound;
 import game.components.item.Item;
 import game.components.obstacles.Obstacle;
 import game.core.Ball;
@@ -19,6 +22,7 @@ import game.math.CollisionDetector;
 import game.math.structures.Vector;
 
 public class vbhitModel {
+	private Sound gamesound;
 	private ArrayList<Item> item;
 	private ArrayList<Obstacle> obstacle;
 	private ArrayList<Player> player;
@@ -30,6 +34,7 @@ public class vbhitModel {
 	
 	public vbhitModel() {
 		super();
+		gamesound = new Sound();
 		this.item = new ArrayList<Item>();
 		this.obstacle = new ArrayList<Obstacle>();
 		this.ball = new ArrayList<Ball>();
@@ -51,7 +56,9 @@ public class vbhitModel {
 		//this.createball();
 		timer = new Timer(Controls.MODEL_TIME, action);
 	}
-	
+	public Sound getGameSound(){
+		return this.gamesound;
+	}
 	public void resetgame(){
 		this.ball.clear();
 		for(Player pl:this.player){
