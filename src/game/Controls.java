@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -10,10 +11,21 @@ import game.math.structures.Vector;
 
 // Class that contains all of the control variables for the Game
 public class Controls {
+	//game fonts default
+	public static final Font LARGE_FONT_DEFAULT  = new Font("American Typewriter", Font.BOLD, 30);
+	public static final Font MID_FONT_DEFAULT  = new Font("American Typewriter", Font.BOLD, 20);
+	public static final Font SMALL_FONT_DEFAULT  = new Font("American Typewriter", Font.BOLD, 10);
+		
 	//game status
 	public static final int GAME_STOP=0;
 	public static final int GAME_PAUSE=1;
 	public static final int GAME_PLAY=2;
+	
+	//player status
+	public static final int PLAYER_PLAY=2;
+	public static final int PLAYER_NOT_PLAY=0;
+	public static final int PLAYER_GIVE_UP=1;
+	
 	//time repeat for model and view
 	public static final int MODEL_TIME=20;
 	public static final int VIEW_TIME=20;
@@ -51,11 +63,12 @@ public class Controls {
 	// Control Variables for Paddles
 	public static final int X_OFST = 5;
 	public static final int Y_OFST= 5;
-	public static final int PADDLE_LENGTH = 100;
+	public static final int PADDLE_DEFAULT_LENGTH = 100;
 	public static final int PADDLE_WIDTH = 10;
 	public static final int PADDLE_VELOCITY=7;
 	public static final int PADDLE_MAXREACH_LIMIT= MODEL_WIDTH-CONER_LENGTH;
 	public static final int PADDLE_MINREACH_LIMIT=CONER_LENGTH;
+	public static final int PADDLE_MAX_LENGTH = PADDLE_MAXREACH_LIMIT - PADDLE_MINREACH_LIMIT;
 	
 	// Control Variables for Ball
 	public static final int BALL_MAX_SPEED = 10;

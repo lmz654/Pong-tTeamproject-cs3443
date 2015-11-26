@@ -12,15 +12,16 @@ import MVC.vbhitController;
 
 public class SaveKeyMapPanel extends JPanel{
 	private JButton backorresume;
+	private JButton soundcontrol;
 	private vbhitController controller;
 	
 	public SaveKeyMapPanel(vbhitController controller){
 		this.controller = controller;
-		this.setLayout(new GridLayout(1,1,10,10));
+		this.setLayout(new GridLayout(2,1,10,10));
 		this.setBackground(null);
 		this.setOpaque(false);
 		
-		//save button
+		//Main Menu
 		backorresume = new JButton("Main Menu");
 		backorresume.addActionListener(this.controller);
 		backorresume.setOpaque(false);
@@ -30,16 +31,16 @@ public class SaveKeyMapPanel extends JPanel{
 		backorresume.setFocusable(false);
 		this.add(backorresume);
 		
-		//Don't Save
-		/*button = new JButton("Don't Save");
-		button.addActionListener(this.controller);
-		button.setOpaque(false);
-		button.setBackground(null);
-		button.setForeground(Color.green);
-		button.setContentAreaFilled(false);
-		button.setFocusable(false);
+		//Sound
+		this.soundcontrol = new JButton("Sound: Off");
+		this.soundcontrol.addActionListener(this.controller);
+		this.soundcontrol.setOpaque(false);
+		this.soundcontrol.setBackground(null);
+		this.soundcontrol.setForeground(Color.green);
+		this.soundcontrol.setContentAreaFilled(false);
+		this.soundcontrol.setFocusable(false);
 		
-		this.add(button);*/
+		this.add(this.soundcontrol);
 	}
 	public JButton getBackorResume(){
 		return this.backorresume;

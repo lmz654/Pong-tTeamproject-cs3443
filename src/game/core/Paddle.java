@@ -9,7 +9,9 @@ public class Paddle {
 	private Vector position;
 	private int velocity;
 	private int length;//the real length
-	private int height;//the thickness
+	private int height;
+	private boolean sticky;
+	//the thickness
 	
 	
 	public Paddle(Vector position, int length, int height) {
@@ -17,8 +19,17 @@ public class Paddle {
 		this.velocity = Controls.PADDLE_VELOCITY;
 		this.length = length;
 		this.setHeight(height);
+		this.sticky=false;
 	}
 	
+	public boolean isSticky() {
+		return sticky;
+	}
+
+	public void setSticky(boolean sticky) {
+		this.sticky = sticky;
+	}
+
 	public Paddle(int dimension, int length) {
 		this.position = new Vector(dimension);
 		this.velocity = Controls.PADDLE_VELOCITY;

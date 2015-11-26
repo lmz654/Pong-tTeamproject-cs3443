@@ -16,64 +16,50 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import MVC.vbhitController;
+import game.Controls;
 import game.components.item.Item;
 import game.core.Player;
 
 public class PlayerPanel extends JPanel {
 	private BufferedImage bg;
-	//private Queue<Item> item;
 	private Player player;
-	private JPanel itempanel;
+	private JLabel name;
 	private JLabel score, miss;
-	private JLabel[] item;
-	public PlayerPanel(Player player){
+	private JButton statusbutton;
+	private vbhitController controller;
+	private int playernuber;
+
+	public PlayerPanel(Player player,vbhitController controller,int playernumber){
 		bg=null;
+		this.playernuber=playernumber;
+		this.controller=controller;
 		this.player=player;
 		this.setLayout(new BorderLayout());
 		this.setBackground(null);
 		this.setOpaque(false);
-		item = new JLabel[6];
+		this.setFocusable(false);
+		
 		JLabel label;
-		label = new JLabel(this.player.getName(),SwingConstants.CENTER);
-		label.setBackground(null);
-		label.setOpaque(false);
-		label.setForeground(Color.green);
-		this.add(label,BorderLayout.NORTH);
+		name = new JLabel(this.player.getName(),SwingConstants.CENTER);
+		name.setBackground(null);
+		name.setOpaque(false);
+		name.setForeground(Color.green);
+		name.setFont(Controls.MID_FONT_DEFAULT);
+		this.add(name,BorderLayout.NORTH);
 		JPanel centercontainer = new JPanel(new GridLayout(2,0));
 		centercontainer.setBackground(null);
 		centercontainer.setOpaque(false);
-		itempanel = new JPanel();
-		itempanel.setBackground(null);
-		itempanel.setOpaque(false);
-		//BorderFactory.createem
-		itempanel.setBorder(BorderFactory.createEmptyBorder(10,Math.abs((itempanel.getWidth()-itempanel.getHeight())/2), 0,Math.abs((itempanel.getWidth()-itempanel.getHeight())/2)));
-		itempanel.setLayout(new GridLayout(3,3,10,0));
-		try{
-			int i;
-			for(i=0;i<this.player.getItem().size();i++){
-				this.item[i]=new JLabel(new ImageIcon(this.player.getItem().get(i).getImage()));
-				itempanel.add(this.item[i]);
-			}
-			for(int j=i;j<6;j++){
-				item[j]=new JLabel("emty" + j,SwingConstants.CENTER);
-				item[j].setBorder(BorderFactory.createEtchedBorder(Color.BLUE, Color.CYAN));
-				item[j].setBackground(Color.BLUE);
-				item[j].setBackground(null);
-				item[j].setOpaque(false);
-				itempanel.add(item[j]);
-			}
-			
-		}catch(Exception e){
-			System.err.println("can not load item int playerpanel");
-		}
-		centercontainer.add(itempanel);
-		//this.add(itempanel);
+		
 		JPanel scorepanel = new JPanel();
 		scorepanel.setOpaque(false);
 		scorepanel.setBackground(null);
 		//scorepanel.setBorder(BorderFactory.createEtchedBorder(Color.DARK_GRAY, Color.green));
 		scorepanel.setLayout(new GridLayout(2,2));
+		
+		//show score
 		label= new JLabel("Score:",SwingConstants.CENTER);
+		label.setForeground(Color.blue);
 		label.setBackground(null);
 		label.setOpaque(false);
 		scorepanel.add(label);
@@ -81,8 +67,12 @@ public class PlayerPanel extends JPanel {
 		score.setForeground(Color.GREEN);
 		score.setBackground(null);
 		score.setOpaque(false);
+		score.setFont(Controls.LARGE_FONT_DEFAULT);
 		scorepanel.add(score);
+		
+		//show miss
 		label= new JLabel("Miss:",SwingConstants.CENTER);
+		label.setForeground(Color.blue);
 		label.setBackground(null);
 		label.setOpaque(false);
 		scorepanel.add(label);
@@ -90,12 +80,29 @@ public class PlayerPanel extends JPanel {
 		miss.setForeground(Color.red);
 		miss.setBackground(null);
 		miss.setOpaque(false);
+		miss.setFont(Controls.LARGE_FONT_DEFAULT);
 		scorepanel.add(miss);
 		centercontainer.add(scorepanel);
 		this.add(centercontainer, BorderLayout.CENTER);
 		
+		//playerstatus button
+		this.statusbutton = new JButton("Join");
+		this.statusbutton.setFont(Controls.LARGE_FONT_DEFAULT);
+		this.statusbutton.setBackground(null);
+		this.statusbutton.setForeground(Color.red);
+		this.setOpaque(false);
+		this.statusbutton.setContentAreaFilled(false);
+		this.statusbutton.addActionListener(this.controller);
+		this.statusbutton.setFocusable(false);
+		this.add(statusbutton,BorderLayout.SOUTH);
 		
 		
+	}
+	
+	public void resetPanel(){
+		this.statusbutton.setEnabled(true);
+		this.statusbutton.setText("Join");
+		this.statusbutton.setForeground(Color.red);
 	}
 
 	public BufferedImage getBG() {
@@ -114,22 +121,25 @@ public class PlayerPanel extends JPanel {
 		this.player = player;
 	}
 	public void update(){
-		itempanel.setBorder(BorderFactory.createEmptyBorder(10,Math.abs((itempanel.getWidth()-itempanel.getHeight())/2), 0,Math.abs((itempanel.getWidth()-itempanel.getHeight())/2)));
 		
-		try{
-			int i;
-			for(i=0;i<this.player.getItem().size();i++){
-				this.item[i].setIcon(new ImageIcon(this.player.getItem().get(i).getImage()));
-			}
-			for(int j=i;j<6;j++){
-				this.item[j].setIcon(null);
-			}
-			
-		}catch(Exception e){
-			System.err.println("can not load item int playerpanel");
-		}
 		score.setText(""+this.player.getScore().getScore());
 		miss.setText(""+this.player.getScore().getMiss());
+	}
+	public void setPlaystatus(){
+		this.statusbutton.setForeground(Color.green);
+		this.statusbutton.setText("Give Up");
+		this.player.setPlayerstatus(Controls.PLAYER_PLAY);
+	}
+	
+	public void setGiveupStatus(){
+		this.statusbutton.setForeground(Color.gray);
+		this.statusbutton.setText("Give Up");
+		this.statusbutton.setEnabled(false);
+		this.player.setPlayerstatus(Controls.PLAYER_GIVE_UP);
+	}
+	
+	public int getPlayerNumber(){
+		return this.playernuber;
 	}
 	
 }

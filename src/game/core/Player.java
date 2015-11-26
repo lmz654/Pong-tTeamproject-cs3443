@@ -5,9 +5,10 @@ import java.util.ArrayList;
 
 import game.Controls;
 import game.components.item.Item;
+import game.math.structures.Vector;
 
 public class Player {
-	private boolean activestatus;
+	private int playerstatus;//0 not play, 2 play, 1 give up.
 	private String name;
 	private Paddle paddle;
 	private Score score;
@@ -40,6 +41,18 @@ public class Player {
 		this.paddle = paddle;
 		this.ballimage = new ArrayList<BufferedImage>();
 		this.paddleimage = new ArrayList<BufferedImage>();
+		this.playerstatus=Controls.PLAYER_NOT_PLAY;
+	}
+	
+	public void resetPlayer(){
+		
+		this.score.reset();
+		this.setPlayerstatus(Controls.PLAYER_NOT_PLAY);
+		this.ballholded=null;
+		this.keyincreasepress=0;
+		this.keydecreasepress=0;
+		this.keyholepress=false;
+		this.resetPaddle();
 	}
 	
 	public char getKeyincrease() {
@@ -88,6 +101,7 @@ public class Player {
 
 	public void setKeyholepress(boolean keyholepress) {
 		this.keyholepress = keyholepress;
+		this.paddle.setSticky(keyholepress);
 	}
 
 	public char getMotionAxis() {
@@ -151,13 +165,23 @@ public class Player {
 		// TODO Item Validation
 		this.item.add(i);
 	}
-	public boolean isActivestatus() {
-		return activestatus;
+	public int getPlayerStatus() {
+		return this.playerstatus;
 	}
 
-	public void setActivestatus(boolean activestatus) {
-		this.activestatus = activestatus;
-		this.paddle.setLength(Controls.PADDLE_LENGTH);
+	public void setPlayerstatus(int playerstatus) {
+		this.playerstatus=playerstatus;
+		if(playerstatus==Controls.PLAYER_PLAY){
+			this.paddle.setLength(Controls.PADDLE_DEFAULT_LENGTH);
+		}
+		this.playerstatus = playerstatus;
+		if(playerstatus==Controls.PLAYER_GIVE_UP || playerstatus== Controls.PLAYER_NOT_PLAY){
+			this.paddle.setLength(Controls.PADDLE_MAX_LENGTH);
+			this.resetPaddle();
+			 
+
+			
+		}
 	}
 	
 	public void movePaddle() {
@@ -208,5 +232,19 @@ public class Player {
 			System.err.println("Something went wrong shrinking paddle");
 			
 		}
+	}
+	
+	public void resetPaddle() {
+		switch (motionAxis) {
+		case 'X':
+		case 'x':
+			this.paddle.setPosition(new Vector(Controls.MODEL_WIDTH/2, paddle.getPosition().cartesian(1)));
+			break;
+		case 'Y':
+		case 'y':
+			this.paddle.setPosition(new Vector(paddle.getPosition().cartesian(0), Controls.MODEL_HEIGHT/2));
+			break;
+		}
+		
 	}
 }

@@ -17,9 +17,11 @@ public class SidePanel extends JPanel{
 	private PlayerPanel playertop, playerbottom;
 	private KeyMap	playertopkey,playerbottomkey;
 	private vbhitController controller;
+	private int side;//1 left 2 right
 	
 	public SidePanel(vbhitController controller, int side){
 		this.controller=controller;
+		this.side=side;
 		this.setLayout(new GridLayout(2,0,10,10));
 		this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		try {
@@ -28,15 +30,15 @@ public class SidePanel extends JPanel{
 			System.err.println("leftpanel image input fail");
 		}
 		if(side==1){
-			playertop=new PlayerPanel(this.controller.getModel().getPlayer(0));
-			playerbottom=new PlayerPanel(this.controller.getModel().getPlayer(3));
-			playertopkey = new KeyMap(playertop.getPlayer());
-			playerbottomkey= new KeyMap (playerbottom.getPlayer());
+			playertop=new PlayerPanel(this.controller.getModel().getPlayer(0),this.controller,0);
+			playerbottom=new PlayerPanel(this.controller.getModel().getPlayer(3),this.controller,3);
+			playertopkey = new KeyMap(playertop.getPlayer(),this.controller,0);
+			playerbottomkey= new KeyMap (playerbottom.getPlayer(),this.controller,3);
 		}else if(side == 2){
-			playertop=new PlayerPanel(this.controller.getModel().getPlayer(2));
-			playerbottom=new PlayerPanel(this.controller.getModel().getPlayer(1));
-			playertopkey = new KeyMap(playertop.getPlayer());
-			playerbottomkey= new KeyMap (playerbottom.getPlayer());
+			playertop=new PlayerPanel(this.controller.getModel().getPlayer(2),this.controller,2);
+			playerbottom=new PlayerPanel(this.controller.getModel().getPlayer(1),this.controller,1);
+			playertopkey = new KeyMap(playertop.getPlayer(),this.controller,2);
+			playerbottomkey= new KeyMap (playerbottom.getPlayer(),this.controller,1);
 		}
 		
 	}
@@ -53,12 +55,17 @@ public class SidePanel extends JPanel{
 		this.add(playerbottom);
 	}
 	
+	public void ResetPlayer(){
+		this.playertop.resetPanel();
+		this.playerbottom.resetPanel();
+	}
 	public void showPlayerkey(){
 		this.remove(playertop);
 		this.remove(playerbottom);
 		this.add(playertopkey);
 		this.add(playerbottomkey);
 	}
+	
 	public void saveKeyMap(){
 		this.playerbottomkey.savekey();
 		this.playertopkey.savekey();

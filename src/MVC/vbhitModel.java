@@ -56,13 +56,41 @@ public class vbhitModel {
 		//this.createball();
 		timer = new Timer(Controls.MODEL_TIME, action);
 	}
+	public void resetkey(int i){
+		if(i==0){
+			this.player.get(0).setkeydecrease(Controls.P1_KEY_DECREASE);
+			this.player.get(0).setKeyincrease(Controls.P1_KEY_INCREASE);
+			this.player.get(0).setKeyhole(Controls.P1_KEY_HOLE);
+		}else if(i==1){
+			this.player.get(1).setkeydecrease(Controls.P2_KEY_DECREASE);
+			this.player.get(1).setKeyincrease(Controls.P2_KEY_INCREASE);
+			this.player.get(1).setKeyhole(Controls.P2_KEY_HOLE);
+		}else if(i==2){
+			this.player.get(2).setkeydecrease(Controls.P3_KEY_DECREASE);
+			this.player.get(2).setKeyincrease(Controls.P3_KEY_INCREASE);
+			this.player.get(2).setKeyhole(Controls.P3_KEY_HOLE);
+		}else if(i==3){
+			this.player.get(3).setkeydecrease(Controls.P4_KEY_DECREASE);
+			this.player.get(3).setKeyincrease(Controls.P4_KEY_INCREASE);
+			this.player.get(3).setKeyhole(Controls.P4_KEY_HOLE);
+		}
+	}
 	public Sound getGameSound(){
 		return this.gamesound;
+	}
+	
+	public void SoundOff(){
+		
+		this.gamesound.Off();
+	}
+	
+	public void SoundOn(){
+		this.gamesound.On();
 	}
 	public void resetgame(){
 		this.ball.clear();
 		for(Player pl:this.player){
-			pl.getScore().reset();
+			pl.resetPlayer();
 		}
 		//this.player.clear();
 		//this.createdefaultplayer();
@@ -78,29 +106,9 @@ public class vbhitModel {
 	public void addController (vbhitController controller){
 		this.controller=controller;
 	}
-	/*public vbhitModel(ArrayList<Item> item, ArrayList<Obstacle> obstacle, Player[] player, ArrayList<Ball> ball) {
-		super();
-		this.item = item;
-		this.obstacle = obstacle;
-		this.player = player;
-		this.ball = ball;
-		ActionListener action = new ActionListener(){
-
-			public void actionPerformed(ActionEvent arg0) {
-				vbhitModel.this.update();
-			}
-			
-		};
-		try {
-			defaultballimage = ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\default.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		timer = new Timer(Controls.MODEL_TIME, action);
-	}*/
-	public void activateplayer(int player){
-		this.player.get(player).setActivestatus(true);
+	
+	public void setPlayerStatus(int player,int status){
+		this.player.get(player).setPlayerstatus(status);;
 	}
 	public void createball(){
 		Ball ball = Controls.getDefaultBall();
@@ -188,7 +196,7 @@ public class vbhitModel {
 	public void update(){
 		this.moveBalls();
 		for(Player p: player){
-			if(p.isActivestatus()==true){
+			if(p.getPlayerStatus()==Controls.PLAYER_PLAY){
 				p.movePaddle();
 			}
 			
@@ -283,6 +291,7 @@ public class vbhitModel {
 					}			
 				}
 				if(remove==true){
+					this.gamesound.Explosion();
 					this.ball.remove(b);
 					i--;
 					remove=false;

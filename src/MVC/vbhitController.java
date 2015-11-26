@@ -1,5 +1,6 @@
 package MVC;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
@@ -11,6 +12,11 @@ import java.awt.event.WindowStateListener;
 
 import javax.swing.JFrame;
 import javax.swing.Timer;
+
+import MVC.side.KeyMap;
+import MVC.side.PlayerPanel;
+
+import javax.swing.JButton;
 
 import game.Controls;
 import game.core.Player;
@@ -34,6 +40,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		if(arg0.getKeyChar()==KeyEvent.VK_ESCAPE && this.model.getGameState()==Controls.GAME_PLAY ){
+			//this.model.getGameSound().BGstop();
 			this.model.setGameState(Controls.GAME_PAUSE);
 			model.stop();
 			view.stop();
@@ -42,13 +49,13 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 		else if(arg0.getKeyChar()=='n'){
 			model.createball();
 		}else if(arg0.getKeyChar()=='2'){
-			model.activateplayer(1);
+			model.setPlayerStatus(1, Controls.PLAYER_PLAY);
 		}else if(arg0.getKeyChar()=='3'){
-			model.activateplayer(2);
+			model.setPlayerStatus(2, Controls.PLAYER_PLAY);
 		}else if(arg0.getKeyChar()=='4'){
-			model.activateplayer(3);
+			model.setPlayerStatus(3, Controls.PLAYER_PLAY);
 		}else if(arg0.getKeyChar()=='1'){
-			model.activateplayer(0);
+			model.setPlayerStatus(0, Controls.PLAYER_PLAY);
 		}
 		else{
 			for(Player temp:model.getAllPlayer()){
@@ -77,10 +84,42 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 	public void actionPerformed(ActionEvent e) {
 		
 		//sound when click any button
-		this.model.getGameSound().buttonclick();
+		this.model.getGameSound().ButtonClick();
+		//this.model.getGameSound().Explosionsound();
 		
-		//actionmenu
-		if(e.getActionCommand().equals("Full Screen")){
+		//KeyMap panel
+		if(e.getActionCommand().equals("Save Key")){
+			JButton button;
+			button = (JButton) e.getSource();
+			KeyMap parent=(KeyMap) button.getParent();
+			parent.savekey();
+			
+		}else if(e.getActionCommand().equals("Reset")){
+			JButton button = (JButton) e.getSource();
+			KeyMap keymap = (KeyMap) button.getParent();
+			this.model.resetkey(keymap.getPlayerNumber());
+			keymap.Updatepanel();
+			
+		}
+		//player panel
+		else if(e.getActionCommand().equals("Join")){
+			JButton button;
+			button = (JButton) e.getSource();
+			PlayerPanel parent=(PlayerPanel) button.getParent();
+			parent.setPlaystatus();
+			this.view.updateratio();
+			
+		}else if(e.getActionCommand().equals("Give Up")&& this.model.getGameState()==Controls.GAME_PLAY){
+			JButton button;
+			PlayerPanel parent;
+			button = (JButton) e.getSource();
+			parent = (PlayerPanel) button.getParent();
+			parent.setGiveupStatus();
+			this.view.updateratio();
+		}
+			
+		//pausemenu panel
+		else if(e.getActionCommand().equals("Full Screen")){
 			this.view.dispose();
 			this.view= new vbhitView(this.model);
 			this.view.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -111,11 +150,13 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 		}else if(e.getActionCommand().equals("Quit")){
 			this.model.setGameState(Controls.GAME_STOP);
 			this.model.resetgame();
+			this.view.getLeftpanel().ResetPlayer();
+			this.view.getRightpanel().ResetPlayer();
 			this.view.getActionPanel().getSaveKeyMapPanel().getBackorResume().setText("Main Menu");
 			vbhitController.this.view.getActionPanel().hideAllSubMenu();
 			vbhitController.this.view.getActionPanel().showTitleMenu();
 		}
-		//TitleMenu
+		//TitleMenu panel
 		else if(e.getActionCommand().equals("Game Setup")){
 			this.view.getActionPanel().hideAllSubMenu();
 			this.view.getActionPanel().showSetupMenu();
@@ -129,6 +170,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			this.view.showPlayerKey();
 			this.view.getActionPanel().showSaveMenu();
 		}else if(e.getActionCommand().equals("Start")){
+			//this.model.getGameSound().BGstart();
 			vbhitController.this.view.getActionPanel().hideAllSubMenu();
 			this.view.getActionPanel().getSaveKeyMapPanel().getBackorResume().setText("Resume");
 			this.model.setGameState(Controls.GAME_PLAY);
@@ -141,30 +183,19 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			System.exit(1);
 		}
 		//savekeypanel
-		else if(e.getActionCommand().equals("Save")){
-			
-			/*this.view.getActionPanel().hideAllSubMenu();
-			this.view.savePlayerKey();
-			if(this.model.getGameStart()==true){
-				this.view.showPlayer();
-				this.view.getActionPanel().showPauseMenu();
-			}else{
-				this.view.showPlayer();
-				this.view.getActionPanel().showTitleMenu();
-			}*/
+		else if(e.getActionCommand().equals("Sound: Off")){
+			this.model.SoundOff();
+			JButton button = (JButton) e.getSource();
+			button.setText("Sound: On");
+			button.setForeground(Color.red);
 			
 			
-		}
-		else if(e.getActionCommand().equals("Don't Save")){
-			/*this.view.getActionPanel().hideAllSubMenu();
-			if(this.model.getGameStart()==true){
-				this.view.showPlayer();
-				this.view.getActionPanel().showPauseMenu();
-			}else{
-				this.view.showPlayer();
-				this.view.getActionPanel().showTitleMenu();
-			}*/
 			
+		}else if(e.getActionCommand().equals("Sound: On")){
+			this.model.SoundOn();
+			JButton button = (JButton) e.getSource();
+			button.setText("Sound: Off");
+			button.setForeground(Color.green);
 		}
 		//instruction menu
 		else if(e.getActionCommand().equals("Main Menu")){
