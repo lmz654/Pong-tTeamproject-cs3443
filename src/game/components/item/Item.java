@@ -6,6 +6,11 @@ import java.awt.image.BufferedImage;
 public abstract class Item {
 	private Point point;
 	private BufferedImage image;
+	
+	public Item(Point point, BufferedImage image){
+		this.point=point;
+		this.image=image;
+	}
 
 	public BufferedImage getImage() {
 		return image;
@@ -22,5 +27,7 @@ public abstract class Item {
 	public void setPoint(Point point) {
 		this.point = point;
 	}	
+	
+	abstract void effect();
 	
 }

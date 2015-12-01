@@ -85,16 +85,16 @@ public class Controls {
 	public static Paddle getPaddle(int player) {
 		Paddle paddle;
 		switch(player) {
-		case 1:
+		case 0:
 			paddle = new Paddle(new Vector(0 + X_OFST, MODEL_HEIGHT/2), Controls.MODEL_HEIGHT-(2*Controls.PADDLE_MINREACH_LIMIT), PADDLE_WIDTH);
 			break;
-		case 2:
+		case 1:
 			paddle = new Paddle(new Vector(MODEL_WIDTH - X_OFST, MODEL_HEIGHT/2), Controls.MODEL_HEIGHT-(2*Controls.PADDLE_MINREACH_LIMIT), PADDLE_WIDTH);
 			break;
-		case 3:
+		case 2:
 			paddle = new Paddle(new Vector(MODEL_WIDTH/2, 0 + Y_OFST), Controls.MODEL_WIDTH-(2*Controls.PADDLE_MINREACH_LIMIT), PADDLE_WIDTH);
 			break;
-		case 4:
+		case 3:
 			paddle = new Paddle(new Vector(MODEL_WIDTH/2, MODEL_HEIGHT - Y_OFST), Controls.MODEL_WIDTH-(2*Controls.PADDLE_MINREACH_LIMIT), PADDLE_WIDTH);
 			break;
 		default:
@@ -112,10 +112,11 @@ public class Controls {
 		return ball;
 	}
 	public static Player player1default(){
-		Paddle paddle = Controls.getPaddle(1);
+		Paddle paddle = Controls.getPaddle(0);
 		Player player = new Player("Huu", paddle,Controls.P1_KEY_DECREASE,Controls.P1_KEY_INCREASE,Controls.P1_KEY_HOLE,'y');
 		player.getScore().setScore(0);
 		player.getScore().setMiss(0);
+		player.setPlayernumber(0);
 		try {
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p11.png")));
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p12.png")));
@@ -131,10 +132,11 @@ public class Controls {
 		return player;
 	}
 	public static Player player2default(){
-		Paddle paddle = Controls.getPaddle(2);
+		Paddle paddle = Controls.getPaddle(1);
 		Player player = new Player("Fernando", paddle,Controls.P2_KEY_DECREASE,Controls.P2_KEY_INCREASE,Controls.P2_KEY_HOLE,'y');
 		player.getScore().setScore(0);
 		player.getScore().setMiss(0);
+		player.setPlayernumber(1);
 		try {
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p21.png")));
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p22.png")));
@@ -151,10 +153,11 @@ public class Controls {
 		return player;
 	}
 	public static Player player3default(){
-		Paddle paddle = Controls.getPaddle(3);
+		Paddle paddle = Controls.getPaddle(2);
 		Player player = new Player("Taylor", paddle,Controls.P3_KEY_DECREASE,Controls.P3_KEY_INCREASE,Controls.P3_KEY_HOLE,'x');
 		player.getScore().setScore(0);
 		player.getScore().setMiss(0);
+		player.setPlayernumber(2);
 		try {
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p31.png")));
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p32.png")));
@@ -170,10 +173,11 @@ public class Controls {
 		return player;
 	}
 	public static Player player4default(){
-		Paddle paddle = Controls.getPaddle(4);
+		Paddle paddle = Controls.getPaddle(3);
 		Player player = new Player("Christian", paddle,Controls.P4_KEY_DECREASE,Controls.P4_KEY_INCREASE,Controls.P4_KEY_HOLE,'x');
 		player.getScore().setScore(0);
 		player.getScore().setMiss(0);
+		player.setPlayernumber(3);
 		try {
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p41.png")));
 			player.addBallimage(ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p42.png")));

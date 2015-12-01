@@ -9,6 +9,7 @@ import game.math.structures.Vector;
 
 public class Player {
 	private int playerstatus;//0 not play, 2 play, 1 give up.
+	private int playernumber;//0 left, 1 right, 2 top, 3 bottom
 	private String name;
 	private Paddle paddle;
 	private Score score;
@@ -55,6 +56,37 @@ public class Player {
 		this.resetPaddle();
 	}
 	
+	public void resetkey(){
+		if(this.playernumber==0){
+			this.keydecrease=Controls.P1_KEY_DECREASE;
+			this.keyincrease=Controls.P1_KEY_INCREASE;
+			this.keyhole=Controls.P1_KEY_HOLE;
+			
+		}else if(this.playernumber==1){
+			this.keydecrease=Controls.P2_KEY_DECREASE;
+			this.keyincrease=Controls.P2_KEY_INCREASE;
+			this.keyhole=Controls.P2_KEY_HOLE;
+			
+		}else if(this.playernumber==2){
+			this.keydecrease=Controls.P3_KEY_DECREASE;
+			this.keyincrease=Controls.P3_KEY_INCREASE;
+			this.keyhole=Controls.P3_KEY_HOLE;
+			
+		}else if(this.playernumber==3){
+			this.keydecrease=Controls.P4_KEY_DECREASE;
+			this.keyincrease=Controls.P4_KEY_INCREASE;
+			this.keyhole=Controls.P4_KEY_HOLE;
+		}
+	}
+	
+	public int getPlayernumber() {
+		return playernumber;
+	}
+
+	public void setPlayernumber(int playernumber) {
+		this.playernumber = playernumber;
+	}
+
 	public char getKeyincrease() {
 		return keyincrease;
 	}

@@ -41,7 +41,8 @@ public class KeyMap extends JPanel {
 		JLabel label;
 		
 		//name
-		this.name = new JTextField(15);
+		this.name = new JTextField();
+		name.setName("Name");
 		name.setOpaque(false);
 		name.setBackground(null);
 		name.setHorizontalAlignment(JTextField.CENTER);
@@ -57,11 +58,13 @@ public class KeyMap extends JPanel {
 		
 		//keydecrease
 		this.keydecrease = new JTextField();
+		keydecrease.setName("keydecrease");
 		keydecrease.setOpaque(false);
 		keydecrease.setBackground(null);
 		keydecrease.setHorizontalAlignment(JTextField.CENTER);
 		keydecrease.setForeground(Color.green);
 		keydecrease.setFont(Controls.LARGE_FONT_DEFAULT);
+		this.keydecrease.addFocusListener(this.controller);
 		this.keydecrease.setText(""+player.getKeydecrease());
 		label = new JLabel("Key Decrease:",SwingConstants.CENTER);
 		label.setForeground(Color.green);
@@ -71,7 +74,8 @@ public class KeyMap extends JPanel {
 		this.add(this.keydecrease);
 		
 		//keyincrease
-		this.keyincrease = new JTextField(1);
+		this.keyincrease = new JTextField();
+		keyincrease.setName("keyincrease");
 		keyincrease.setOpaque(false);
 		keyincrease.setBackground(null);
 		keyincrease.setForeground(Color.green);
@@ -86,7 +90,8 @@ public class KeyMap extends JPanel {
 		this.add(this.keyincrease);
 		
 		//keyhold
-		this.keyhold = new JTextField(1);
+		this.keyhold = new JTextField();
+		keyhold.setName("keyhold");
 		keyhold.setHorizontalAlignment(JTextField.CENTER);
 		keyhold.setForeground(Color.green);
 		keyhold.setOpaque(false);

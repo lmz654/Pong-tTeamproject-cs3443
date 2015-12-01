@@ -48,7 +48,7 @@ public class vbhitModel {
 			
 		};
 		try {
-			defaultballimage = ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\default.png"));
+			defaultballimage = ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\defaultball.png"));
 		} catch (IOException e) {
 			System.err.println("defautballimage input is fail in vbhitModel");
 		}
@@ -56,37 +56,11 @@ public class vbhitModel {
 		//this.createball();
 		timer = new Timer(Controls.MODEL_TIME, action);
 	}
-	public void resetkey(int i){
-		if(i==0){
-			this.player.get(0).setkeydecrease(Controls.P1_KEY_DECREASE);
-			this.player.get(0).setKeyincrease(Controls.P1_KEY_INCREASE);
-			this.player.get(0).setKeyhole(Controls.P1_KEY_HOLE);
-		}else if(i==1){
-			this.player.get(1).setkeydecrease(Controls.P2_KEY_DECREASE);
-			this.player.get(1).setKeyincrease(Controls.P2_KEY_INCREASE);
-			this.player.get(1).setKeyhole(Controls.P2_KEY_HOLE);
-		}else if(i==2){
-			this.player.get(2).setkeydecrease(Controls.P3_KEY_DECREASE);
-			this.player.get(2).setKeyincrease(Controls.P3_KEY_INCREASE);
-			this.player.get(2).setKeyhole(Controls.P3_KEY_HOLE);
-		}else if(i==3){
-			this.player.get(3).setkeydecrease(Controls.P4_KEY_DECREASE);
-			this.player.get(3).setKeyincrease(Controls.P4_KEY_INCREASE);
-			this.player.get(3).setKeyhole(Controls.P4_KEY_HOLE);
-		}
-	}
+	
 	public Sound getGameSound(){
 		return this.gamesound;
 	}
 	
-	public void SoundOff(){
-		
-		this.gamesound.Off();
-	}
-	
-	public void SoundOn(){
-		this.gamesound.On();
-	}
 	public void resetgame(){
 		this.ball.clear();
 		for(Player pl:this.player){
@@ -194,19 +168,28 @@ public class vbhitModel {
 	}
 	//update totally action  in the game
 	public void update(){
-		this.moveBalls();
-		for(Player p: player){
-			if(p.getPlayerStatus()==Controls.PLAYER_PLAY){
-				p.movePaddle();
+		new Thread(new Runnable(){
+
+			public void run() {
+				for(Player p: player){
+					if(p.getPlayerStatus()==Controls.PLAYER_PLAY){
+						p.movePaddle();
+					}
+					
+				}
+				
 			}
 			
-		}
+		}).start();
+		
+		this.moveBalls();
+		
 	}
 	public void moveBalls() {
 		if (Controls.MODEL_HEIGHT == 0) return;
 		int posX, posY, radius;
 		boolean remove = false;
-		this.controller.repaintall();
+		//this.controller.repaintall();
 		//Collision collision;
 		try{
 			for (int i=0;i<this.ball.size();i++) {
@@ -248,11 +231,10 @@ public class vbhitModel {
 							System.err.println("fail to increase score of 1");
 						}
 						
-						this.controller.getView().udatesidepanel();
+						;
 						remove=true;
-						//this.ball.remove(b);
-						this.createball();	
-						this.controller.repaintall();
+						
+						
 					}
 				}
 				//check Y
@@ -283,16 +265,15 @@ public class vbhitModel {
 						}catch(Exception e){
 							System.err.println("fail to increase score of 2");
 						}
-						this.controller.getView().udatesidepanel();
 						remove=true;
-						//this.ball.remove(b);
-						this.createball();
-						//this.controller.repaintall();;
+						
 					}			
 				}
 				if(remove==true){
 					this.gamesound.Explosion();
 					this.ball.remove(b);
+					this.createball();	
+					this.controller.SidePanelRepaint();
 					i--;
 					remove=false;
 				}

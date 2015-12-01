@@ -61,6 +61,7 @@ public class Ball {
 		collided = false;
 	}
 	
+
 	public void setPosition(Vector position) {
 		this.position = position;
 	}

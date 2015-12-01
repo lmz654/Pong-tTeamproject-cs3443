@@ -16,21 +16,27 @@ import java.net.URL;
 
 public class Sound extends JFXPanel {
 	 
+	//button click sound
 	private MediaPlayer buttonsound;
+	//background sound
 	private MediaPlayer backgroundsound;
+	//ball get out of game sound
 	private MediaPlayer[] explosion;
-	private int th;
+	private int th;//just a variable make the explosion sound smooth
+	//turn on or off sound
+	private boolean soundon;
 	//ThreadPlayer buttonclick;
 	//ThreadPlayer explosion;
 	
 	public Sound(){
-		
+		soundon=true;
 		Media media = new Media(new File("clickButton.mp3").toURI().toString());
 		buttonsound = new MediaPlayer(media);
 		
-		/*media = new Media(new File("backgroundsound.mp3").toURI().toString());
+		media = new Media(new File("src\\gamesound\\readygo.mp3").toURI().toString());
 		backgroundsound = new MediaPlayer(media);
-		this.backgroundsound.setCycleCount(this.backgroundsound.INDEFINITE);*/
+		this.backgroundsound.setCycleCount(this.backgroundsound.INDEFINITE);
+		
 		th=0;
 		explosion = new MediaPlayer[4];
 		media = new Media(new File("explosion.mp3").toURI().toString());
@@ -45,30 +51,51 @@ public class Sound extends JFXPanel {
 		
 		
 	}
+	public void BGsound(){
+		if(this.soundon){
+			ThreadPlayer thread = new ThreadPlayer(backgroundsound);
+			thread.start();
+		}
+	}
+	
+	public void stopBGsound(){
+		if(this.backgroundsound.getStatus().equals(MediaPlayer.Status.PLAYING)){
+				this.backgroundsound.stop();
+		}
+	}
 	
 	public void Explosion(){
 		
-		ThreadPlayer thread = new ThreadPlayer(explosion[th]);
-		thread.start();
-		if(th==3)
-			th=0;
-		else th++;
+		if(this.soundon){
+			ThreadPlayer thread = new ThreadPlayer(explosion[th]);
+			thread.start();
+			if(th==3)
+				th=0;
+			else th++;
+		}
 			
 		//this.explosion.getMediaPlayer().stop();
 		//this.explosion.getMediaPlayer().play();
 	}
 	
 	public void ButtonClick(){
-		
-		ThreadPlayer thread = new ThreadPlayer(buttonsound);
-		thread.start();
+		if(this.soundon){
+			ThreadPlayer thread = new ThreadPlayer(buttonsound);
+			thread.start();
+		}
 		
 	}	
 	public void Off(){
-		
+		this.soundon=false;
+		this.backgroundsound.stop();
+		this.buttonsound.stop();
+		this.explosion[0].stop();
+		this.explosion[1].stop();
+		this.explosion[2].stop();
+		this.explosion[3].stop();
 	}
 	public void On(){
-		
+		this.soundon=true;
 	}
 	
 public class ThreadPlayer extends Thread{
