@@ -63,16 +63,21 @@ public class Controls {
 	// Control Variables for Paddles
 	public static final int X_OFST = 5;
 	public static final int Y_OFST= 5;
+	public static final int PADDLE_MAX_SPEED=15;
+	public static final int PADDLE_MIN_SPEED=4;
 	public static final int PADDLE_DEFAULT_LENGTH = 100;
 	public static final int PADDLE_WIDTH = 10;
 	public static final int PADDLE_VELOCITY=7;
 	public static final int PADDLE_MAXREACH_LIMIT= MODEL_WIDTH-CONER_LENGTH;
 	public static final int PADDLE_MINREACH_LIMIT=CONER_LENGTH;
+	public static final int PADDLE_ACTIVE_MIN_LENGTH = 50;
+	public static final int PADDLE_ACTIVE_MAX_LENGTH = 300;
 	public static final int PADDLE_MAX_LENGTH = PADDLE_MAXREACH_LIMIT - PADDLE_MINREACH_LIMIT;
 	
 	// Control Variables for Ball
-	public static final int BALL_MAX_SPEED = 10;
-	public static final int BALL_MIN_SPEED = 5;
+	public static final int BALL_MAX_SPEED = 12;
+	public static final int BALL_MIN_SPEED = 3;
+	public static final int BALL_NORMAL_SPEED=6;
 	public static final int BALL_DEFAULT_RADIUS = 30;
 	
 	// Control Variables for Collision Model

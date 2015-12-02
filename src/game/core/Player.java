@@ -225,47 +225,20 @@ public class Player {
 		}
 	}
 
-	public void enlargePaddle(int amount) throws Exception {
-		if (amount < 0)
-			throw new Exception("Cannot have Negative Shrink!");
+	public void enlargePaddle(int amount) /*throws Exception*/ {
+		this.paddle.ExpandPaddle(amount);
 		
-		switch(motionAxis) {
-		case 'X':
-		case 'x':
-			paddle.setLength(paddle.getLength()+amount);
-			break;
-		case 'y':
-		case 'Y':
-			paddle.setHeight(paddle.getHeight()+amount);
-			break;
-		default:
-			System.err.println("Something went wrong shrinking paddle");
-			
-		}
 	}
 
-
-	public void shrinkPaddle(int amount) throws Exception {
-		if (amount >= paddle.getLength())
-			throw new Exception("Shrink size is larger than Paddle length!");
-		if (amount < 0)
-			throw new Exception("Cannot have negative Shrink!");
-		
-		switch(motionAxis) {
-		case 'X':
-		case 'x':
-			paddle.setLength(paddle.getLength()-amount);
-			break;
-		case 'y':
-		case 'Y':
-			paddle.setHeight(paddle.getHeight()-amount);
-			break;
-		default:
-			System.err.println("Something went wrong shrinking paddle");
-			
-		}
+	public void shrinkPaddle(int amount) /*throws Exception*/ {
+		this.paddle.ShrinkPaddle(amount);	
 	}
-	
+	public void IncreasePaddleSpeed(int amount){
+		this.paddle.SpeedIncreasement(amount);
+	}
+	public void DecreasePaddleSpeed(int amount){
+		this.paddle.SpeedDecreasement(amount);
+	}
 	public void resetPaddle() {
 		switch (motionAxis) {
 		case 'X':

@@ -78,7 +78,7 @@ public class Vector {
 	public Vector minus(Vector v) {
 		Vector result = new Vector(LEN);
 		for (int i = 0; i < LEN; i++)
-			result.data[i] = this.data[i] - v.data[i];
+			result.data[i] = (double)(this.data[i] - v.data[i]);
 		return result;
 	}
 	
@@ -89,10 +89,15 @@ public class Vector {
 	public Vector times(double factor) {
 		Vector result = new Vector(LEN);
 		for (int i = 0; i < LEN; i++)
-			result.data[i] = factor * data[i];
+			result.data[i] =(double) factor * data[i];
 		return result;
 	}
-	
+	//increase in percent
+	public void PercentAdjust(double percent){
+		for(int i=0;i<LEN;i++){
+			this.data[i]=this.data[i]*percent;
+		}
+	}
 	public double angleTo(Vector other) {
 		return Math.acos((this.dot(other))/(this.magnitude()*other.magnitude()));
 	}

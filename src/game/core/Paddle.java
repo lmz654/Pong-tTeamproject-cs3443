@@ -39,12 +39,31 @@ public class Paddle {
 		return position;
 	}
 
-	public double getVelocity() {
+	public int getVelocity() {
 		return velocity;
 	}
 
 	public void setVelocity(int velocity) {
 		this.velocity = velocity;
+	}
+	
+	public void SpeedIncreasement(int speedup){
+		int a;
+		if((a=this.velocity+speedup)<Controls.PADDLE_MAX_SPEED){
+			this.velocity=a;
+		}else{
+			this.velocity=Controls.PADDLE_MAX_SPEED;
+		}
+			
+	}
+	
+	public void SpeedDecreasement(int slowdown){
+		int a;
+		if((a=this.velocity-slowdown)>Controls.PADDLE_MIN_SPEED){
+			this.velocity=a;
+		}else{
+			this.velocity=Controls.PADDLE_MIN_SPEED;
+		}
 	}
 
 	public int getLength() {
@@ -66,7 +85,23 @@ public class Paddle {
 	public void setPosition(Vector position) {
 		this.position = position;
 	}
-
+	public void ShrinkPaddle(int amount){
+		int a;
+		if((a=this.length-amount)< Controls.PADDLE_ACTIVE_MIN_LENGTH){
+			this.length=Controls.PADDLE_ACTIVE_MIN_LENGTH;
+		}else{
+			this.length=a;
+		}
+		
+	}
+	public void ExpandPaddle(int amount){
+		int a;
+		if((a=this.length+amount)> Controls.PADDLE_ACTIVE_MAX_LENGTH){
+			this.length=Controls.PADDLE_ACTIVE_MAX_LENGTH;
+		}else{
+			this.length=a;
+		}
+	}
 	public void move(char axis, int orient) throws Exception{
 		if(orient!=0){
 			switch(axis) {

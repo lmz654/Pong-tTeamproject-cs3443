@@ -22,6 +22,7 @@ import MVC.side.PlayerPanel;
 import javax.swing.JButton;
 
 import game.Controls;
+import game.core.Ball;
 import game.core.Player;
 
 public class vbhitController implements KeyListener, ActionListener, ComponentListener,WindowStateListener,FocusListener  {
@@ -54,9 +55,17 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			model.stop();
 			view.stop();
 			this.view.getActionPanel().showPauseMenu();
+		}else if(arg0.getKeyChar()=='h'){
+			for(Ball ball: this.model.getBall()){
+				ball.IncreaseSpeed(0.1);
+			}
+		}else if(arg0.getKeyChar()=='j'){
+			for(Ball ball: this.model.getBall()){
+				ball.DecreaseSpeed(0.1);
+			}
 		}
 		else if(arg0.getKeyChar()=='n'){
-			model.createball();
+			model.createDefaultball();
 		}else if(arg0.getKeyChar()=='2'){
 			model.setPlayerStatus(1, Controls.PLAYER_PLAY);
 		}else if(arg0.getKeyChar()=='3'){
@@ -195,7 +204,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			this.view.getActionPanel().getSaveKeyMapPanel().getBackorResume().setText("Resume");
 			this.model.setGameState(Controls.GAME_PLAY);
 			this.view.requestFocus();
-			model.createball();
+			model.createDefaultball();
 			this.view.updateratio();
 			model.start();
 			view.start();
@@ -233,7 +242,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			vbhitController.this.view.getActionPanel().hideAllSubMenu();
 			this.model.setGameState(Controls.GAME_PLAY);
 			this.view.requestFocus();
-			model.createball();
+			model.createDefaultball();
 			this.view.updateratio();
 			model.start();
 			view.start();

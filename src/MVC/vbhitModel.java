@@ -84,7 +84,7 @@ public class vbhitModel {
 	public void setPlayerStatus(int player,int status){
 		this.player.get(player).setPlayerstatus(status);;
 	}
-	public void createball(){
+	public void createDefaultball(){
 		Ball ball = Controls.getDefaultBall();
 		ball.setimage(this.defaultballimage);
 		this.ball.add(ball);
@@ -272,7 +272,7 @@ public class vbhitModel {
 				if(remove==true){
 					this.gamesound.Explosion();
 					this.ball.remove(b);
-					this.createball();	
+					this.createDefaultball();	
 					this.controller.SidePanelRepaint();
 					i--;
 					remove=false;

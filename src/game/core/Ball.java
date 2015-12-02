@@ -2,6 +2,7 @@ package game.core;
 
 import java.awt.image.BufferedImage;
 
+import game.Controls;
 import game.math.structures.Vector;
 
 public class Ball {
@@ -74,6 +75,19 @@ public class Ball {
 	}
 	public BufferedImage getimage(){
 		return this.image;
+	}
+	//increase in percent
+	public void IncreaseSpeed(double speedup){
+		if(this.velocity.magnitude()<Controls.BALL_MAX_SPEED){
+			this.velocity.PercentAdjust(1+speedup);
+			//System.out.print(this.velocity.toString());
+		}
+	}
+	//decrease in percent
+	public void DecreaseSpeed(double slowdown){
+		if(this.velocity.magnitude()>Controls.BALL_MIN_SPEED){
+			this.velocity.PercentAdjust(1-slowdown);
+		}
 	}
 	
 	// Information Methods
