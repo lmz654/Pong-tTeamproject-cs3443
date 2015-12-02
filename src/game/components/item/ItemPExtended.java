@@ -13,7 +13,7 @@ public class ItemPExtended extends Item {
 
 	@Override
 	void effect() {
-		
+		super.getPlayer().enlargePaddle(10);
 	}
 
 }

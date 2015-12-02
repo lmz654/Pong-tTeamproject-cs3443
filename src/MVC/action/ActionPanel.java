@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 
 import MVC.vbhitController;
 import MVC.vbhitModel;
+import game.Controls;
+import game.components.item.Item;
 import game.core.Ball;
 import game.core.Player;
 
@@ -72,6 +74,16 @@ public class ActionPanel extends JPanel {
 			float px,py;
 			float length,height;
 			g.setColor(Color.CYAN);
+		try{
+			for(Item item: this.controller.getModel().getItem()){
+				px=(float) (item.getPoint().x-Controls.ITEM_WIDTH/2)*this.ratio;
+				py=(float) (item.getPoint().y-Controls.ITEM_HEIGTH/2)*this.ratio;
+				g.drawImage(item.getImage(),Math.round(px),Math.round(py),
+						Math.round((float)Controls.ITEM_WIDTH*this.ratio),Math.round((float)Controls.ITEM_HEIGTH*this.ratio), null);
+			}
+		}catch(Exception e){
+			System.err.println("fail to draw power up in actionpanel");
+		}
 			//calculate paddles from real to display screen then draw paddles
 		try{
 			for(Player p:this.controller.getModel().getAllPlayer()){

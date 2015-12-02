@@ -1,13 +1,13 @@
 package MVC;
 
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
-
+import java.util.Collection;
 
 import javax.imageio.ImageIO;
 import javax.swing.Timer;
@@ -15,6 +15,12 @@ import javax.swing.Timer;
 import game.Controls;
 import game.Sound;
 import game.components.item.Item;
+import game.components.item.ItemAllBallSpeedup;
+import game.components.item.ItemAllBallSplit;
+import game.components.item.ItemPExtended;
+import game.components.item.ItemPShrinked;
+import game.components.item.ItemPSlower;
+import game.components.item.ItemPfaster;
 import game.components.obstacles.Obstacle;
 import game.core.Ball;
 import game.core.Player;
@@ -23,7 +29,9 @@ import game.math.structures.Vector;
 
 public class vbhitModel {
 	private Sound gamesound;
-	private ArrayList<Item> item;
+	//0:allballspeedup, 1: allballsplit, 2:pextended, 3:pfaster, 4:pshrinked, 5:pslower
+	private ArrayList<BufferedImage> itemimagelist;
+	private ArrayList<Item>	item;
 	private ArrayList<Obstacle> obstacle;
 	private ArrayList<Player> player;
 	private ArrayList<Ball> ball;
@@ -36,6 +44,7 @@ public class vbhitModel {
 		super();
 		gamesound = new Sound();
 		this.item = new ArrayList<Item>();
+		this.itemimagelist=new ArrayList<BufferedImage>();
 		this.obstacle = new ArrayList<Obstacle>();
 		this.ball = new ArrayList<Ball>();
 		player= new ArrayList<Player>();
@@ -47,6 +56,7 @@ public class vbhitModel {
 			}
 			
 		};
+		this.loadItemImage();
 		try {
 			defaultballimage = ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\defaultball.png"));
 		} catch (IOException e) {
@@ -83,6 +93,64 @@ public class vbhitModel {
 	
 	public void setPlayerStatus(int player,int status){
 		this.player.get(player).setPlayerstatus(status);;
+	}
+	public void loadItemImage(){
+		try {
+			this.itemimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\powerups\\ball_speed_inc.png")));
+			this.itemimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\powerups\\num_balls_inc.png")));
+			this.itemimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\powerups\\paddle_longer_alpha.png")));
+			this.itemimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\powerups\\fire_ball.png")));
+			this.itemimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\powerups\\paddle_shorter.png")));
+			this.itemimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\powerups\\ice_ball.png")));
+			
+		} catch (IOException e) {
+			System.err.println("Itemimage input is fail loadItemImage in vbhitModel");
+		}
+	}
+	public void CreatRandomItem(){
+		Point point= new Point();
+		point.setLocation(200+Math.random()*600, 200+Math.random()*600);
+		int itemtype= Math.round((float)Math.round(Math.random()*5));
+		System.out.print(itemtype + "  ");
+		switch (itemtype){
+		case 0:
+			this.item.add(new ItemAllBallSpeedup(point,this.itemimagelist.get(0),this));
+			break;
+		case 1:
+			this.item.add(new ItemAllBallSplit(point,this.itemimagelist.get(1),this));
+			break;
+		case 2:
+			this.item.add(new ItemPExtended(point,this.itemimagelist.get(2),this));
+			break;
+		case 3:
+			this.item.add(new ItemPfaster(point,this.itemimagelist.get(3),this));
+			break;
+		case 4:
+			this.item.add(new ItemPShrinked(point,this.itemimagelist.get(4),this));
+			break;
+		case 5:
+			this.item.add(new ItemPSlower(point,this.itemimagelist.get(5),this));
+			break;
+			
+		}
+	}
+	
+	public void createCoresponseBall(Player player){
+		try {
+			Ball b;
+			ArrayList<Ball> temp = new ArrayList<Ball>();
+			for(Ball ball:this.ball){
+				b=ball.clone();
+				b.setVelocity(Vector.getRand(new int[]{Controls.BALL_MAX_SPEED, -Controls.BALL_MIN_SPEED}, 
+								   new int[]{Controls.BALL_MAX_SPEED, -Controls.BALL_MIN_SPEED}));
+				b.setLastHit(player);
+				b.setimage(player.getBallimage().get(0));
+				temp.add(b);
+			}
+			this.ball.addAll(temp);
+		} catch (Exception e) {
+			System.out.print("problem with clone ball in CreateCoresponseBall in model");
+		}
 	}
 	public void createDefaultball(){
 		Ball ball = Controls.getDefaultBall();

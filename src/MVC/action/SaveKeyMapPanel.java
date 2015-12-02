@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import MVC.vbhitController;
+import game.Controls;
 
 
 
@@ -22,7 +23,12 @@ public class SaveKeyMapPanel extends JPanel{
 		this.setOpaque(false);
 		
 		//Main Menu
-		backorresume = new JButton("Main Menu");
+		if(this.controller.getModel().getGameState()==Controls.GAME_PAUSE){
+			backorresume = new JButton("Resume");
+		}else{
+			backorresume = new JButton("Main Menu");
+		}
+		
 		backorresume.addActionListener(this.controller);
 		backorresume.setOpaque(false);
 		backorresume.setBackground(null);

@@ -21,6 +21,8 @@ public class Vector {
 		}
 	}
 	
+	
+	
 	public static Vector getRand(int...data) {
 		double[] rand = new double[data.length];
 		
@@ -39,6 +41,10 @@ public class Vector {
 		}
 		
 		return new Vector(rand);
+	}
+	
+	public double[] getData(){
+		return this.data;
 	}
 	
 	public int length() {

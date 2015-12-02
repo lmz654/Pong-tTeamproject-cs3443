@@ -14,7 +14,7 @@ public class ItemPfaster extends Item{
 
 	@Override
 	void effect() {
-		// TODO Auto-generated method stub
+		this.getPlayer().IncreasePaddleSpeed(2);
 		
 	}
 

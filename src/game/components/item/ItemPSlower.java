@@ -15,7 +15,11 @@ public class ItemPSlower extends Item {
 	
 	@Override
 	void effect() {
-		// TODO Auto-generated method stub
+		for(Player player: super.getModel().getAllPlayer()){
+			if(!player.equals(super.getPlayer())){
+				player.DecreasePaddleSpeed(1);
+			}
+		}
 		
 	}
 	

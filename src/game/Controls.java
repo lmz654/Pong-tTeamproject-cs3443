@@ -16,6 +16,10 @@ public class Controls {
 	public static final Font LARGE_FONT_DEFAULT  = new Font("American Typewriter", Font.BOLD, 30);
 	public static final Font MID_FONT_DEFAULT  = new Font("American Typewriter", Font.BOLD, 20);
 	public static final Font SMALL_FONT_DEFAULT  = new Font("American Typewriter", Font.BOLD, 10);
+	
+	//power up
+	public static final int ITEM_WIDTH=40;
+	public static final int ITEM_HEIGTH=40;
 		
 	//game status
 	public static final int GAME_STOP=0;
@@ -92,16 +96,21 @@ public class Controls {
 		Paddle paddle;
 		switch(player) {
 		case 0:
-			paddle = new Paddle(new Vector(0 + X_OFST, MODEL_HEIGHT/2), Controls.MODEL_HEIGHT-(2*Controls.PADDLE_MINREACH_LIMIT), PADDLE_WIDTH);
+			paddle = new Paddle(
+					new Vector(0 + X_OFST, MODEL_HEIGHT/2), 
+					Controls.MODEL_HEIGHT-(2*Controls.PADDLE_MINREACH_LIMIT), PADDLE_WIDTH);
 			break;
 		case 1:
-			paddle = new Paddle(new Vector(MODEL_WIDTH - X_OFST, MODEL_HEIGHT/2), Controls.MODEL_HEIGHT-(2*Controls.PADDLE_MINREACH_LIMIT), PADDLE_WIDTH);
+			paddle = new Paddle(new Vector(MODEL_WIDTH - X_OFST, MODEL_HEIGHT/2), 
+					Controls.MODEL_HEIGHT-(2*Controls.PADDLE_MINREACH_LIMIT), PADDLE_WIDTH);
 			break;
 		case 2:
-			paddle = new Paddle(new Vector(MODEL_WIDTH/2, 0 + Y_OFST), Controls.MODEL_WIDTH-(2*Controls.PADDLE_MINREACH_LIMIT), PADDLE_WIDTH);
+			paddle = new Paddle(new Vector(MODEL_WIDTH/2, 0 + Y_OFST), 
+					Controls.MODEL_WIDTH-(2*Controls.PADDLE_MINREACH_LIMIT), PADDLE_WIDTH);
 			break;
 		case 3:
-			paddle = new Paddle(new Vector(MODEL_WIDTH/2, MODEL_HEIGHT - Y_OFST), Controls.MODEL_WIDTH-(2*Controls.PADDLE_MINREACH_LIMIT), PADDLE_WIDTH);
+			paddle = new Paddle(new Vector(MODEL_WIDTH/2, MODEL_HEIGHT - Y_OFST), 
+					Controls.MODEL_WIDTH-(2*Controls.PADDLE_MINREACH_LIMIT), PADDLE_WIDTH);
 			break;
 		default:
 			paddle = null;

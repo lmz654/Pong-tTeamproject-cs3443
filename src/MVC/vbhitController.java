@@ -56,15 +56,8 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			view.stop();
 			this.view.getActionPanel().showPauseMenu();
 		}else if(arg0.getKeyChar()=='h'){
-			for(Ball ball: this.model.getBall()){
-				ball.IncreaseSpeed(0.1);
-			}
-		}else if(arg0.getKeyChar()=='j'){
-			for(Ball ball: this.model.getBall()){
-				ball.DecreaseSpeed(0.1);
-			}
-		}
-		else if(arg0.getKeyChar()=='n'){
+			this.model.CreatRandomItem();
+		}else if(arg0.getKeyChar()=='n'){
 			model.createDefaultball();
 		}else if(arg0.getKeyChar()=='2'){
 			model.setPlayerStatus(1, Controls.PLAYER_PLAY);
@@ -140,7 +133,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			
 		//pausemenu panel
 		else if(e.getActionCommand().equals("Full Screen")){
-			this.model.getGameSound().ButtonClick();
+			//this.model.getGameSound().ButtonClick();
 			this.view.dispose();
 			this.view= new vbhitView(this.model);
 			this.view.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -151,7 +144,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			this.view.setVisible(true);
 		
 		}else if(e.getActionCommand().equals("Normal Screen")){
-			this.model.getGameSound().ButtonClick();
+			//this.model.getGameSound().ButtonClick();
 			this.view.dispose();
 			this.view= new vbhitView(this.model);
 			this.view.setExtendedState(JFrame.MAXIMIZED_BOTH);

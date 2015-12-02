@@ -90,8 +90,15 @@ public class Ball {
 		}
 	}
 	
-	// Information Methods
 	
+	public Ball clone(){
+		Ball b = new Ball(new Vector(this.getPosition().getData().clone()),
+				Vector.getRand(new int[]{Controls.BALL_MAX_SPEED, -Controls.BALL_MIN_SPEED}, 
+						   new int[]{Controls.BALL_MAX_SPEED, -Controls.BALL_MIN_SPEED}),Controls.BALL_DEFAULT_RADIUS);
+		return b;
+	}
+	
+	// Information Methods
 	public String toString() {
 		StringBuilder s = new StringBuilder();
 		s.append("{");		

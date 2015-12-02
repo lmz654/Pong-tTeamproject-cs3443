@@ -14,7 +14,7 @@ public class ItemAllBallSplit extends Item {
 
 	@Override
 	void effect() {
-		// TODO Auto-generated method stub
+		super.getModel().createCoresponseBall(super.getPlayer());
 		
 	}
 
