@@ -360,22 +360,27 @@ public class vbhitModel {
 					posY = (int)Math.rint(b.getPosition().cartesian(1));
 					radius = b.getRadius();
 					//hit x limit
-					if(posX<0 && 
-							(this.player.get(0).getPlayerStatus()!=Controls.PLAYER_PLAY) && b.getVelocity().cartesian(0)<=0 ){
+					
+					if(posX<0 && b.getVelocity().cartesian(0)<=0 &&(
+						(posY + radius< Controls.CONER_LENGTH ||posY - b.getRadius()> Controls.MODEL_HEIGHT-Controls.CONER_LENGTH) ||
+						(this.player.get(0).getPlayerStatus()!=Controls.PLAYER_PLAY  ))){
 						//adjust velocity vector in normal way
 						b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
-					}else if(posX > Controls.MODEL_WIDTH && 
-							(this.player.get(1).getPlayerStatus()!=Controls.PLAYER_PLAY) && b.getVelocity().cartesian(0)>0 ){
+					}else if(posX > Controls.MODEL_WIDTH && b.getVelocity().cartesian(0)>0 && (
+						(posY + radius< Controls.CONER_LENGTH ||posY - b.getRadius()> Controls.MODEL_HEIGHT-Controls.CONER_LENGTH) ||
+						(this.player.get(1).getPlayerStatus()!=Controls.PLAYER_PLAY) )){
 						//adjust velocity vector in normal way
 						b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
 					}
 						//hit y limit		
-					else if(posY <0 && 
-							(this.player.get(2).getPlayerStatus()!=Controls.PLAYER_PLAY) && b.getVelocity().cartesian(1)<=0 ){
+					else if(posY <0 && b.getVelocity().cartesian(1)<=0 &&((posX + b.getRadius()< Controls.CONER_LENGTH || 
+							posX - b.getRadius()> Controls.MODEL_WIDTH-Controls.CONER_LENGTH)|| 
+							(this.player.get(2).getPlayerStatus()!=Controls.PLAYER_PLAY)  )){
 						//adjust velocity vector in normal way						
 						b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
-					}else if(posY > Controls.MODEL_HEIGHT && 
-							(this.player.get(3).getPlayerStatus()!=Controls.PLAYER_PLAY) && b.getVelocity().cartesian(1)>0){
+					}else if(posY > Controls.MODEL_HEIGHT && b.getVelocity().cartesian(1)>0 && ((posX + b.getRadius()< Controls.CONER_LENGTH || 
+							posX - b.getRadius()> Controls.MODEL_WIDTH-Controls.CONER_LENGTH)|| 
+							(this.player.get(3).getPlayerStatus()!=Controls.PLAYER_PLAY) )){
 						//adjust velocity vector in normal way						
 						b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
 						// Checking the ball within paddle on leftside
@@ -532,8 +537,8 @@ public class vbhitModel {
 					//check Y
 					/*if ((posY > (Controls.MODEL_HEIGHT -radius ) || posY <0radius)&& remove==false) {
 						//hit corner on y axis
-						if((posX + b.getRadius()< Controls.CONER_LENGTH) || 
-								(posX - b.getRadius()> Controls.MODEL_WIDTH-Controls.CONER_LENGTH)){
+						if(posX + b.getRadius()< Controls.CONER_LENGTH || 
+								posX - b.getRadius()> Controls.MODEL_WIDTH-Controls.CONER_LENGTH){
 							
 							b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
 							
