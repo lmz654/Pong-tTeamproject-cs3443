@@ -78,9 +78,18 @@ public class Player {
 			this.keyhole=Controls.P4_KEY_HOLE;
 		}
 	}
+	//getter setter
 	
 	public int getPlayernumber() {
 		return playernumber;
+	}
+
+	public Ball getBallholded() {
+		return ballholded;
+	}
+
+	public void setBallholded(Ball ballholded) {
+		this.ballholded = ballholded;
 	}
 
 	public void setPlayernumber(int playernumber) {
@@ -134,6 +143,11 @@ public class Player {
 	public void setKeyholepress(boolean keyholepress) {
 		this.keyholepress = keyholepress;
 		this.paddle.setSticky(keyholepress);
+		if(keyholepress==false && this.ballholded!=null){
+			this.ballholded.release();
+			this.ballholded=null;
+			
+		}
 	}
 
 	public char getMotionAxis() {

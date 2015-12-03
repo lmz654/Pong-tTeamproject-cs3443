@@ -111,7 +111,8 @@ public class vbhitModel {
 		Point point= new Point();
 		point.setLocation(200+Math.random()*600, 200+Math.random()*600);
 		int itemtype= Math.round((float)Math.round(Math.random()*5));
-		System.out.print(itemtype + "  ");
+		//int itemtype=1;
+		//System.out.print(itemtype + "  ");
 		switch (itemtype){
 		case 0:
 			this.item.add(new ItemAllBallSpeedup(point,this.itemimagelist.get(0),this));
@@ -138,14 +139,21 @@ public class vbhitModel {
 	public void createCoresponseBall(Player player){
 		try {
 			Ball b;
+			int size=this.getBall().size();
 			ArrayList<Ball> temp = new ArrayList<Ball>();
-			for(Ball ball:this.ball){
-				b=ball.clone();
-				b.setVelocity(Vector.getRand(new int[]{Controls.BALL_MAX_SPEED, -Controls.BALL_MIN_SPEED}, 
-								   new int[]{Controls.BALL_MAX_SPEED, -Controls.BALL_MIN_SPEED}));
-				b.setLastHit(player);
-				b.setimage(player.getBallimage().get(0));
-				temp.add(b);
+			for(int i=0;i<size;i++){
+				//if(this.ball.get(i).getLastHit().equals(player)){
+					b=ball.get(i).clone();
+					b.setVelocity(Vector.getRand(new int[]{Controls.BALL_MAX_SPEED, -Controls.BALL_MIN_SPEED}, 
+									   new int[]{Controls.BALL_MAX_SPEED, -Controls.BALL_MIN_SPEED}));
+					if(player!=null){
+						b.setLastHit(player);
+						b.setimage(player.getBallimage().get(0));
+					}else{
+						b.setimage(this.defaultballimage);
+					}
+					temp.add(b);
+				//}
 			}
 			this.ball.addAll(temp);
 		} catch (Exception e) {
@@ -230,12 +238,39 @@ public class vbhitModel {
 	public void addBall(Ball in){
 		ball.add(in);
 	}
+	public void BallHitItem (){
+		Point b,i;
+		int size = this.ball.size();
+		for(int z=0;z<size;z++){
+			if(ball.get(z)!=null){
+				try{
+					for(int t=0;t<this.item.size();t++){
+						b=ball.get(z).getPosition().toPoint();
+						i=this.item.get(t).getPoint();
+						if((Math.abs(i.x- b.x)<=Controls.ITEM_WIDTH/2) &&
+							(Math.abs(i.y- b.y)<=Controls.ITEM_HEIGTH/2)){
+							//if(ball.getLastHit()!=null){
+								this.item.get(t).effect(ball.get(z).getLastHit());
+								this.item.remove(this.item.get(t));
+								t--;
+							//}
+						}
+								
+					}
+				}catch(Exception e){
+					System.err.println("fail to remove item in BallHitItem vbhitmodel");
+				}
+			}
+		}
+	}
 	
 	public void checkCollisions() {
 		CollisionDetector.checkCollisions(this);
 	}
 	//update totally action  in the game
 	public void update(){
+		vbhitModel.this.BallsVelocityAdjust();
+		
 		new Thread(new Runnable(){
 
 			public void run() {
@@ -249,104 +284,200 @@ public class vbhitModel {
 			}
 			
 		}).start();
+		new Thread(new Runnable(){
+
+			public void run() {
+				
+				vbhitModel.this.BallHitItem();
+			}
+			
+		}).start();
 		
-		this.moveBalls();
+		new Thread(new Runnable(){
+
+			public void run() {
+				
+				vbhitModel.this.MoveBall();
+			}
+			
+		}).start();
+		
+		
+				
+				
+				
+			
 		
 	}
-	public void moveBalls() {
+	public void MoveBall(){
+		
+		for(int i=0;i<this.ball.size();i++){
+			if(this.ball.get(i)!=null && this.ball.get(i).getHolded()==null){
+				this.ball.get(i).move();
+			}
+		}
+	}
+	public void BallsVelocityAdjust() {
 		if (Controls.MODEL_HEIGHT == 0) return;
 		int posX, posY, radius;
 		boolean remove = false;
-		//this.controller.repaintall();
+
 		//Collision collision;
 		try{
 			for (int i=0;i<this.ball.size();i++) {
 				Ball b = ball.get(i);
-				b.move();
 				posX =(int)Math.round(b.getPosition().cartesian(0));
 				posY = (int)Math.rint(b.getPosition().cartesian(1));
 				radius = b.getRadius();
+				//ball not null and no player is holding ball
+				if(b!=null&& b.getHolded()==null){
 				
-				
-				// Check boundries
-				// Checking X
-				if (posX > (Controls.MODEL_WIDTH-radius) || posX < radius) {
-					if((posY + radius< Controls.CONER_LENGTH) || (posY - b.getRadius()> Controls.MODEL_HEIGHT-Controls.CONER_LENGTH)){
-						b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
-						//check the ball within paddle on leftside
-					}else if(posX<radius && Math.abs(posY-this.player.get(0).getPaddle().getPosition().cartesian(1))<=(this.player.get(0).getPaddle().getLength()/2+radius)){
-						b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
-						b.setLastHit(player.get(0));
-						b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
-						//check the ball within paddle on rightside
-					}else if(posX > (Controls.MODEL_WIDTH-radius) && Math.abs(posY-this.player.get(1).getPaddle().getPosition().cartesian(1))<=(this.player.get(1).getPaddle().getLength()/2+radius)){
-						b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
-						b.setLastHit(player.get(1));
-						b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
-					}else{// ball go out of the panel
-						remove=true;
-						if(posX<radius){
-							this.player.get(0).increaseMiss();
+					// Check boundries
+					// Checking X
+					if (posX > (Controls.MODEL_WIDTH-radius) || posX < radius) {
+						if((posY + radius< Controls.CONER_LENGTH) || 
+								(posY - b.getRadius()> Controls.MODEL_HEIGHT-Controls.CONER_LENGTH)){
+							//adjust velocity vector in normal way
+							b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
 							
-						}else if(posX> (Controls.MODEL_WIDTH-radius)){
-							this.player.get(1).increaseMiss();
-						}
-						try{
-							if(b.getLastHit()!=null){
-								b.getLastHit().increaseScore();
+							//check the ball within paddle on leftside
+						}else if(posX<radius && b.getVelocity().cartesian(0)<0 &&
+								Math.abs(posY-this.player.get(0).getPaddle().getPosition().cartesian(1))<=
+								(this.player.get(0).getPaddle().getLength()/2+radius)){
+							
+							if(player.get(0).getPlayerStatus()==2){
+								b.setLastHit(player.get(0));
+								b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
+								
+								if(this.player.get(0).isKeyholepress()==true && this.player.get(0).getBallholded()==null){
+									this.player.get(0).setBallholded(b);
+									b.setHolded(this.player.get(0));
+								
+								}else{//adjust velocity vector in special way
+									b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
+								}
+							}else{//adjust velocity in normal way
+								b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
 							}
-						}catch(NullPointerException e){
-							System.err.println("fail to increase score of 1");
+							//check the ball within paddle on rightside
+						}else if(posX > (Controls.MODEL_WIDTH-radius) && b.getVelocity().cartesian(0)>0 &&
+								Math.abs(posY-this.player.get(1).getPaddle().getPosition().cartesian(1))<=
+								(this.player.get(1).getPaddle().getLength()/2+radius)){
+								
+							if(player.get(1).getPlayerStatus()==2){
+								b.setLastHit(player.get(1));
+								b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
+									
+								if(this.player.get(1).isKeyholepress()==true && this.player.get(1).getBallholded()==null){
+									this.player.get(1).setBallholded(b);
+									b.setHolded(this.player.get(1));
+								
+								}else{//adjust velocity vector in special way
+									b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
+								}
+								
+							}else{//adjust velocity in normal way
+								b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));	
+							}
+							
+						}else{// ball go out of the panel
+							remove=true;
+							if(posX<radius){
+								this.player.get(0).increaseMiss();
+								
+							}else if(posX> (Controls.MODEL_WIDTH-radius)){
+								this.player.get(1).increaseMiss();
+							}
+							try{
+								if(b.getLastHit()!=null){
+									b.getLastHit().increaseScore();
+								}
+							}catch(NullPointerException e){
+								System.err.println("fail to increase score of 1");
+							}
+							
+							;
+							remove=true;
+							
+							
 						}
-						
-						;
-						remove=true;
-						
-						
 					}
-				}
-				//check Y
-				if ((posY > (Controls.MODEL_HEIGHT -radius ) || posY <radius)&& remove==false) {
-					if((posX + b.getRadius()< Controls.CONER_LENGTH) || (posX - b.getRadius()> Controls.MODEL_WIDTH-Controls.CONER_LENGTH)){
-						b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
-						//check the ball within paddle on the top side
-					}else if(posY<radius && Math.abs(posX-this.player.get(2).getPaddle().getPosition().cartesian(0))<=(this.player.get(2).getPaddle().getLength()/2+radius)){
-						b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
-						b.setLastHit(player.get(2));
-						b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
-						//check the ball within paddle on the bottom side
-					}else if(posY>(Controls.MODEL_HEIGHT-radius) && Math.abs(posX-this.player.get(3).getPaddle().getPosition().cartesian(0))<=(this.player.get(3).getPaddle().getLength()/2+radius)){
-						b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
-						b.setLastHit(player.get(3));
-						b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
-					}else{
-						if(posY<radius){
-							this.player.get(2).increaseMiss();
+					//check Y
+					if ((posY > (Controls.MODEL_HEIGHT -radius ) || posY <radius)&& remove==false) {
+						//hit corner on y axis
+						if((posX + b.getRadius()< Controls.CONER_LENGTH) || 
+								(posX - b.getRadius()> Controls.MODEL_WIDTH-Controls.CONER_LENGTH)){
 							
-						}else if(posY> (Controls.MODEL_HEIGHT-radius)){
-							this.player.get(3).increaseMiss();
-						}
-						try{
-							if(b.getLastHit()!=null){
-								b.getLastHit().increaseScore();
+							b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
+							
+							//check the ball within paddle on the top side
+						}else if(posY<radius && b.getVelocity().cartesian(1)<0 &&
+									Math.abs(posX-this.player.get(2).getPaddle().getPosition().cartesian(0))<=
+								(this.player.get(2).getPaddle().getLength()/2+radius)){
+								
+							if(player.get(2).getPlayerStatus()==2){
+								b.setLastHit(player.get(2));
+								b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
+								
+								if(this.player.get(2).isKeyholepress()==true && this.player.get(2).getBallholded()==null){
+									this.player.get(2).setBallholded(b);
+									b.setHolded(this.player.get(2));
+								
+								}else{//adjust velocity vector in special way
+									b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
+								}
+								
+							}else{//adjust velocity in normal way
+								b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));	
 							}
-						}catch(Exception e){
-							System.err.println("fail to increase score of 2");
-						}
-						remove=true;
-						
-					}			
+						//check the ball within paddle on the bottom side
+						}else if(posY>(Controls.MODEL_HEIGHT-radius) && b.getVelocity().cartesian(1)>0 &&
+									Math.abs(posX-this.player.get(3).getPaddle().getPosition().cartesian(0))<=
+							(this.player.get(3).getPaddle().getLength()/2+radius)){
+							if(player.get(3).getPlayerStatus()==2){
+								b.setLastHit(player.get(3));
+								b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
+								
+								if(this.player.get(3).isKeyholepress()==true && this.player.get(3).getBallholded()==null){
+									this.player.get(3).setBallholded(b);
+									b.setHolded(this.player.get(3));
+								
+								}else{//adjust velocity vector in special way
+									b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
+								}
+								
+							}else{//adjust velocity in normal way
+								b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));	
+							}
+							
+						}else{
+							if(posY<radius){
+								this.player.get(2).increaseMiss();
+								
+							}else if(posY> (Controls.MODEL_HEIGHT-radius)){
+								this.player.get(3).increaseMiss();
+							}
+							try{
+								if(b.getLastHit()!=null){
+									b.getLastHit().increaseScore();
+								}
+							}catch(Exception e){
+								System.err.println("fail to increase score of 2");
+							}
+							remove=true;
+							
+						}			
+					}
+					if(remove==true){
+						this.gamesound.Explosion();
+						this.ball.remove(b);
+						this.createDefaultball();	
+						this.controller.SidePanelRepaint();
+						i--;
+						remove=false;
+					}
+					//b.move();
 				}
-				if(remove==true){
-					this.gamesound.Explosion();
-					this.ball.remove(b);
-					this.createDefaultball();	
-					this.controller.SidePanelRepaint();
-					i--;
-					remove=false;
-				}
-					
-				
 			}
 			
 		}catch(Exception e){

@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import MVC.vbhitModel;
+import game.core.Player;
 
 public class ItemAllBallSplit extends Item {
 
@@ -13,7 +14,8 @@ public class ItemAllBallSplit extends Item {
 	}
 
 	@Override
-	void effect() {
+	public void effect(Player player) {
+		super.setPlayer(player);
 		super.getModel().createCoresponseBall(super.getPlayer());
 		
 	}

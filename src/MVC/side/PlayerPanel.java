@@ -2,6 +2,7 @@ package MVC.side;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class PlayerPanel extends JPanel {
 	private Player player;
 	private JLabel name;
 	private JLabel score, miss;
+	private JLabel ballimage;
 	private JButton statusbutton;
 	private vbhitController controller;
 	private int playernuber;
@@ -83,6 +85,14 @@ public class PlayerPanel extends JPanel {
 		miss.setFont(Controls.LARGE_FONT_DEFAULT);
 		scorepanel.add(miss);
 		centercontainer.add(scorepanel);
+		
+		//jlabel
+		
+		ballimage= new JLabel();
+		ballimage.setBackground(null);
+		ballimage.setOpaque(false);
+		centercontainer.add(ballimage);
+		
 		this.add(centercontainer, BorderLayout.CENTER);
 		
 		//playerstatus button
@@ -141,5 +151,18 @@ public class PlayerPanel extends JPanel {
 	public int getPlayerNumber(){
 		return this.playernuber;
 	}
+
+	@Override
+	protected void paintComponent(Graphics arg0) {
+		//arg0.drawImage(this.player.getBallimage().get(0), 0, 0,this.getWidth(),this.getHeight(), null);
+		if(this.ballimage.getIcon()==null){
+			ImageIcon icon = new ImageIcon(
+			player.getBallimage().get(0).getScaledInstance(this.ballimage.getHeight(),this.ballimage.getHeight(), FRAMEBITS));
+			ballimage.setIcon(icon);
+			ballimage.setHorizontalAlignment(SwingConstants.CENTER);
+		}
+		super.paintComponent(arg0);
+	}
+	
 	
 }

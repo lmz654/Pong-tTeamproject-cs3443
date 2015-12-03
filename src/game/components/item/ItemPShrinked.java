@@ -14,9 +14,10 @@ public class ItemPShrinked extends Item {
 	}
 
 	@Override
-	void effect() {
+	public void effect(Player player1) {
+		super.setPlayer(player1);
 		for(Player player: super.getModel().getAllPlayer()){
-			if(!player.equals(super.getPlayer())){
+			if(player.equals(super.getPlayer())==false && player.getPlayerStatus()==2){
 				player.shrinkPaddle(5);
 			}
 		}

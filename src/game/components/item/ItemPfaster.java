@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import MVC.vbhitModel;
+import game.core.Player;
 
 public class ItemPfaster extends Item{
 
@@ -13,9 +14,11 @@ public class ItemPfaster extends Item{
 	}
 
 	@Override
-	void effect() {
-		this.getPlayer().IncreasePaddleSpeed(2);
-		
+	public void effect(Player player) {
+		super.setPlayer(player);
+		if(super.getPlayer()!=null){
+			this.getPlayer().IncreasePaddleSpeed(2);
+		}
 	}
 
 }

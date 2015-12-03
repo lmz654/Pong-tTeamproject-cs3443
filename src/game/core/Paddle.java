@@ -11,6 +11,7 @@ public class Paddle {
 	private int length;//the real length
 	private int height;
 	private boolean sticky;
+	private Player player;
 	//the thickness
 	
 	
@@ -47,6 +48,14 @@ public class Paddle {
 		this.velocity = velocity;
 	}
 	
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
 	public void SpeedIncreasement(int speedup){
 		int a;
 		if((a=this.velocity+speedup)<Controls.PADDLE_MAX_SPEED){
@@ -128,11 +137,22 @@ public class Paddle {
 	}
 
 	private void moveXAxis(int orient) {
-		position = position.plus(new Vector(velocity*orient, 0.0));
+		//Vector v;
+		this.position = position.plus(new Vector(velocity*orient, 0.0));
+		if(this.player.getBallholded()!=null){
+			//v=this.player.getBallholded().getPosition().plus(new Vector(velocity*orient, 0.0));
+			this.player.getBallholded().setPosition
+			(this.player.getBallholded().getPosition().plus(new Vector(velocity*orient, 0.0)));
+		}
 	}
 
 	private void moveYAxis(int orient) {
-		position = position.plus(new Vector(0.0, velocity*orient));		
+		this.position = position.plus(new Vector(0.0, velocity*orient));
+		if(this.player.getBallholded()!=null){
+			//v=this.player.getBallholded().getPosition().plus(new Vector(velocity*orient, 0.0));
+			this.player.getBallholded().setPosition
+			(this.player.getBallholded().getPosition().plus(new Vector(0.0, velocity*orient)));
+		}
 	}
 
 }

@@ -48,12 +48,12 @@ public class Controls {
 	//Player3 key default
 	public static final char P3_KEY_INCREASE='c';
 	public static final char P3_KEY_DECREASE='x';
-	public static final char P3_KEY_HOLE='v';
+	public static final char P3_KEY_HOLE='z';
 	
 	//Player4 key default
 	public static final char P4_KEY_INCREASE='.';
 	public static final char P4_KEY_DECREASE=',';
-	public static final char P4_KEY_HOLE='M';
+	public static final char P4_KEY_HOLE='/';
 	
 	// Control Variables for Obstacle Probabilities
 	public static final double NORMALOBSTACLE_PROBABILITY = .4;
@@ -129,6 +129,7 @@ public class Controls {
 	public static Player player1default(){
 		Paddle paddle = Controls.getPaddle(0);
 		Player player = new Player("Huu", paddle,Controls.P1_KEY_DECREASE,Controls.P1_KEY_INCREASE,Controls.P1_KEY_HOLE,'y');
+		paddle.setPlayer(player);
 		player.getScore().setScore(0);
 		player.getScore().setMiss(0);
 		player.setPlayernumber(0);
@@ -149,6 +150,7 @@ public class Controls {
 	public static Player player2default(){
 		Paddle paddle = Controls.getPaddle(1);
 		Player player = new Player("Fernando", paddle,Controls.P2_KEY_DECREASE,Controls.P2_KEY_INCREASE,Controls.P2_KEY_HOLE,'y');
+		paddle.setPlayer(player);
 		player.getScore().setScore(0);
 		player.getScore().setMiss(0);
 		player.setPlayernumber(1);
@@ -170,6 +172,7 @@ public class Controls {
 	public static Player player3default(){
 		Paddle paddle = Controls.getPaddle(2);
 		Player player = new Player("Taylor", paddle,Controls.P3_KEY_DECREASE,Controls.P3_KEY_INCREASE,Controls.P3_KEY_HOLE,'x');
+		paddle.setPlayer(player);
 		player.getScore().setScore(0);
 		player.getScore().setMiss(0);
 		player.setPlayernumber(2);
@@ -190,6 +193,7 @@ public class Controls {
 	public static Player player4default(){
 		Paddle paddle = Controls.getPaddle(3);
 		Player player = new Player("Christian", paddle,Controls.P4_KEY_DECREASE,Controls.P4_KEY_INCREASE,Controls.P4_KEY_HOLE,'x');
+		paddle.setPlayer(player);
 		player.getScore().setScore(0);
 		player.getScore().setMiss(0);
 		player.setPlayernumber(3);

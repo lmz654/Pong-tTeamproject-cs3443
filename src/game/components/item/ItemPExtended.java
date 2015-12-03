@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import MVC.vbhitModel;
+import game.core.Player;
 
 public class ItemPExtended extends Item {
 
@@ -12,8 +13,11 @@ public class ItemPExtended extends Item {
 	}
 
 	@Override
-	void effect() {
-		super.getPlayer().enlargePaddle(10);
+	public void effect(Player player) {
+		super.setPlayer(player);
+		if(super.getPlayer()!=null){
+			super.getPlayer().enlargePaddle(10);
+		}
 	}
 
 }

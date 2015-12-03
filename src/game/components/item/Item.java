@@ -52,6 +52,6 @@ public abstract class Item {
 		this.model = model;
 	}
 
-	abstract void effect();
+	public abstract void effect(Player player);
 	
 }

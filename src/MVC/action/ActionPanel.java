@@ -76,10 +76,12 @@ public class ActionPanel extends JPanel {
 			g.setColor(Color.CYAN);
 		try{
 			for(Item item: this.controller.getModel().getItem()){
-				px=(float) (item.getPoint().x-Controls.ITEM_WIDTH/2)*this.ratio;
-				py=(float) (item.getPoint().y-Controls.ITEM_HEIGTH/2)*this.ratio;
-				g.drawImage(item.getImage(),Math.round(px),Math.round(py),
-						Math.round((float)Controls.ITEM_WIDTH*this.ratio),Math.round((float)Controls.ITEM_HEIGTH*this.ratio), null);
+				if(item!=null){
+					px=(float) (item.getPoint().x-Controls.ITEM_WIDTH/2)*this.ratio;
+					py=(float) (item.getPoint().y-Controls.ITEM_HEIGTH/2)*this.ratio;
+					g.drawImage(item.getImage(),Math.round(px),Math.round(py),
+							Math.round((float)Controls.ITEM_WIDTH*this.ratio),Math.round((float)Controls.ITEM_HEIGTH*this.ratio), null);
+				}
 			}
 		}catch(Exception e){
 			System.err.println("fail to draw power up in actionpanel");
@@ -87,21 +89,22 @@ public class ActionPanel extends JPanel {
 			//calculate paddles from real to display screen then draw paddles
 		try{
 			for(Player p:this.controller.getModel().getAllPlayer()){
-				length=(p.getPaddle().getLength()*this.ratio);
-				height=(p.getPaddle().getHeight()*this.ratio);
-				px=(float)p.getPaddle().getPosition().cartesian(0)*this.ratio;
-				py=(float)p.getPaddle().getPosition().cartesian(1)*this.ratio;
-				
-				if(p.getMotionAxis()=='x'||p.getMotionAxis()=='X'){
-					g.drawImage(p.getPaddleimage().get(0), Math.round(px-length/2),Math.round(py-height/2)-12 ,
-							Math.round(length), Math.round(height)+25, null);
-				
-				}else{
-					g.drawImage(p.getPaddleimage().get(0), Math.round(px-height/2)-12,Math.round(py-length/2) ,
-							Math.round(height)+25 ,Math.round(length), null);
+				if(p!=null){
+					length=(p.getPaddle().getLength()*this.ratio);
+					height=(p.getPaddle().getHeight()*this.ratio);
+					px=(float)p.getPaddle().getPosition().cartesian(0)*this.ratio;
+					py=(float)p.getPaddle().getPosition().cartesian(1)*this.ratio;
 					
-				}
+					if(p.getMotionAxis()=='x'||p.getMotionAxis()=='X'){
+						g.drawImage(p.getPaddleimage().get(0), Math.round(px-length/2),Math.round(py-height/2)-12 ,
+								Math.round(length), Math.round(height)+25, null);
 					
+					}else{
+						g.drawImage(p.getPaddleimage().get(0), Math.round(px-height/2)-12,Math.round(py-length/2) ,
+								Math.round(height)+25 ,Math.round(length), null);
+						
+					}
+				}	
 			}
 		}catch(Exception e){
 			System.err.println("draw paddleimage fail in actionpanel");
@@ -109,10 +112,12 @@ public class ActionPanel extends JPanel {
 			//calculate balls from real to display screen then draw balls
 		try{
 			for(Ball b:controller.getModel().getBall()){
-				radius=b.getRadius()*this.ratio;
-				px=(b.getPosition().toPoint().x*this.ratio)-(radius/2);
-				py=(b.getPosition().toPoint().y*this.ratio)-(radius/2);
-				g.drawImage(b.getimage(),Math.round(px),Math.round(py),Math.round(radius),Math.round(radius), null);
+				if(b!=null){
+					radius=b.getRadius()*this.ratio;
+					px=(b.getPosition().toPoint().x*this.ratio)-(radius/2);
+					py=(b.getPosition().toPoint().y*this.ratio)-(radius/2);
+					g.drawImage(b.getimage(),Math.round(px),Math.round(py),Math.round(radius),Math.round(radius), null);
+				}
 			}
 		}catch(Exception e){
 			System.err.println("draw ballimage fail in actionpanel");

@@ -70,10 +70,13 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 		}
 		else{
 			for(Player temp:model.getAllPlayer()){
-				if(temp.getKeydecrease()==arg0.getKeyChar())
+				if(temp.getKeydecrease()==arg0.getKeyChar()){
 					temp.setkeydecreasepress(-1);
-				if(temp.getKeyincrease()==arg0.getKeyChar())
-					temp.setKeyincreasepress(1);;
+				}else if(temp.getKeyincrease()==arg0.getKeyChar()){
+					temp.setKeyincreasepress(1);
+				}else if(temp.getKeyhole()==arg0.getKeyChar()){
+					temp.setKeyholepress(true);
+				}
 			}
 		}
 	}
@@ -82,8 +85,11 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 		for(Player temp:model.getAllPlayer()){
 			if(temp.getKeydecrease()==arg0.getKeyChar()){
 				temp.setkeydecreasepress(0);
-			}else if(temp.getKeyincrease()==arg0.getKeyChar())
+			}else if(temp.getKeyincrease()==arg0.getKeyChar()){
 				temp.setKeyincreasepress(0);
+			}else if(temp.getKeyhole()==arg0.getKeyChar()){
+				temp.setKeyholepress(false);
+			}
 		}
 	}
 

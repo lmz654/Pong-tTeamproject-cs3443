@@ -12,6 +12,7 @@ public class Ball {
 	private final int radius;
 	private boolean collided;
 	private BufferedImage image;
+	private Player holded;
 	
 	// --- Game Metrics ---
 	private Player lastHit;
@@ -22,11 +23,21 @@ public class Ball {
 		this.velocity = velocity;
 		this.radius = radius;
 		this.collided = false;
+		this.holded=null;
 	}
 	
 	// Setters and Getters
+	
 	public Vector getPosition(){
 		return position;
+	}
+	
+	public Player getHolded() {
+		return holded;
+	}
+
+	public void setHolded(Player player) {
+		this.holded = player;
 	}
 	
 	public Vector getVelocity() {
@@ -52,7 +63,9 @@ public class Ball {
 	public Player getLastHit() {
 		return this.lastHit;
 	}
-	
+	public void release(){
+		this.holded=null;
+	}
 	public void setLastHit(Player player) {
 		this.lastHit = player;
 	}
