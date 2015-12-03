@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.imageio.ImageIO;
 import javax.swing.Timer;
@@ -269,7 +271,6 @@ public class vbhitModel {
 	}
 	//update totally action  in the game
 	public void update(){
-		vbhitModel.this.BallsVelocityAdjust();
 		
 		new Thread(new Runnable(){
 
@@ -284,14 +285,8 @@ public class vbhitModel {
 			}
 			
 		}).start();
-		new Thread(new Runnable(){
-
-			public void run() {
-				
-				vbhitModel.this.BallHitItem();
-			}
-			
-		}).start();
+		
+		vbhitModel.this.BallsVelocityAdjust();
 		
 		new Thread(new Runnable(){
 
@@ -302,12 +297,17 @@ public class vbhitModel {
 			
 		}).start();
 		
-		
+		new Thread(new Runnable(){
+
+			public void run() {
 				
-				
-				
+				vbhitModel.this.BallHitItem();
+			}
 			
+		}).start();
 		
+		
+			
 	}
 	public void MoveBall(){
 		
@@ -317,24 +317,170 @@ public class vbhitModel {
 			}
 		}
 	}
+	public void BHPVelocityAdjust(Player player, Ball b,int axis /*1 : y,2 :x*/){
+		if(player.getPlayerStatus()==2){
+			
+			b.setLastHit(player);
+			b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
+			
+			if(player.isKeyholepress()==true && player.getBallholded()==null){
+				
+				player.setBallholded(b);
+				b.setHolded(player);
+			
+			}else{//adjust velocity vector in special way
+				if(axis==1){
+					b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
+				}else if(axis ==2){
+					b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
+				}
+			}
+		}else{//adjust velocity in normal way
+			if(axis==1){
+				b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
+			}else if(axis ==2){
+				b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
+			}
+			/*b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));*/
+		}
+	}
+	
 	public void BallsVelocityAdjust() {
+		
 		if (Controls.MODEL_HEIGHT == 0) return;
 		int posX, posY, radius;
-		boolean remove = false;
-
+		int size=this.ball.size();
 		//Collision collision;
 		try{
-			for (int i=0;i<this.ball.size();i++) {
+			for (int i=0;i<size;i++) {
 				Ball b = ball.get(i);
-				posX =(int)Math.round(b.getPosition().cartesian(0));
-				posY = (int)Math.rint(b.getPosition().cartesian(1));
-				radius = b.getRadius();
 				//ball not null and no player is holding ball
-				if(b!=null&& b.getHolded()==null){
-				
-					// Check boundries
-					// Checking X
-					if (posX > (Controls.MODEL_WIDTH-radius) || posX < radius) {
+				if(b!=null&& b.getHolded()==null){	
+					posX =(int)Math.round(b.getPosition().cartesian(0));
+					posY = (int)Math.rint(b.getPosition().cartesian(1));
+					radius = b.getRadius();
+					//hit x limit
+					if(posX<0 && 
+							(this.player.get(0).getPlayerStatus()!=Controls.PLAYER_PLAY) && b.getVelocity().cartesian(0)<=0 ){
+						//adjust velocity vector in normal way
+						b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
+					}else if(posX > Controls.MODEL_WIDTH && 
+							(this.player.get(1).getPlayerStatus()!=Controls.PLAYER_PLAY) && b.getVelocity().cartesian(0)>0 ){
+						//adjust velocity vector in normal way
+						b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
+					}
+						//hit y limit		
+					else if(posY <0 && 
+							(this.player.get(2).getPlayerStatus()!=Controls.PLAYER_PLAY) && b.getVelocity().cartesian(1)<=0 ){
+						//adjust velocity vector in normal way						
+						b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
+					}else if(posY > Controls.MODEL_HEIGHT && 
+							(this.player.get(3).getPlayerStatus()!=Controls.PLAYER_PLAY) && b.getVelocity().cartesian(1)>0){
+						//adjust velocity vector in normal way						
+						b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
+						// Checking the ball within paddle on leftside
+					}else if(posX<radius && b.getVelocity().cartesian(0)<0 && this.player.get(0).getPlayerStatus()==2 &&
+							Math.abs(posY-this.player.get(0).getPaddle().getPosition().cartesian(1))<=
+							(this.player.get(0).getPaddle().getLength()/2+radius)){
+						
+						this.BHPVelocityAdjust(this.player.get(0), b,1);	
+					//check the ball within paddle on rightside
+					}else if(posX > (Controls.MODEL_WIDTH-radius) && b.getVelocity().cartesian(0)>0&&
+							this.player.get(1).getPlayerStatus()==2 &&
+							Math.abs(posY-this.player.get(1).getPaddle().getPosition().cartesian(1))<=
+							(this.player.get(1).getPaddle().getLength()/2+radius)){
+						
+						this.BHPVelocityAdjust(this.player.get(1), b,1);
+					//check the ball within paddle on top
+					}else if(posY<radius && b.getVelocity().cartesian(1)<0 &&this.player.get(2).getPlayerStatus()==2 &&
+							Math.abs(posX-this.player.get(2).getPaddle().getPosition().cartesian(0))<=
+						(this.player.get(2).getPaddle().getLength()/2+radius)){
+					
+					this.BHPVelocityAdjust(this.player.get(2), b,2);
+					//check the ball within paddle on bottom	
+					}else if(posY>(Controls.MODEL_HEIGHT-radius) && b.getVelocity().cartesian(1)>0 &&
+							this.player.get(2).getPlayerStatus()==2 &&
+							Math.abs(posX-this.player.get(3).getPaddle().getPosition().cartesian(0))<=
+							(this.player.get(3).getPaddle().getLength()/2+radius)){
+					
+						this.BHPVelocityAdjust(this.player.get(3), b,2);
+					
+					}else{// ball go out of the panel
+						//increase player score
+						
+						
+						if(posX<0 && b.getVelocity().cartesian(0)<0){
+							if(b.getLastHit()!=null){
+								
+								b.getLastHit().increaseScore();
+							}
+							this.player.get(0).increaseMiss();
+							try{
+								this.gamesound.Explosion();
+								this.ball.remove(b);
+								this.createDefaultball();	
+								this.controller.SidePanelRepaint();
+								size--;
+							}catch(Exception e){
+								System.err.println("fail to remove ball in ballvelocityadjust");
+							}
+							
+						}else if(posX> (Controls.MODEL_WIDTH) && b.getVelocity().cartesian(0)>0){
+							if(b.getLastHit()!=null){
+								
+								b.getLastHit().increaseScore();
+							}
+							this.player.get(1).increaseMiss();
+							try{
+								this.gamesound.Explosion();
+								this.ball.remove(b);
+								this.createDefaultball();	
+								this.controller.SidePanelRepaint();
+								size--;
+							}catch(Exception e){
+								System.err.println("fail to remove ball in ballvelocityadjust");
+							}
+						
+						}else if(posY<0 && b.getVelocity().cartesian(1)<0){
+							if(b.getLastHit()!=null){
+								
+								b.getLastHit().increaseScore();
+							}
+							this.player.get(2).increaseMiss();
+							try{
+								this.gamesound.Explosion();
+								this.ball.remove(b);
+								this.createDefaultball();	
+								this.controller.SidePanelRepaint();
+								size--;
+							}catch(Exception e){
+								System.err.println("fail to remove ball in ballvelocityadjust");
+							}
+							
+						}else if(posY>Controls.MODEL_HEIGHT && b.getVelocity().cartesian(1)>0){
+							if(b.getLastHit()!=null){
+								
+								b.getLastHit().increaseScore();
+							}
+							this.player.get(3).increaseMiss();
+							try{
+								this.gamesound.Explosion();
+								this.ball.remove(b);
+								this.createDefaultball();	
+								this.controller.SidePanelRepaint();
+								size--;
+							}catch(Exception e){
+								System.err.println("fail to remove ball in ballvelocityadjust");
+							}
+						}		
+					}
+				}	
+			}					
+		}catch(Exception e){
+			System.err.println("the ball pointer is " + e.getMessage());
+		}
+	}
+					/*else if (posX > (Controls.MODEL_WIDTH-radius) || posX < 0 radius) {
 						if((posY + radius< Controls.CONER_LENGTH) || 
 								(posY - b.getRadius()> Controls.MODEL_HEIGHT-Controls.CONER_LENGTH)){
 							//adjust velocity vector in normal way
@@ -345,44 +491,21 @@ public class vbhitModel {
 								Math.abs(posY-this.player.get(0).getPaddle().getPosition().cartesian(1))<=
 								(this.player.get(0).getPaddle().getLength()/2+radius)){
 							
-							if(player.get(0).getPlayerStatus()==2){
-								b.setLastHit(player.get(0));
-								b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
-								
-								if(this.player.get(0).isKeyholepress()==true && this.player.get(0).getBallholded()==null){
-									this.player.get(0).setBallholded(b);
-									b.setHolded(this.player.get(0));
-								
-								}else{//adjust velocity vector in special way
-									b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
-								}
-							}else{//adjust velocity in normal way
-								b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
-							}
+							this.BHPVelocityAdjust(this.player.get(0), b,1);
+							
 							//check the ball within paddle on rightside
 						}else if(posX > (Controls.MODEL_WIDTH-radius) && b.getVelocity().cartesian(0)>0 &&
 								Math.abs(posY-this.player.get(1).getPaddle().getPosition().cartesian(1))<=
 								(this.player.get(1).getPaddle().getLength()/2+radius)){
-								
-							if(player.get(1).getPlayerStatus()==2){
-								b.setLastHit(player.get(1));
-								b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
-									
-								if(this.player.get(1).isKeyholepress()==true && this.player.get(1).getBallholded()==null){
-									this.player.get(1).setBallholded(b);
-									b.setHolded(this.player.get(1));
-								
-								}else{//adjust velocity vector in special way
-									b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
-								}
-								
-							}else{//adjust velocity in normal way
-								b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));	
-							}
 							
-						}else{// ball go out of the panel
+							this.BHPVelocityAdjust(this.player.get(1), b,1);
+								
+							
+							
+						}*//*else{// ball go out of the panel
 							remove=true;
 							if(posX<radius){
+								
 								this.player.get(0).increaseMiss();
 								
 							}else if(posX> (Controls.MODEL_WIDTH-radius)){
@@ -390,20 +513,24 @@ public class vbhitModel {
 							}
 							try{
 								if(b.getLastHit()!=null){
+									
 									b.getLastHit().increaseScore();
 								}
 							}catch(NullPointerException e){
 								System.err.println("fail to increase score of 1");
 							}
 							
-							;
-							remove=true;
+							this.gamesound.Explosion();
+							this.ball.remove(b);
+							this.createDefaultball();	
+							this.controller.SidePanelRepaint();
+							i--;
 							
 							
 						}
-					}
+					}*/
 					//check Y
-					if ((posY > (Controls.MODEL_HEIGHT -radius ) || posY <radius)&& remove==false) {
+					/*if ((posY > (Controls.MODEL_HEIGHT -radius ) || posY <0radius)&& remove==false) {
 						//hit corner on y axis
 						if((posX + b.getRadius()< Controls.CONER_LENGTH) || 
 								(posX - b.getRadius()> Controls.MODEL_WIDTH-Controls.CONER_LENGTH)){
@@ -411,78 +538,60 @@ public class vbhitModel {
 							b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
 							
 							//check the ball within paddle on the top side
-						}else if(posY<radius && b.getVelocity().cartesian(1)<0 &&
+						}*//*else if(posY<radius && b.getVelocity().cartesian(1)<0 &&
 									Math.abs(posX-this.player.get(2).getPaddle().getPosition().cartesian(0))<=
 								(this.player.get(2).getPaddle().getLength()/2+radius)){
+							
+							this.BHPVelocityAdjust(this.player.get(2), b,2);
 								
-							if(player.get(2).getPlayerStatus()==2){
-								b.setLastHit(player.get(2));
-								b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
-								
-								if(this.player.get(2).isKeyholepress()==true && this.player.get(2).getBallholded()==null){
-									this.player.get(2).setBallholded(b);
-									b.setHolded(this.player.get(2));
-								
-								}else{//adjust velocity vector in special way
-									b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
-								}
-								
-							}else{//adjust velocity in normal way
-								b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));	
-							}
+							
 						//check the ball within paddle on the bottom side
-						}else if(posY>(Controls.MODEL_HEIGHT-radius) && b.getVelocity().cartesian(1)>0 &&
+						}*//*else if(posY>(Controls.MODEL_HEIGHT-radius) && b.getVelocity().cartesian(1)>0 &&
 									Math.abs(posX-this.player.get(3).getPaddle().getPosition().cartesian(0))<=
 							(this.player.get(3).getPaddle().getLength()/2+radius)){
-							if(player.get(3).getPlayerStatus()==2){
-								b.setLastHit(player.get(3));
-								b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
-								
-								if(this.player.get(3).isKeyholepress()==true && this.player.get(3).getBallholded()==null){
-									this.player.get(3).setBallholded(b);
-									b.setHolded(this.player.get(3));
-								
-								}else{//adjust velocity vector in special way
-									b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
-								}
-								
-							}else{//adjust velocity in normal way
-								b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));	
-							}
 							
-						}else{
+							this.BHPVelocityAdjust(this.player.get(3), b,2);
+							
+							
+						}*//*else{
 							if(posY<radius){
+								
 								this.player.get(2).increaseMiss();
 								
 							}else if(posY> (Controls.MODEL_HEIGHT-radius)){
+								
 								this.player.get(3).increaseMiss();
 							}
 							try{
 								if(b.getLastHit()!=null){
+									
 									b.getLastHit().increaseScore();
 								}
 							}catch(Exception e){
+								
 								System.err.println("fail to increase score of 2");
-							}
-							remove=true;
+							}*/
+							//remove=true;
 							
-						}			
+					/*	}			
 					}
 					if(remove==true){
+						
 						this.gamesound.Explosion();
 						this.ball.remove(b);
 						this.createDefaultball();	
 						this.controller.SidePanelRepaint();
 						i--;
 						remove=false;
-					}
+						
+					}*/
 					//b.move();
-				}
-			}
+				//}
+			//}
 			
-		}catch(Exception e){
-				//System.err.println("the ball pointer is " + e.getMessage());
-		}
+		/*}catch(Exception e){
+				System.err.println("the ball pointer is " + e.getMessage());
+		}*/
 			
 			/*
 			 * Checking for Collisions
@@ -500,7 +609,7 @@ public class vbhitModel {
 			
 		
 		
-	}
+	
 	public void start(){
 		this.timer.start();
 	}
