@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import game.core.Ball;
+import game.core.Paddle;
 
 @SuppressWarnings("serial")
 public class CollisionPanel extends JPanel {
@@ -29,6 +30,10 @@ public class CollisionPanel extends JPanel {
 				this.drawProjections(b, g);
 			if (model.showMoreInfo)
 				this.fillBallInfo(b, g);
+		}
+		
+		for (Paddle p: model.getPaddles()) {
+			this.fillPaddle(p, g);
 		}
 		
 		StringBuilder cT = new StringBuilder().append(model.collisionTime);
@@ -62,6 +67,16 @@ public class CollisionPanel extends JPanel {
 		
 		g.setColor(Color.BLACK);
 		g.fillOval(posX-radius, posY-radius, radius*2, radius*2);
+	}
+	
+	private void fillPaddle(Paddle paddle, Graphics g) {
+		int posX = (int)paddle.getPosition().cartesian(0);
+		int posY = (int)paddle.getPosition().cartesian(1);
+		int width = paddle.getLength();
+		int height = paddle.getHeight();
+		
+		g.setColor(Color.RED);
+		g.fillRect(posX-(width/2), posY-(height/2), width, height);
 	}
 	
 	private void fillBallInfo(Ball ball, Graphics g) {
