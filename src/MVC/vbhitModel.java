@@ -415,30 +415,31 @@ public class vbhitModel {
 						
 						
 						if(posX<0 && b.getVelocity().cartesian(0)<0){
-							if(b.getLastHit()!=null){
+							if(b.getLastHit()!=null && b.getLastHit().equals(this.player.get(0))==false){
 								
 								b.getLastHit().increaseScore();
 							}
 							this.player.get(0).increaseMiss();
 							try{
 								this.gamesound.Explosion();
-								this.ball.remove(b);
+								this.ball.remove(i);
+								size--;
 								this.createDefaultball();	
 								this.controller.SidePanelRepaint();
-								size--;
+								
 							}catch(Exception e){
 								System.err.println("fail to remove ball in ballvelocityadjust");
 							}
 							
 						}else if(posX> (Controls.MODEL_WIDTH) && b.getVelocity().cartesian(0)>0){
-							if(b.getLastHit()!=null){
+							if(b.getLastHit()!=null && b.getLastHit().equals(this.player.get(1))==false){
 								
 								b.getLastHit().increaseScore();
 							}
 							this.player.get(1).increaseMiss();
 							try{
 								this.gamesound.Explosion();
-								this.ball.remove(b);
+								this.ball.remove(i);
 								this.createDefaultball();	
 								this.controller.SidePanelRepaint();
 								size--;
@@ -447,33 +448,35 @@ public class vbhitModel {
 							}
 						
 						}else if(posY<0 && b.getVelocity().cartesian(1)<0){
-							if(b.getLastHit()!=null){
+							if(b.getLastHit()!=null && b.getLastHit().equals(this.player.get(2))==false){
 								
 								b.getLastHit().increaseScore();
 							}
 							this.player.get(2).increaseMiss();
 							try{
 								this.gamesound.Explosion();
-								this.ball.remove(b);
+								this.ball.remove(i);
+								size--;
 								this.createDefaultball();	
 								this.controller.SidePanelRepaint();
-								size--;
+								
 							}catch(Exception e){
 								System.err.println("fail to remove ball in ballvelocityadjust");
 							}
 							
 						}else if(posY>Controls.MODEL_HEIGHT && b.getVelocity().cartesian(1)>0){
-							if(b.getLastHit()!=null){
+							if(b.getLastHit()!=null && b.getLastHit().equals(this.player.get(3))==false){
 								
 								b.getLastHit().increaseScore();
 							}
 							this.player.get(3).increaseMiss();
 							try{
 								this.gamesound.Explosion();
-								this.ball.remove(b);
+								this.ball.remove(i);
+								size--;
 								this.createDefaultball();	
 								this.controller.SidePanelRepaint();
-								size--;
+								
 							}catch(Exception e){
 								System.err.println("fail to remove ball in ballvelocityadjust");
 							}
@@ -484,132 +487,22 @@ public class vbhitModel {
 		}catch(Exception e){
 			System.err.println("the ball pointer is " + e.getMessage());
 		}
-	}
-					/*else if (posX > (Controls.MODEL_WIDTH-radius) || posX < 0 radius) {
-						if((posY + radius< Controls.CONER_LENGTH) || 
-								(posY - b.getRadius()> Controls.MODEL_HEIGHT-Controls.CONER_LENGTH)){
-							//adjust velocity vector in normal way
-							b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
-							
-							//check the ball within paddle on leftside
-						}else if(posX<radius && b.getVelocity().cartesian(0)<0 &&
-								Math.abs(posY-this.player.get(0).getPaddle().getPosition().cartesian(1))<=
-								(this.player.get(0).getPaddle().getLength()/2+radius)){
-							
-							this.BHPVelocityAdjust(this.player.get(0), b,1);
-							
-							//check the ball within paddle on rightside
-						}else if(posX > (Controls.MODEL_WIDTH-radius) && b.getVelocity().cartesian(0)>0 &&
-								Math.abs(posY-this.player.get(1).getPaddle().getPosition().cartesian(1))<=
-								(this.player.get(1).getPaddle().getLength()/2+radius)){
-							
-							this.BHPVelocityAdjust(this.player.get(1), b,1);
-								
-							
-							
-						}*//*else{// ball go out of the panel
-							remove=true;
-							if(posX<radius){
-								
-								this.player.get(0).increaseMiss();
-								
-							}else if(posX> (Controls.MODEL_WIDTH-radius)){
-								this.player.get(1).increaseMiss();
-							}
-							try{
-								if(b.getLastHit()!=null){
-									
-									b.getLastHit().increaseScore();
-								}
-							}catch(NullPointerException e){
-								System.err.println("fail to increase score of 1");
-							}
-							
-							this.gamesound.Explosion();
-							this.ball.remove(b);
-							this.createDefaultball();	
-							this.controller.SidePanelRepaint();
-							i--;
-							
-							
-						}
-					}*/
-					//check Y
-					/*if ((posY > (Controls.MODEL_HEIGHT -radius ) || posY <0radius)&& remove==false) {
-						//hit corner on y axis
-						if(posX + b.getRadius()< Controls.CONER_LENGTH || 
-								posX - b.getRadius()> Controls.MODEL_WIDTH-Controls.CONER_LENGTH){
-							
-							b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
-							
-							//check the ball within paddle on the top side
-						}*//*else if(posY<radius && b.getVelocity().cartesian(1)<0 &&
-									Math.abs(posX-this.player.get(2).getPaddle().getPosition().cartesian(0))<=
-								(this.player.get(2).getPaddle().getLength()/2+radius)){
-							
-							this.BHPVelocityAdjust(this.player.get(2), b,2);
-								
-							
-						//check the ball within paddle on the bottom side
-						}*//*else if(posY>(Controls.MODEL_HEIGHT-radius) && b.getVelocity().cartesian(1)>0 &&
-									Math.abs(posX-this.player.get(3).getPaddle().getPosition().cartesian(0))<=
-							(this.player.get(3).getPaddle().getLength()/2+radius)){
-							
-							this.BHPVelocityAdjust(this.player.get(3), b,2);
-							
-							
-						}*//*else{
-							if(posY<radius){
-								
-								this.player.get(2).increaseMiss();
-								
-							}else if(posY> (Controls.MODEL_HEIGHT-radius)){
-								
-								this.player.get(3).increaseMiss();
-							}
-							try{
-								if(b.getLastHit()!=null){
-									
-									b.getLastHit().increaseScore();
-								}
-							}catch(Exception e){
-								
-								System.err.println("fail to increase score of 2");
-							}*/
-							//remove=true;
-							
-					/*	}			
-					}
-					if(remove==true){
-						
-						this.gamesound.Explosion();
-						this.ball.remove(b);
-						this.createDefaultball();	
-						this.controller.SidePanelRepaint();
-						i--;
-						remove=false;
-						
-					}*/
-					//b.move();
-				//}
-			//}
-			
-		/*}catch(Exception e){
-				System.err.println("the ball pointer is " + e.getMessage());
-		}*/
-			
-			/*
-			 * Checking for Collisions
-			 */
-			//CollisionDetector.checkCollisions(this);
-			
-//			for (Ball c : balls) {
-//				if (b.equals(c)) continue;
-//				if (b.intersects(c)) {
-//					collision = new Collision(new CollidableCircle(b), new CollidableCircle(c));
-//					System.out.println(b.getPosition().toString() + ":" + c.getPosition().toString() + "@" + collision.getCollisionPoint().toString());
-//				}
+		/*
+		 * Checking for Collisions
+		 */
+		//CollisionDetector.checkCollisions(this);
+		
+//		for (Ball c : balls) {
+//			if (b.equals(c)) continue;
+//			if (b.intersects(c)) {
+//				collision = new Collision(new CollidableCircle(b), new CollidableCircle(c));
+//				System.out.println(b.getPosition().toString() + ":" + c.getPosition().toString() + "@" + collision.getCollisionPoint().toString());
 //			}
+//		}
+	}
+					
+			
+		
 			
 			
 		

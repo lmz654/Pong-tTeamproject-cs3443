@@ -67,6 +67,7 @@ public class ActionPanel extends JPanel {
 			g.drawImage(this.topleft,-5,-5,Math.round(150*this.ratio),Math.round(150*this.ratio),null);
 			g.drawImage(this.topright,Math.round(850*this.ratio)+5,-5,Math.round(150*this.ratio),Math.round(150*this.ratio),null);
 			//g.drawImage(image.getSubimage((image.getWidth()-this.getWidth())/2, (image.getHeight()-this.getHeight())/2, this.getWidth(), this.getWidth()), 0, 0, this.getWidth(), this.getHeight(), null);
+			
 		}catch(Exception e){
 			System.err.println("draw actionpanel background fail in actionpanel");
 		}
