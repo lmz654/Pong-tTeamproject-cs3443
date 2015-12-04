@@ -8,13 +8,14 @@ import java.util.concurrent.Executors;
 import MVC.vbhitModel;
 import game.Controls;
 import game.core.Ball;
+import game.core.Paddle;
 import game.math.structures.CollidableQTree;
 import test.collision.CollisionModel;
 
 public class CollisionDetector {
 	
 	// Print Collisions
-	public static final boolean PRT_COLLISIONS = true;
+	public static final boolean PRT_COLLISIONS = false;
 	
 	// Boolean to use Quad Tree for Collision Detection
 	public static final boolean Q_TREE = true;
@@ -22,7 +23,7 @@ public class CollisionDetector {
 	// Boolean to Run Collision Mechanics in Parallel
 	public static final boolean PARALLEL = false;
 	
-	public static final boolean ADJUST_TRAJECTORIES = true;
+	public static final boolean ADJUST_TRAJECTORIES = false;
 	
 	public static void checkCollisions(vbhitModel model) {
 		
@@ -41,6 +42,10 @@ public class CollisionDetector {
 		
 		for (Ball b: model.getBalls()) {
 			cUnits.add(new CollidableCircle(b));
+		}
+		
+		for (Paddle p: model.getPaddles()) {
+			cUnits.add(new CollidableRect(p));
 		}
 		
 		checkCollisions(cUnits, model.getWidth(), model.getHeight());

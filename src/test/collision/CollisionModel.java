@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import game.Controls;
-import game.core.Ball;
+import game.components.item.Item;
+import game.components.obstacles.Obstacle;
+import game.core.*;
 import game.math.*;
 import game.math.structures.Vector;
 
 public class CollisionModel {
 	private ArrayList<Ball> balls;
+	private ArrayList<Paddle> paddles;
+	private ArrayList<Item> items;
+	private ArrayList<Obstacle> obstacles;
 	
 	//Information Markers
 	public boolean showVelocityVectors = false;
@@ -18,9 +23,9 @@ public class CollisionModel {
 	public boolean showMoreInfo = false;
 	
 	// Simulation Properties
-	public int numBalls = Controls.SIM_NUM_BALLS; // 50 Still ran, seems like good upper limit. 100 Lagged.
+	public int numBalls = Controls.SIM_NUM_BALLS; // 1500 Still ran, seems like good upper limit. 2000 Lagged.
 	public int radius = Controls.SIM_BALL_DEFAULT_RADIUS;
-	public int tolerance = 20;	
+	public int tolerance = 20;
 	public int redux = 2*(radius+tolerance);
 	public int ofst = radius + tolerance;
 	
@@ -41,10 +46,13 @@ public class CollisionModel {
 		
 		//collisions = new ArrayList<Collision>();
 		balls = new ArrayList<Ball>();
+		paddles = new ArrayList<Paddle>();
 		
 		for (int i = 0; i < numBalls; i++) {
 			balls.add(new Ball(Vector.getRand(new int[]{1000-redux, ofst}, new int[]{750-redux, ofst}), Vector.getRand(new int[]{20, -10}, new int[]{20, -10}), radius));
 		}
+		
+		paddles.add(new Paddle(new Vector(10, 800/2), 5, 100));
 		
 		//balls.add(new Ball(new Vector(200, 395), new Vector(5, 0), radius));
 		//balls.add(new Ball(new Vector(600, 400), new Vector(-5, 0), radius));
@@ -116,6 +124,10 @@ public class CollisionModel {
 
 	public ArrayList<Ball> getBalls() {
 		return balls;
+	}
+	
+	public ArrayList<Paddle> getPaddles() {
+		return paddles;
 	}
 	
 	public void setSize(int width, int height) {
