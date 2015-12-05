@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -98,12 +99,12 @@ public class vbhitModel {
 	}
 	public void loadItemImage(){
 		try {
-			this.itemimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\powerups\\ball_speed_inc.png")));
-			this.itemimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\powerups\\num_balls_inc.png")));
-			this.itemimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\powerups\\paddle_longer_alpha.png")));
-			this.itemimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\powerups\\fire_ball.png")));
-			this.itemimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\powerups\\paddle_shorter.png")));
-			this.itemimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\powerups\\ice_ball.png")));
+			this.itemimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\powerups_actives\\ball_speed_inc_active.png")));
+			this.itemimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\powerups_actives\\num_balls_inc_glow.png")));
+			this.itemimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\powerups_actives\\paddle_longer_alpha_glow.png")));
+			this.itemimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\powerups_actives\\fire_ball_glow.png")));
+			this.itemimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\powerups_actives\\paddle_shorter_glow.png")));
+			this.itemimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\powerups_actives\\ice_ball_glow.png")));
 			
 		} catch (IOException e) {
 			System.err.println("Itemimage input is fail loadItemImage in vbhitModel");
@@ -112,7 +113,7 @@ public class vbhitModel {
 	public void CreatRandomItem(){
 		Point point= new Point();
 		point.setLocation(200+Math.random()*600, 200+Math.random()*600);
-		int itemtype= Math.round((float)Math.round(Math.random()*5));
+		int itemtype= new Random().nextInt(6);//Math.round((float)Math.round(Math.random()*5));
 		//int itemtype=1;
 		//System.out.print(itemtype + "  ");
 		switch (itemtype){
@@ -317,8 +318,202 @@ public class vbhitModel {
 			}
 		}
 	}
+	public void SpecialVelocityAdjust(Ball b, Player p, int axis){
+		double percent;
+		double vlength;
+		double degree;//in pi
+		double x,y;
+		if(axis==1){
+			vlength=b.getVelocity().magnitude();
+			percent=Math.abs((p.getPaddle().getPosition().cartesian(1)-b.getPosition().cartesian(1))/p.getPaddle().getLength()*2);
+			if(percent>0.9){
+				percent=0.9;
+			}
+			
+			if(b.getVelocity().cartesian(0)<0){//left side
+				if(b.getPosition().cartesian(1)>=p.getPaddle().getPosition().cartesian(1)){//ball>=paddle
+					if(b.getVelocity().cartesian(1)>0){//y>0
+						y=vlength-b.getVelocity().cartesian(1);
+						y=b.getVelocity().cartesian(1)+y*percent;
+						x=Math.sqrt(vlength*vlength - y*y);
+						if(x<0.5){
+							x=0.5;
+							y=Math.sqrt(vlength*vlength-x*x);
+						}
+						
+						
+						b.setVelocity(new Vector(x,y));
+					}else if(b.getVelocity().cartesian(1)<=0){//y=<0
+						y=vlength*percent + b.getVelocity().cartesian(1);
+						//y=y+b.getVelocity().cartesian(1);
+						x=Math.sqrt(vlength*vlength - y*y);
+						if(x<0.5){
+							x=0.5;
+							y=Math.sqrt(vlength*vlength-x*x);
+						}
+							b.setVelocity(new Vector(x,y));
+					}
+				}else if(b.getPosition().cartesian(1)<p.getPaddle().getPosition().cartesian(1)){//ball<paddle
+					if(b.getVelocity().cartesian(1)>=0){//y>0
+						y=b.getVelocity().cartesian(1)-vlength*percent;
+						x=Math.sqrt(vlength*vlength - y*y);
+						if(x<0.5){
+							x=0.5;
+							y=-Math.sqrt(vlength*vlength - x*x);
+						}
+						b.setVelocity(new Vector(x,y));
+					}else if(b.getVelocity().cartesian(1)<0){//y<0
+						y=vlength + b.getVelocity().cartesian(1);
+						y= b.getVelocity().cartesian(1) - y*percent;
+						x=Math.sqrt(vlength*vlength - y*y);
+						if(x<0.5){
+							x=0.5;
+							y=-Math.sqrt(vlength*vlength - x*x);
+						}
+						b.setVelocity(new Vector(x,y));
+					}
+				}
+			}else if(b.getVelocity().cartesian(0)>0){//right side
+				if(b.getPosition().cartesian(1)>=p.getPaddle().getPosition().cartesian(1)){//ball>paddle
+					if(b.getVelocity().cartesian(1)>0){//y>0
+						y=vlength-b.getVelocity().cartesian(1);
+						y=b.getVelocity().cartesian(1) + y*percent;
+						x=-Math.sqrt(vlength*vlength - y*y);
+						if(x>-0.5){
+							x=-0.5;
+							y=Math.sqrt(vlength*vlength -x*x);
+						}
+						b.setVelocity(new Vector(x,y));
+					}else if(b.getVelocity().cartesian(1)<=0){//y<0
+						y=vlength*percent + b.getVelocity().cartesian(1);
+						x = -Math.sqrt(vlength*vlength - y*y);
+						if(x>-0.5){
+							x=-0.5;
+							y=-Math.sqrt(vlength*vlength - y*y);
+						}
+						b.setVelocity(new Vector(x,y));
+					}
+				}else if(b.getPosition().cartesian(1)<p.getPaddle().getPosition().cartesian(1)){//ball<paddle
+					if(b.getVelocity().cartesian(1)>=0){//y>0
+						
+						y=b.getVelocity().cartesian(1)-vlength*percent;
+						x = -Math.sqrt(vlength*vlength - y*y);
+						if(x>-0.5){
+							x=-0.5;
+							y=-Math.sqrt(vlength*vlength - y*y);
+						}
+						b.setVelocity(new Vector(x,y));
+						
+					}else if(b.getVelocity().cartesian(1)<0){//y<0
+						
+						y=vlength+b.getVelocity().cartesian(1);
+						y=b.getVelocity().cartesian(1) - y*percent;
+						x=-Math.sqrt(vlength*vlength - y*y);
+						if(x>-0.5){
+							x=-0.5;
+							y=Math.sqrt(vlength*vlength -x*x);
+						}
+						b.setVelocity(new Vector(x,y));
+					}
+				}
+			}
+		}else if(axis==2){
+			vlength=b.getVelocity().magnitude();
+			percent=Math.abs((p.getPaddle().getPosition().cartesian(0)-b.getPosition().cartesian(0))/p.getPaddle().getLength()*2);
+			if(percent>0.9){
+				percent=0.9;
+			}
+			if(b.getVelocity().cartesian(1)<0){//top player
+				if(b.getPosition().cartesian(0) >= p.getPaddle().getPosition().cartesian(0)){//right
+					if(b.getVelocity().cartesian(0)>0){//x>0
+						x=vlength-b.getVelocity().cartesian(0);
+						x=b.getVelocity().cartesian(0)+x*percent;
+						y=Math.sqrt(vlength*vlength - x*x);
+						if(y<=0.5){
+							y=0.5;
+							x=Math.sqrt(vlength*vlength - y*y);
+						}
+						b.setVelocity(new Vector(x,y));
+					}else if(b.getVelocity().cartesian(0)<=0){//x<0
+						x=vlength*percent+b.getVelocity().cartesian(0);
+						y= Math.sqrt(vlength*vlength - x*x);
+						if(y<=0.5){
+							y=0.5;
+							x=Math.sqrt(vlength*vlength - y*y);
+						}
+						b.setVelocity(new Vector(x,y));
+					}
+				}else if(b.getPosition().cartesian(0) < p.getPaddle().getPosition().cartesian(0)){//left
+					if(b.getVelocity().cartesian(0)>=0){//x>0
+						x=b.getVelocity().cartesian(0)-vlength*percent;
+						y= Math.sqrt(vlength*vlength - x*x);
+						if(y<=0.5){
+							y=0.5;
+							x=-Math.sqrt(vlength*vlength - y*y);
+						}
+						b.setVelocity(new Vector(x,y));
+					}else if(b.getVelocity().cartesian(0)<0){//x<0
+						x=vlength+b.getVelocity().cartesian(0);
+						x=b.getVelocity().cartesian(0)-x*percent;
+						y=Math.sqrt(vlength*vlength - x*x);
+						if(y<=0.5){
+							y=0.5;
+							x=-Math.sqrt(vlength*vlength - y*y);
+						}
+						b.setVelocity(new Vector(x,y));
+					}
+				}
+				
+			}else if(b.getVelocity().cartesian(1)>0){//bottom player
+				System.out.println("get bottom");
+				if(b.getPosition().cartesian(0) >= p.getPaddle().getPosition().cartesian(0)){//right
+					if(b.getVelocity().cartesian(0)>0){//x>0
+						x=vlength-b.getVelocity().cartesian(0);
+						x=b.getVelocity().cartesian(0) + x*percent;
+						y = -Math.sqrt(vlength*vlength - x*x);
+						if(y>-0.5){
+							y=-0.5;
+							x=Math.sqrt(vlength*vlength - y*y);
+						}
+						b.setVelocity(new Vector(x,y));
+					}else if(b.getVelocity().cartesian(0)<=0){//x<0
+						x=b.getVelocity().cartesian(0) + vlength*percent;
+						y=-Math.sqrt(vlength*vlength - x*x);
+						if(y>-0.5){
+							y=-0.5;
+							x=Math.sqrt(vlength*vlength -y*y);
+						}
+						b.setVelocity(new Vector(x,y));
+					}
+				}else if(b.getPosition().cartesian(0) < p.getPaddle().getPosition().cartesian(0)){//left
+					
+					if(b.getVelocity().cartesian(0)>=0){//x>0
+						x= b.getVelocity().cartesian(0) - vlength*percent;
+						y=-Math.sqrt(vlength*vlength - x*x);
+						if(y>-0.5){
+							y=-0.5;
+							x=-Math.sqrt(vlength*vlength -y*y);
+						}
+						b.setVelocity(new Vector(x,y));
+					}else if(b.getVelocity().cartesian(0)<=0){//x<0
+						x=vlength+b.getVelocity().cartesian(0);
+						x=b.getVelocity().cartesian(0)-x*percent;
+						y=-Math.sqrt(vlength*vlength - x*x);
+						if(y>-0.5){
+							y=-0.5;
+							x=-Math.sqrt(vlength*vlength - y*y);
+						}
+						b.setVelocity(new Vector(x,y));
+					}
+				}
+			}
+		}
+		
+		
+	}
 	public void BHPVelocityAdjust(Player player, Ball b,int axis /*1 : y,2 :x*/){
-		if(player.getPlayerStatus()==2){
+		
+		if(player.getPlayerStatus()==Controls.PLAYER_PLAY){
 			
 			b.setLastHit(player);
 			b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
@@ -330,9 +525,11 @@ public class vbhitModel {
 			
 			}else{//adjust velocity vector in special way
 				if(axis==1){
-					b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
+					this.SpecialVelocityAdjust(b, player, axis);
+					//b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
 				}else if(axis ==2){
-					b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
+					this.SpecialVelocityAdjust(b, player, axis);
+					//b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
 				}
 			}
 		}else{//adjust velocity in normal way
@@ -341,14 +538,14 @@ public class vbhitModel {
 			}else if(axis ==2){
 				b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
 			}
-			/*b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));*/
+			
 		}
 	}
 	
 	public void BallsVelocityAdjust() {
 		
 		if (Controls.MODEL_HEIGHT == 0) return;
-		int posX, posY, radius;
+		int posX, posY;
 		int size=this.ball.size();
 		//Collision collision;
 		try{
@@ -358,16 +555,16 @@ public class vbhitModel {
 				if(b!=null&& b.getHolded()==null){	
 					posX =(int)Math.round(b.getPosition().cartesian(0));
 					posY = (int)Math.rint(b.getPosition().cartesian(1));
-					radius = b.getRadius();
+					//radius = b.getRadius();
 					//hit x limit
 					
 					if(posX<0 && b.getVelocity().cartesian(0)<=0 &&(
-						(posY + radius< Controls.CONER_LENGTH ||posY - b.getRadius()> Controls.MODEL_HEIGHT-Controls.CONER_LENGTH) ||
+						(posY + b.getRadius()< Controls.CONER_LENGTH ||posY - b.getRadius()> Controls.MODEL_HEIGHT-Controls.CONER_LENGTH) ||
 						(this.player.get(0).getPlayerStatus()!=Controls.PLAYER_PLAY  ))){
 						//adjust velocity vector in normal way
 						b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
 					}else if(posX > Controls.MODEL_WIDTH && b.getVelocity().cartesian(0)>0 && (
-						(posY + radius< Controls.CONER_LENGTH ||posY - b.getRadius()> Controls.MODEL_HEIGHT-Controls.CONER_LENGTH) ||
+						(posY + b.getRadius()< Controls.CONER_LENGTH ||posY - b.getRadius()> Controls.MODEL_HEIGHT-Controls.CONER_LENGTH) ||
 						(this.player.get(1).getPlayerStatus()!=Controls.PLAYER_PLAY) )){
 						//adjust velocity vector in normal way
 						b.setVelocity(new Vector(-1*b.getVelocity().cartesian(0), b.getVelocity().cartesian(1)));
@@ -384,29 +581,31 @@ public class vbhitModel {
 						//adjust velocity vector in normal way						
 						b.setVelocity(new Vector(b.getVelocity().cartesian(0), -1*b.getVelocity().cartesian(1)));
 						// Checking the ball within paddle on leftside
-					}else if(posX<radius && b.getVelocity().cartesian(0)<0 && this.player.get(0).getPlayerStatus()==2 &&
+					}else if(posX<b.getRadius() && b.getVelocity().cartesian(0)<0 && 
+							this.player.get(0).getPlayerStatus()==Controls.PLAYER_PLAY &&
 							Math.abs(posY-this.player.get(0).getPaddle().getPosition().cartesian(1))<=
-							(this.player.get(0).getPaddle().getLength()/2+radius)){
+							(this.player.get(0).getPaddle().getLength()/2+b.getRadius())){
 						
 						this.BHPVelocityAdjust(this.player.get(0), b,1);	
 					//check the ball within paddle on rightside
-					}else if(posX > (Controls.MODEL_WIDTH-radius) && b.getVelocity().cartesian(0)>0&&
-							this.player.get(1).getPlayerStatus()==2 &&
+					}else if(posX > (Controls.MODEL_WIDTH-b.getRadius()) && b.getVelocity().cartesian(0)>0&&
+							this.player.get(1).getPlayerStatus()==Controls.PLAYER_PLAY &&
 							Math.abs(posY-this.player.get(1).getPaddle().getPosition().cartesian(1))<=
-							(this.player.get(1).getPaddle().getLength()/2+radius)){
+							(this.player.get(1).getPaddle().getLength()/2+b.getRadius())){
 						
 						this.BHPVelocityAdjust(this.player.get(1), b,1);
 					//check the ball within paddle on top
-					}else if(posY<radius && b.getVelocity().cartesian(1)<0 &&this.player.get(2).getPlayerStatus()==2 &&
+					}else if(posY<b.getRadius() && b.getVelocity().cartesian(1)<0 &&
+							this.player.get(2).getPlayerStatus()==Controls.PLAYER_PLAY &&
 							Math.abs(posX-this.player.get(2).getPaddle().getPosition().cartesian(0))<=
-						(this.player.get(2).getPaddle().getLength()/2+radius)){
+						(this.player.get(2).getPaddle().getLength()/2+b.getRadius())){
 					
-					this.BHPVelocityAdjust(this.player.get(2), b,2);
+						this.BHPVelocityAdjust(this.player.get(2), b,2);
 					//check the ball within paddle on bottom	
-					}else if(posY>(Controls.MODEL_HEIGHT-radius) && b.getVelocity().cartesian(1)>0 &&
-							this.player.get(2).getPlayerStatus()==2 &&
+					}else if(posY>(Controls.MODEL_HEIGHT-b.getRadius()) && b.getVelocity().cartesian(1)>0 &&
+							this.player.get(3).getPlayerStatus()==Controls.PLAYER_PLAY &&
 							Math.abs(posX-this.player.get(3).getPaddle().getPosition().cartesian(0))<=
-							(this.player.get(3).getPaddle().getLength()/2+radius)){
+							(this.player.get(3).getPaddle().getLength()/2+b.getRadius())){
 					
 						this.BHPVelocityAdjust(this.player.get(3), b,2);
 					

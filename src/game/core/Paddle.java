@@ -36,6 +36,8 @@ public class Paddle {
 		this.velocity = Controls.PADDLE_VELOCITY;
 		this.length = length;
 	}
+	
+	
 	public Vector getPosition(){
 		return position;
 	}
