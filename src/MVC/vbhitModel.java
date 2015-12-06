@@ -105,7 +105,7 @@ public class vbhitModel {
 	public void loadObstacleImage(){
 		try {
 			this.obstacleimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\obstacle\\blackhole.png")));
-			this.obstacleimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\obstacle\\blackhole.png")));
+			this.obstacleimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\obstacle\\nicewhacky.png")));
 			
 		} catch (IOException e) {
 			System.err.println("ObstacleImage input is fail loadItemImage in vbhitModel");
