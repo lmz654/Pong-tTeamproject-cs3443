@@ -24,6 +24,8 @@ import game.components.item.ItemPExtended;
 import game.components.item.ItemPShrinked;
 import game.components.item.ItemPSlower;
 import game.components.item.ItemPfaster;
+import game.components.obstacles.CrazyWhackyObstacle;
+import game.components.obstacles.NiceWhackyObstacle;
 import game.components.obstacles.Obstacle;
 import game.core.Ball;
 import game.core.Player;
@@ -34,6 +36,7 @@ public class vbhitModel {
 	private Sound gamesound;
 	//0:allballspeedup, 1: allballsplit, 2:pextended, 3:pfaster, 4:pshrinked, 5:pslower
 	private ArrayList<BufferedImage> itemimagelist;
+	private ArrayList<BufferedImage> obstacleimagelist;
 	private ArrayList<Item>	item;
 	private ArrayList<Obstacle> obstacle;
 	private ArrayList<Player> player;
@@ -46,11 +49,12 @@ public class vbhitModel {
 	public vbhitModel() {
 		super();
 		gamesound = new Sound();
+		this.obstacleimagelist = new ArrayList<BufferedImage>();
 		this.item = new ArrayList<Item>();
 		this.itemimagelist=new ArrayList<BufferedImage>();
 		this.obstacle = new ArrayList<Obstacle>();
 		this.ball = new ArrayList<Ball>();
-		player= new ArrayList<Player>();
+		this.player= new ArrayList<Player>();
 		this.gamestate=Controls.GAME_STOP;
 		ActionListener action = new ActionListener(){
 
@@ -60,6 +64,7 @@ public class vbhitModel {
 			
 		};
 		this.loadItemImage();
+		this.loadObstacleImage();
 		try {
 			defaultballimage = ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\defaultball.png"));
 		} catch (IOException e) {
@@ -95,7 +100,16 @@ public class vbhitModel {
 	}
 	
 	public void setPlayerStatus(int player,int status){
-		this.player.get(player).setPlayerstatus(status);;
+		this.player.get(player).setPlayerstatus(status);
+	}
+	public void loadObstacleImage(){
+		try {
+			this.obstacleimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\obstacle\\blackhole.png")));
+			this.obstacleimagelist.add(ImageIO.read(new File("src\\MVC\\imagecontainer\\obstacle\\blackhole.png")));
+			
+		} catch (IOException e) {
+			System.err.println("ObstacleImage input is fail loadItemImage in vbhitModel");
+		}
 	}
 	public void loadItemImage(){
 		try {
@@ -110,12 +124,21 @@ public class vbhitModel {
 			System.err.println("Itemimage input is fail loadItemImage in vbhitModel");
 		}
 	}
+	public void CreatRandomNWObstacle(){
+		Point p= new Point();
+		p.setLocation(200+Math.random()*600, 200+Math.random()*600);
+		this.obstacle.add(new NiceWhackyObstacle (p, this.obstacleimagelist.get(1),30));
+	}
+	public void CreatRandomCZWObstacle(){
+		Point p= new Point();
+		p.setLocation(200+Math.random()*600, 200+Math.random()*600);
+		this.obstacle.add(new CrazyWhackyObstacle (p, this.obstacleimagelist.get(0),30));
+	
+	}
 	public void CreatRandomItem(){
 		Point point= new Point();
 		point.setLocation(200+Math.random()*600, 200+Math.random()*600);
 		int itemtype= new Random().nextInt(6);//Math.round((float)Math.round(Math.random()*5));
-		//int itemtype=1;
-		//System.out.print(itemtype + "  ");
 		switch (itemtype){
 		case 0:
 			this.item.add(new ItemAllBallSpeedup(point,this.itemimagelist.get(0),this));
@@ -266,6 +289,29 @@ public class vbhitModel {
 			}
 		}
 	}
+	public void BallinWObstacle(){
+		Point b,i;
+		int size = this.ball.size();
+		for(int z=0;z<size;z++){
+			if(ball.get(z)!=null){
+				try{
+					for(int t=0;t<this.obstacle.size();t++){
+						b=ball.get(z).getPosition().toPoint();
+						i=this.obstacle.get(t).getPosition();
+						if((Math.abs(i.x- b.x)<=Controls.WHACKY_OBSTACLE_WIDTH/2) &&
+							(Math.abs(i.y- b.y)<=Controls.WHACKY_OBSTACLE_HEIGHT/2)){
+							//if(ball.getLastHit()!=null){
+								this.obstacle.get(t).Effect(this.ball.get(z));
+							//}
+						}
+								
+					}
+				}catch(Exception e){
+					System.err.println("fail to effect item in ballinwobstacle vbhitmodel");
+				}
+			}
+		}
+	}
 	
 	public void checkCollisions() {
 		CollisionDetector.checkCollisions(this);
@@ -297,6 +343,27 @@ public class vbhitModel {
 			}
 			
 		}).start();
+		new Thread(new Runnable(){
+
+			public void run() {
+				for(int i=0;i<vbhitModel.this.obstacle.size();i++){
+					if(vbhitModel.this.obstacle.get(i)!=null && vbhitModel.this.obstacle.get(i) instanceof NiceWhackyObstacle){
+						NiceWhackyObstacle t = (NiceWhackyObstacle) vbhitModel.this.obstacle.get(i);
+						t.checkballout();
+					}
+				}
+				vbhitModel.this.BallinWObstacle();
+			}
+			
+		}).start();
+		/*new Thread(new Runnable(){
+
+			public void run() {
+				
+				vbhitModel.this.BallinWObstacle();
+			}
+			
+		}).start();*/
 		
 		new Thread(new Runnable(){
 

@@ -12,14 +12,17 @@ import game.math.structures.Vector;
 
 // Class that contains all of the control variables for the Game
 public class Controls {
+	//whacky obstacle
+	public static final int WHACKY_OBSTACLE_WIDTH = 40;
+	public static final int WHACKY_OBSTACLE_HEIGHT=40;
 	//game fonts default
 	public static final Font LARGE_FONT_DEFAULT  = new Font("American Typewriter", Font.BOLD, 30);
 	public static final Font MID_FONT_DEFAULT  = new Font("American Typewriter", Font.BOLD, 20);
 	public static final Font SMALL_FONT_DEFAULT  = new Font("American Typewriter", Font.BOLD, 10);
 	
 	//power up
-	public static final int ITEM_WIDTH=40;
-	public static final int ITEM_HEIGTH=40;
+	public static final int ITEM_WIDTH=60;
+	public static final int ITEM_HEIGTH=60;
 		
 	//game status
 	public static final int GAME_STOP=0;
@@ -81,8 +84,8 @@ public class Controls {
 	
 	// Control Variables for Ball
 	public static final int BALL_MAX_SPEED = 12;
-	public static final int BALL_MIN_SPEED = 3;
-	public static final int BALL_NORMAL_SPEED=6;
+	public static final int BALL_MIN_SPEED = 2;
+	public static final int BALL_NORMAL_SPEED=5;
 	public static final int BALL_DEFAULT_RADIUS = 30;
 	
 	// Control Variables for Collision Model
@@ -122,8 +125,7 @@ public class Controls {
 	
 	public static Ball getDefaultBall(){
 		Ball ball = new Ball(new Vector(MODEL_WIDTH/2, MODEL_HEIGHT/2), 
-				Vector.getRand(new int[]{BALL_MAX_SPEED, -BALL_MIN_SPEED}, 
-							   new int[]{BALL_MAX_SPEED, -BALL_MIN_SPEED}), BALL_DEFAULT_RADIUS);
+				Vector.getRand(Controls.BALL_MIN_SPEED+2,Controls.BALL_MAX_SPEED-5), BALL_DEFAULT_RADIUS);
 		return ball;
 	}
 	public static Player player1default(){

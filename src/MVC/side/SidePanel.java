@@ -56,6 +56,7 @@ public class SidePanel extends JPanel{
 	public void update(){
 		playertop.update();
 		playerbottom.update();
+		this.repaint();
 	}
 	
 	public void showPlayer(){
@@ -83,6 +84,7 @@ public class SidePanel extends JPanel{
 	@Override
 	protected void paintComponent(Graphics g) {
 		
+		
 		if(this.side==1){
 			g.drawImage(imageleft.getSubimage(
 					Math.round((imageleft.getWidth()-this.getWidth())/2),Math.round((imageleft.getHeight()-this.getHeight())/2),
@@ -94,8 +96,7 @@ public class SidePanel extends JPanel{
 					this.getWidth(),this.getHeight()), 
 					0, 0,null);
 		}
-		super.paintComponent(g);
-		
+		super.paintComponent(g);		
 	}
 
 }

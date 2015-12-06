@@ -201,9 +201,7 @@ public class vbhitView extends JFrame{
 		leftpanel.update();
 		rightpanel.update();
 		actionpanel.update();
-		if(this.isFocusableWindow()==false){
-			this.setFocusableWindowState(true);
-		}
+		this.requestFocus();
 		this.repaint();
 	}
 }

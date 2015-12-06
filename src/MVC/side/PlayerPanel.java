@@ -11,6 +11,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -31,6 +32,7 @@ public class PlayerPanel extends JPanel {
 	private JButton statusbutton;
 	private vbhitController controller;
 	private int playernuber;
+	private Icon icon;
 
 	public PlayerPanel(Player player,vbhitController controller,int playernumber){
 		bg=null;

@@ -57,6 +57,8 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			this.view.getActionPanel().showPauseMenu();
 		}else if(arg0.getKeyChar()=='h'){
 			this.model.CreatRandomItem();
+		}else if(arg0.getKeyChar()=='f'){
+			this.model.CreatRandomNWObstacle();
 		}else if(arg0.getKeyChar()=='n'){
 			model.createDefaultball();
 		}else if(arg0.getKeyChar()=='2'){
@@ -261,7 +263,10 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 
 	public void componentResized(ComponentEvent e) {
 		// TODO Auto-generated method stub
-		view.updateratio();
+		if(e.getSource() instanceof vbhitView){
+			vbhitView a=(vbhitView) e.getSource();
+			a.updateratio();
+		}
 		
 	}
 
@@ -272,7 +277,9 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 
 	public void windowStateChanged(WindowEvent arg0) {
 		// TODO Auto-generated method stub
-		view.updateratio();
+		
+		
+		
 	}
 
 	public vbhitModel getModel() {

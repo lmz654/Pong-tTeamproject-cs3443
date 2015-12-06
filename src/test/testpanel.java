@@ -25,6 +25,7 @@ import MVC.action.PauseMenu;
 import MVC.action.SetupMenu;
 import MVC.action.TitleMenu;
 import MVC.side.PlayerPanel;
+import game.math.structures.Vector;
 
 /*import javax.media.*;
 import java.net.*;
@@ -35,9 +36,11 @@ import java.util.*;*/
 public class testpanel {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		File f = new File("clickButton.mp3");
-		URL url;
+		for(int i=0;i<50;i++){
+			System.out.println(Vector.getRand(5,10));
+		}
+		/*File f = new File("clickButton.mp3");
+		URL url;*/
 		/*try {
 			url = new URL ("file:thuthoi.wav");
 			
@@ -49,7 +52,7 @@ public class testpanel {
 		}*/
 		//try {
 			//url = new URL("file:clickButton.mp3");
-		JFrame frame = new JFrame("trying");
+		/*JFrame frame = new JFrame("trying");
 		frame.setSize(400,400);
 			JFXPanel fxp= new javafx.embed.swing.JFXPanel();
 			
@@ -63,7 +66,7 @@ public class testpanel {
 			p.play();
 			p.stop();
 			p.play();
-
+*/
 			
 			//p.stop();
 			//final Player p=Manager.createRealizedPlayer(f.toURI().toURL());

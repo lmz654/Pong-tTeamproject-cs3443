@@ -1,6 +1,9 @@
 package game.math.structures;
 
 import java.awt.Point;
+import java.util.Random;
+
+import game.Controls;
 
 public class Vector {
 	private final int LEN;
@@ -24,18 +27,29 @@ public class Vector {
 	
 	
 	public static Vector getRand(int...data) {
+		double max,d1;
 		double[] rand = new double[data.length];
-		
-		for (int i = 0; i < data.length; i++) {
-			rand[i] = Math.round(Math.random()*data[i]);
+		Random random = new Random();
+		d1=data[0] + random.nextDouble()*(data[1]-data[0]);
+		if(random.nextBoolean()==true){
+			rand[0] =random.nextDouble()*d1;
+		}else{
+			rand[0] = -(random.nextDouble()*d1);
 		}
+		max=Math.sqrt(Math.pow(d1, 2) - Math.pow(rand[0], 2));
+		if(random.nextBoolean()==true){
+			rand[1]=random.nextDouble()*max;
+		}else{
+			rand[1]=-random.nextDouble()*max;
+		}
+	
+	
 		
 		return new Vector(rand);
 	}
 	
 	public static Vector getRand(int[]...data) {
 		double[] rand = new double[data.length];
-		
 		for (int i = 0; i < data.length; i++) {
 			rand[i] = Math.rint((Math.random()*data[i][0] + data[i][1]));
 		}

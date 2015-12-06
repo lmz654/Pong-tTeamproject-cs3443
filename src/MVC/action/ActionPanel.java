@@ -12,6 +12,7 @@ import MVC.vbhitController;
 import MVC.vbhitModel;
 import game.Controls;
 import game.components.item.Item;
+import game.components.obstacles.Obstacle;
 import game.core.Ball;
 import game.core.Player;
 
@@ -71,12 +72,29 @@ public class ActionPanel extends JPanel {
 		}catch(Exception e){
 			System.err.println("draw actionpanel background fail in actionpanel");
 		}
+			int l;
 			float radius;
 			float px,py;
 			float length,height;
 			g.setColor(Color.CYAN);
+			try{
+				l=this.controller.getModel().getObstacle().size();
+				for(int i=0;i<this.controller.getModel().getObstacle().size();i++){
+					Obstacle o = this.controller.getModel().getObstacle().get(i);
+					if(o!=null){
+						px=(float) (o.getPosition().x-Controls.WHACKY_OBSTACLE_WIDTH/2)*this.ratio;
+						py=(float) (o.getPosition().y-Controls.WHACKY_OBSTACLE_HEIGHT/2)*this.ratio;
+						g.drawImage(o.getImage(),Math.round(px),Math.round(py),
+								Math.round((float)Controls.WHACKY_OBSTACLE_WIDTH*this.ratio),Math.round((float)Controls.WHACKY_OBSTACLE_HEIGHT*this.ratio), null);
+					}
+				}
+			}catch(Exception e){
+				System.err.println("fail to draw power up in actionpanel");
+			}
 		try{
-			for(Item item: this.controller.getModel().getItem()){
+			l=this.controller.getModel().getItem().size();
+			for(int i=0;i<this.controller.getModel().getItem().size();i++){
+				Item item = this.controller.getModel().getItem().get(i);
 				if(item!=null){
 					px=(float) (item.getPoint().x-Controls.ITEM_WIDTH/2)*this.ratio;
 					py=(float) (item.getPoint().y-Controls.ITEM_HEIGTH/2)*this.ratio;

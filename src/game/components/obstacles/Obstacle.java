@@ -1,23 +1,47 @@
 package game.components.obstacles;
 
+import java.awt.Point;
+import java.awt.image.BufferedImage;
+
+import game.core.Ball;
 import game.math.structures.Vector;
 
 public abstract class Obstacle {
 	
-	private Vector position;
-	private final char effect;
+	private Point position;
+	private BufferedImage image;
+	private int timer;
 	
-	public Obstacle(Vector position, char effect) {
+	public Obstacle(Point position, BufferedImage image,int timer) {
 		this.position = position;
-		this.effect = effect;
+		this.image = image;
+		this.timer = timer;
 	}
 	
-	public Vector getPosition() {
-		return this.position;
+	public int getTimer() {
+		return timer;
 	}
-	
-	public char getEffect() {
-		return this.effect;
+
+	public void setTimer(int timer) {
+		this.timer = timer;
 	}
+
+	public Point getPosition() {
+		return position;
+	}
+
+	public void setPosition(Point position) {
+		this.position = position;
+	}
+
+	public BufferedImage getImage() {
+		return image;
+	}
+
+	public void setImage(BufferedImage image) {
+		this.image = image;
+	}
+
+	public abstract void Effect (Ball b);
 
 }

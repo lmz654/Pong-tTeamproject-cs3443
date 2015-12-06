@@ -3,6 +3,7 @@ package game.core;
 import java.awt.image.BufferedImage;
 
 import game.Controls;
+import game.components.obstacles.Obstacle;
 import game.math.structures.Vector;
 
 public class Ball {
@@ -13,6 +14,7 @@ public class Ball {
 	private boolean collided;
 	private BufferedImage image;
 	private Player holded;
+	private Obstacle inobstacle;
 	
 	// --- Game Metrics ---
 	private Player lastHit;
@@ -24,6 +26,7 @@ public class Ball {
 		this.radius = radius;
 		this.collided = false;
 		this.holded=null;
+		this.inobstacle=null;
 	}
 	
 	// Setters and Getters
@@ -40,6 +43,14 @@ public class Ball {
 		this.holded = player;
 	}
 	
+	public Obstacle getInobstacle() {
+		return inobstacle;
+	}
+
+	public void setInobstacle(Obstacle inobstacle) {
+		this.inobstacle = inobstacle;
+	}
+
 	public Vector getVelocity() {
 		return this.velocity;
 	}

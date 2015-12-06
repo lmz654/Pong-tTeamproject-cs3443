@@ -1,6 +1,10 @@
 package game.components.obstacles;
 
+import java.awt.Point;
+import java.awt.image.BufferedImage;
+
 import game.Controls;
+import game.core.Ball;
 import game.math.structures.Vector;
 
 public class NormalObstacle extends Obstacle {
@@ -9,10 +13,9 @@ public class NormalObstacle extends Obstacle {
 	private int height, width;
 	public static final double PROBABILITY = Controls.NORMALOBSTACLE_PROBABILITY;
 
-	public NormalObstacle(Vector postition, char effect, int height, int width) {
-		super(postition, effect);
-		this.height = height;
-		this.width = width;
+	public NormalObstacle(Point postition,BufferedImage image,int timer ) {
+		super(postition, image,timer);
+		
 	}
 
 	public int getHeight() {
@@ -21,6 +24,12 @@ public class NormalObstacle extends Obstacle {
 
 	public int getWidth() {
 		return width;
+	}
+
+	@Override
+	public void Effect(Ball b) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	
