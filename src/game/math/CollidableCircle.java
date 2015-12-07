@@ -60,7 +60,7 @@ public class CollidableCircle extends Collidable {
 			Ball b = (Ball)this.obj;
 			Vector vPrime = b.getVelocity();
 			double reflectionAngle = vPrime.angleTo(hyperPlane);
-			double energyLoss = .06;
+			double energyLoss = .05;
 			double energyBias = 1;
 			
 			// Set next positions of the balls
@@ -79,6 +79,10 @@ public class CollidableCircle extends Collidable {
 			b.setVelocity(vPrime.times(energyBias));
 			
 		}
+	}
+	
+	public static CollidableCircle randBall(int r, int lX, int uX, int lY, int uY) {
+		return new CollidableCircle(new Ball(Vector.getRand(new int[]{(uX - lX) - 2*r, lX - r}, new int[]{(uY - lY) - 2*r, lY - r}),Vector.getRand(0,0) , r));
 	}
 
 }

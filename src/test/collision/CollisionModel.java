@@ -17,13 +17,13 @@ public class CollisionModel {
 	private ArrayList<Obstacle> obstacles;
 	
 	//Information Markers
-	public boolean showVelocityVectors = false;
-	public boolean showPositionVectors = false;
-	public boolean showProjections = false;
+	public boolean showVelocityVectors = true;
+	public boolean showPositionVectors = true;
+	public boolean showProjections = true;
 	public boolean showMoreInfo = false;
 	
 	// Simulation Properties
-	public int numBalls = Controls.SIM_NUM_BALLS; // 1500 Still ran, seems like good upper limit. 2000 Lagged.
+	public int numBalls = 10; // 1500 Still ran, seems like good upper limit. 2000 Lagged.
 	public int radius = Controls.SIM_BALL_DEFAULT_RADIUS;
 	public int tolerance = 20;
 	public int redux = 2*(radius+tolerance);
