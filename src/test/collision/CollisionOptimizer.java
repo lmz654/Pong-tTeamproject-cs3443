@@ -76,12 +76,12 @@ public class CollisionOptimizer {
 						output.println(execTime + ",");
 					avgTrials += execTime;
 					double percent = (((double) t+1.0) /((double) TRIALS)) * 100.0;
-					System.out.println("Percentage Complete: " + String.format("%.0f", percent) + "% in" + execTime + "ms");
+					System.out.println("Percentage Complete: " + String.format("%.0f", percent) + "% in " + execTime + "ms");
 					collidableUnits.clear();
 				}
 				avgTrials /= TRIALS;
 				output.println("\t\tAverage Trial Execution Time," + avgTrials + ",");
-				System.out.println("Average Trial Execution Time: " + avgTrials + "ms");
+				System.out.println("Average Trial Execution Time: " + String.format("%.2f", avgTrials) + "ms");
 			}
 			
 		}
