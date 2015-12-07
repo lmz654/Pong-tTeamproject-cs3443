@@ -11,7 +11,7 @@ import game.math.CollidableCircle;
 import game.math.CollisionDetector;
 
 public class CollisionOptimizer {
-	public static final int RUNS = 5;
+	public static final int RUNS = 4;
 	public static final int TRIALS = 20;
 	
 	public static final int ROOT = 10;
@@ -24,7 +24,7 @@ public class CollisionOptimizer {
 	
 	public static void main(String[] args) {
 		double avgTrials = 0, avgRuns = 0;
-		long start, end;
+		long start, end, rStart, rEnd;
 		
 		int state = 0;
 		PrintWriter output = null;
@@ -45,19 +45,19 @@ public class CollisionOptimizer {
 			for (state = 0; state < 4; state++) {
 				switch (state) {
 				case 0: 
-					System.out.println("N2 Algorithm Non-Threaded");
+					System.out.println("State: N2 Algorithm Non-Threaded");
 					output.println("\tN2 Algorithm Non-Threaded,");
 					break;
 				case 1:
-					System.out.println("N2 Algorithm Threaded");
+					System.out.println("State: N2 Algorithm Threaded");
 					output.println("\tN2 Algorithm Threaded,");
 					break;
 				case 2:
-					System.out.println("QTree Algorithm Non-Threaded");
+					System.out.println("State: QTree Algorithm Non-Threaded");
 					output.println("\tQTree Algorithm Non-Threaded,");
 					break;
 				case 3:
-					System.out.println("QTree Algorithm Threaded");
+					System.out.println("State: QTree Algorithm Threaded");
 					output.println("\tQTree Algorithm Threaded,");
 					break;
 				default:
@@ -81,6 +81,7 @@ public class CollisionOptimizer {
 				}
 				avgTrials /= TRIALS;
 				output.println("\t\tAverage Trial Execution Time," + avgTrials + ",");
+				System.out.println("Average Trial Execution Time: " + avgTrials + "ms");
 			}
 			
 		}
