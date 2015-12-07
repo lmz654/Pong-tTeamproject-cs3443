@@ -11,8 +11,8 @@ import game.math.CollidableCircle;
 import game.math.CollisionDetector;
 
 public class CollisionOptimizer {
-	public static final int RUNS = 4;
-	public static final int TRIALS = 25;
+	public static final int RUNS = 5;
+	public static final int TRIALS = 20;
 	
 	public static final int ROOT = 10;
 	public static final int BASE = 10;
@@ -45,15 +45,19 @@ public class CollisionOptimizer {
 			for (state = 0; state < 4; state++) {
 				switch (state) {
 				case 0: 
+					System.out.println("N2 Algorithm Non-Threaded");
 					output.println("\tN2 Algorithm Non-Threaded,");
 					break;
 				case 1:
+					System.out.println("N2 Algorithm Threaded");
 					output.println("\tN2 Algorithm Threaded,");
 					break;
 				case 2:
+					System.out.println("QTree Algorithm Non-Threaded");
 					output.println("\tQTree Algorithm Non-Threaded,");
 					break;
 				case 3:
+					System.out.println("QTree Algorithm Threaded");
 					output.println("\tQTree Algorithm Threaded,");
 					break;
 				default:
