@@ -11,18 +11,97 @@ import game.math.CollidableCircle;
 import game.math.CollisionDetector;
 
 public class CollisionOptimizer {
-	public static final int RUNS = 3;
+	public static final int RUNS = 1000;
 	public static final int TRIALS = 10;
 	
-	public static final int ROOT = 10;
+	public static final int MULT = 10;
 	public static final int BASE = 10;
 	
-	public static final boolean MULTIPOINT = true;
+	public static final boolean MULTIPOINT = false;
+	public static final boolean EXP = false;
 	
 	public static final int HEIGHT = 1000;
 	public static final int WIDTH = 1000;
 	
 	public static void main(String[] args) {
+		
+		//algAnalysis(4, 10, 10, 0, true);
+		
+		System.out.println("Max Objects for Playable Refresh Rate of 25ms");
+		algMaxAnalysis(25, 10, 10, 10, false);
+		System.out.println("Max Objects for Lagging Refresh Rate of 35ms");
+		algMaxAnalysis(35, 10, 10, 10, false);
+		System.out.println("Max Objects before Unplayable Refresh Rate of 50ms");
+		algMaxAnalysis(50, 10, 10, 10, false);
+		System.out.println("Max Objects Analysis Complete!");
+		
+	}
+	
+	public static void algMaxAnalysis(double max, int trials, int base, int multiplier, boolean exp) {
+		double avgTrials = 0;
+		long start, end;
+		
+		int limit;
+		
+		if (exp) 
+			limit = 4; 
+		else
+			limit = (10000 - base) / multiplier;
+		
+		List<Collidable> cUnits = new ArrayList<Collidable>();
+		
+		for (int s = 0; s < 4; s++) {
+			
+			for (int r = 0; r < limit; r++) {
+				int numObj;
+				if (exp)
+					numObj = (int) Math.pow(base, r);
+				else 
+					numObj = (int) base + multiplier*r;
+				
+				for (int t = 0; t < trials; t++) {
+					for (int b = 0; b < numObj; b++)
+						cUnits.add(CollidableCircle.randBall(5, 0, WIDTH, 0, HEIGHT));
+					
+					start = new Date().getTime();
+					CollisionDetector.optimizer(cUnits, s, HEIGHT, WIDTH);
+					end = new Date().getTime();
+					long execTime = end - start;
+					avgTrials += execTime;
+					cUnits.clear();
+				}
+				
+				avgTrials /= trials;
+				
+				if (avgTrials > max) {
+					switch (s) {
+					case 0: 
+						System.out.println("N2 Algorithm Non-Threaded Max Objects: " + numObj);
+						break;
+					case 1:
+						System.out.println("N2 Algorithm Threaded Max Objects: " + numObj);
+						break;
+					case 2:
+						System.out.println("QTree Algorithm Non-Threaded Max Objects: " + numObj);
+						break;
+					case 3:
+						System.out.println("QTree Algorithm Threaded Max Objects: " + numObj);
+						break;
+					default:
+						break;
+					}
+					avgTrials = 0;
+					break;
+				}
+				
+				avgTrials = 0;
+			}
+			
+		}
+		
+	}
+	
+	public static void algAnalysis(int runs, int trials, int base, int multiplier, boolean exp) {
 		double avgTrials = 0, avgRuns = 0;
 		long start, end, rStart, rEnd;
 		
@@ -38,10 +117,14 @@ public class CollisionOptimizer {
 		
 		List<Collidable> collidableUnits = new ArrayList<Collidable>();
 		
-		for (int r = 0; r < RUNS; r++) {
-			int numObj = (int) (ROOT * Math.pow(BASE, r));
-			System.out.println("Run: " +  (r+1));
-			output.println("Run: " + (r + 1) + " Number of Objects: " + numObj + " Number of Trials: " + TRIALS);
+		for (int r = 0; r < runs; r++) {
+			int numObj;
+			if (exp)
+				numObj = (int) Math.pow(base, r);
+			else 
+				numObj = (int) base + multiplier*r;
+			System.out.println("Run: " +  (r+1) + " " + numObj + " Objects.");
+			output.println("Run: " + (r + 1) + " Number of Objects: " + numObj + " Number of Trials: " + trials);
 			for (state = 0; state < 4; state++) {
 				switch (state) {
 				case 0: 
@@ -64,7 +147,8 @@ public class CollisionOptimizer {
 					break;
 				}
 				
-				for (int t = 0; t < TRIALS; t++) {
+				avgTrials = 0;
+				for (int t = 0; t < trials; t++) {
 					for (int b = 0; b < numObj; b++)
 						collidableUnits.add(CollidableCircle.randBall(5, 0, WIDTH, 0, HEIGHT));
 					
@@ -75,20 +159,34 @@ public class CollisionOptimizer {
 					if (MULTIPOINT)
 						output.println(execTime + ",");
 					avgTrials += execTime;
-					double percent = (((double) t+1.0) /((double) TRIALS)) * 100.0;
-					System.out.println("Percentage Complete: " + String.format("%.0f", percent) + "% in " + execTime + "ms");
+					double percent = (((double) t+1.0) /((double) trials)) * 100.0;
+					updateProgress(percent);
 					collidableUnits.clear();
 				}
-				avgTrials /= TRIALS;
+				avgTrials /= trials;
 				output.println("\t\tAverage Trial Execution Time," + avgTrials + ",");
-				System.out.println("Average Trial Execution Time: " + String.format("%.2f", avgTrials) + "ms");
+				System.out.println("\nAverage Trial Execution Time: " + String.format("%.2f", avgTrials) + "ms");
 			}
-			
 		}
 		
-		System.out.println("Simulation Complete!");
+		System.out.println("Algorithmic Analysis Simulation Complete!");
 		output.close();
-
+	}
+	
+	public static void updateProgress(double percentage) {
+		final int width = 50;
+		
+		double per = percentage / 100;
+		
+		System.out.print("\r[");
+		int i = 0;
+		for (; i <= (int) (per*width); i++) {
+			System.out.print("=");
+		}
+		for (; i < width; i++) {
+			System.out.print(" ");
+		}
+		System.out.print("]: " + percentage + "%");
 	}
 	
 
