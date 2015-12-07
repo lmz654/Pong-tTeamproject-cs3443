@@ -11,8 +11,8 @@ import game.math.CollidableCircle;
 import game.math.CollisionDetector;
 
 public class CollisionOptimizer {
-	public static final int RUNS = 4;
-	public static final int TRIALS = 20;
+	public static final int RUNS = 3;
+	public static final int TRIALS = 10;
 	
 	public static final int ROOT = 10;
 	public static final int BASE = 10;
@@ -85,7 +85,8 @@ public class CollisionOptimizer {
 			}
 			
 		}
-	
+		
+		System.out.println("Simulation Complete!");
 		output.close();
 
 	}
