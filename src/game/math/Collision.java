@@ -67,11 +67,11 @@ public class Collision {
 	
 	private Vector calculateCollisionPoint() {
 		Vector c = b.position.minus(a.position);	
-		double t = c.dot(b.velocity) / a.velocity.dot(b.velocity);
+		//double t = c.dot(b.velocity) / a.velocity.dot(b.velocity);
 		
-		Vector cPoint = a.velocity.times(t).plus(a.position);
-		
-		return cPoint;
+		//Vector cPoint = a.velocity.times(t).plus(a.position);
+		return null;
+		//return cPoint;
 	}
 	
 	private Vector getHyperplane() {
