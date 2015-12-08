@@ -50,7 +50,7 @@ public class SetupMenu extends JPanel {
 		this.add(box);
 		
 		// First button, 4th item
-		button = new JButton("Start Game!");
+		button = new JButton("Start");
 		button.setForeground(Color.red);
 		button.setBackground(null);
 		button.setOpaque(false);

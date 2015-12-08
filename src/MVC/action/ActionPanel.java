@@ -20,7 +20,7 @@ public class ActionPanel extends JPanel {
 	
 	private vbhitController	controller;
 	private float ratio;
-	private BufferedImage center,topleft,topright,bottomleft,bottomright;
+	private BufferedImage centerbackground,topleft,topright,bottomleft,bottomright;
 	//subpanel
 	private ReportMenu reportmenu;
 	private PauseMenu pausemenu;
@@ -52,7 +52,8 @@ public class ActionPanel extends JPanel {
 		this.setBackground(null);
 		this.ratio=(float)this.getSize().width/1000;
 		try {
-			center = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\background2.jpg"));
+			centerbackground = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\background2.jpg"));
+			System.out.println(centerbackground.getHeight() + "  " +centerbackground.getWidth());
 			topleft = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\topleft.png"));
 			topright = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\topright.png"));
 			bottomleft = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\bottmleft.png"));
@@ -64,10 +65,10 @@ public class ActionPanel extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
+		System.out.println(this.getWidth() + "  " + this.getHeight());
 		try{
 			
-			g.drawImage(this.center, 0, 0, null);
+			g.drawImage(this.centerbackground,0,0,null);
 			g.drawImage(this.topleft,-10,-10,Math.round(150*this.ratio),Math.round(150*this.ratio),null);
 			g.drawImage(this.topright,Math.round(850*this.ratio)+10,-10,Math.round(150*this.ratio),Math.round(150*this.ratio),null);
 			g.drawImage(this.bottomleft,-10,Math.round(850*this.ratio)+10,Math.round(150*this.ratio),Math.round(150*this.ratio),null);
@@ -177,7 +178,7 @@ public class ActionPanel extends JPanel {
 				Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),
 				Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
 		
-		this.center=this.controller.getView().getBackgroundImage().getSubimage(
+		this.centerbackground=this.controller.getView().getBackgroundImage().getSubimage(
 				this.controller.getView().getActpanelpos(),0,this.getWidth(),this.getHeight());
 	}
 	
