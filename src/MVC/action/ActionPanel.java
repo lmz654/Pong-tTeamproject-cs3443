@@ -37,11 +37,6 @@ public class ActionPanel extends JPanel {
 		this.setupmenu = new SetupMenu(this.controller);
 		this.titlemenu = new TitleMenu(this.controller);
 		this.reportmenu = new ReportMenu(this.controller);
-		/*this.pausemenu.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
-		this.setupmenu.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
-		this.savekeymappanel.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
-		this.instruction.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));*/
-		//this.view.getActionPanel().showPauseMenu();
 		this.add(this.reportmenu);
 		this.add(this.titlemenu);
 		this.add(this.pausemenu);
@@ -57,9 +52,11 @@ public class ActionPanel extends JPanel {
 		this.setBackground(null);
 		this.ratio=(float)this.getSize().width/1000;
 		try {
-			//center = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\background1.jpeg"));
+			center = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\background2.jpg"));
 			topleft = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\topleft.png"));
 			topright = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\topright.png"));
+			bottomleft = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\bottmleft.png"));
+			bottomright = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\bottomright.png"));
 		} catch (Exception e) {
 			System.err.println("actionpanel image input fail in actionpanel");
 		}
@@ -69,9 +66,12 @@ public class ActionPanel extends JPanel {
 		super.paintComponent(g);
 		
 		try{
-			g.drawImage(center, 0, 0, null);
+			
+			g.drawImage(this.center, 0, 0, null);
 			g.drawImage(this.topleft,-10,-10,Math.round(150*this.ratio),Math.round(150*this.ratio),null);
 			g.drawImage(this.topright,Math.round(850*this.ratio)+10,-10,Math.round(150*this.ratio),Math.round(150*this.ratio),null);
+			g.drawImage(this.bottomleft,-10,Math.round(850*this.ratio)+10,Math.round(150*this.ratio),Math.round(150*this.ratio),null);
+			g.drawImage(this.bottomright,Math.round(850*this.ratio)+10,Math.round(850*this.ratio)+10,Math.round(150*this.ratio),Math.round(150*this.ratio),null);
 			//g.drawImage(image.getSubimage((image.getWidth()-this.getWidth())/2, (image.getHeight()-this.getHeight())/2, this.getWidth(), this.getWidth()), 0, 0, this.getWidth(), this.getHeight(), null);
 			
 		}catch(Exception e){
