@@ -15,6 +15,7 @@ public class CollidableCircle extends Collidable {
 		if (object instanceof Ball) {
 			this.radius = ((Ball)object).getRadius();
 			super.position = ((Ball)object).getPosition();
+			super.velocity = ((Ball) object).getVelocity();
 		}
 	}
 	

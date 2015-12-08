@@ -10,6 +10,7 @@ public abstract class Collidable {
 	protected Object obj;
 	protected Collidable lastCollided;
 	protected Vector position;
+	protected Vector velocity;
 	
 	public Collidable(Object object) {
 		this.obj = object;

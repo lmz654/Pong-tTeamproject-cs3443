@@ -17,7 +17,7 @@ public class CollisionOptimizer {
 	public static final int MULT = 10;
 	public static final int BASE = 10;
 	
-	public static final boolean MULTIPOINT = false;
+	public static final boolean MULTIPOINT = true;
 	public static final boolean EXP = false;
 	
 	public static final int HEIGHT = 1000;
@@ -25,13 +25,13 @@ public class CollisionOptimizer {
 	
 	public static void main(String[] args) {
 		
-		//algAnalysis(4, 10, 10, 0, true);
+		algAnalysis(4, 10, 10, 0, true);
 		
-		System.out.println("Max Objects for Playable Refresh Rate of 25ms");
+		System.out.println("Max Objects for Playable Refresh Period of 25ms");
 		algMaxAnalysis(25, 10, 10, 10, false);
-		System.out.println("Max Objects for Lagging Refresh Rate of 35ms");
+		System.out.println("Max Objects for Lagging Refresh Period of 35ms");
 		algMaxAnalysis(35, 10, 10, 10, false);
-		System.out.println("Max Objects before Unplayable Refresh Rate of 50ms");
+		System.out.println("Max Objects before Unplayable Refresh Period of 50ms");
 		algMaxAnalysis(50, 10, 10, 10, false);
 		System.out.println("Max Objects Analysis Complete!");
 		
@@ -120,7 +120,7 @@ public class CollisionOptimizer {
 		for (int r = 0; r < runs; r++) {
 			int numObj;
 			if (exp)
-				numObj = (int) Math.pow(base, r);
+				numObj = base * (int) Math.pow(base, r);
 			else 
 				numObj = (int) base + multiplier*r;
 			System.out.println("Run: " +  (r+1) + " " + numObj + " Objects.");
