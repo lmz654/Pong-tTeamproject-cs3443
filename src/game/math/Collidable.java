@@ -73,4 +73,5 @@ public abstract class Collidable {
 
 	public abstract void setVelocity(Vector velocity);
 	public abstract void adjustTrajectory(Vector hyperPlane);
+	public abstract Collidable next();
 }

@@ -85,4 +85,12 @@ public class CollidableCircle extends Collidable {
 		return new CollidableCircle(new Ball(Vector.getRand(new int[]{(uX - lX) - 2*r, lX - r}, new int[]{(uY - lY) - 2*r, lY - r}),Vector.getRand(0,0) , r));
 	}
 
+	@Override
+	public Collidable next() {
+		if (this.obj instanceof Ball) {
+			return new CollidableCircle(new Ball(((Ball) obj).getPosition().plus(((Ball) obj).getVelocity()), ((Ball) obj).getVelocity(), ((Ball) obj).getRadius()));
+		}
+		return null;
+	}
+
 }

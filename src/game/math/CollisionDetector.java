@@ -85,7 +85,7 @@ public class CollisionDetector {
 				List<Collidable> pCollisions = qT.retrieve(a);
 				for (Collidable b: pCollisions) {
 					if (pCollisions.isEmpty() || a.equals(b)) continue;
-					Collision collision = a.intersects(b);
+					Collision collision = a.next().intersects(b.next());
 					if (collision != null && ADJUST_TRAJECTORIES) {
 						collision.adjustTrajectories();
 						//collisions.add(collision);
