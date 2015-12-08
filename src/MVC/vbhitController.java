@@ -58,7 +58,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 		}else if(arg0.getKeyChar()=='h'){
 			this.model.CreatRandomItem();
 		}else if(arg0.getKeyChar()=='f'){
-			this.model.CreatRandomNWObstacle();
+			this.model.CreatRandomCZWObstacle();
 		}else if(arg0.getKeyChar()=='n'){
 			model.createDefaultball();
 		}else if(arg0.getKeyChar()=='2'){

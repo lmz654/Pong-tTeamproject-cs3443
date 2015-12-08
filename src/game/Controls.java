@@ -15,12 +15,15 @@ public class Controls {
 	//whacky obstacle
 	public static final int WHACKY_OBSTACLE_WIDTH = 40;
 	public static final int WHACKY_OBSTACLE_HEIGHT=40;
+	public static final int WHACKY_OBSATCLE_DURABLE_TIME = 30000; //IN MILLI SECOND
+	public static final int TIME_OBSTACLE_POP_UP=6000;
 	//game fonts default
 	public static final Font LARGE_FONT_DEFAULT  = new Font("American Typewriter", Font.BOLD, 30);
 	public static final Font MID_FONT_DEFAULT  = new Font("American Typewriter", Font.BOLD, 20);
 	public static final Font SMALL_FONT_DEFAULT  = new Font("American Typewriter", Font.BOLD, 10);
 	
 	//power up
+	public static final int 	TIME_ITEM_POP_UP=6000;
 	public static final int ITEM_WIDTH=60;
 	public static final int ITEM_HEIGTH=60;
 		
@@ -58,11 +61,6 @@ public class Controls {
 	public static final char P4_KEY_DECREASE=',';
 	public static final char P4_KEY_HOLE='/';
 	
-	// Control Variables for Obstacle Probabilities
-	public static final double NORMALOBSTACLE_PROBABILITY = .4;
-	public static final double WHACKYOBSTACLE_PROBABILITY = .05;
-	public static final double MOVINGOBSTACLE_PROBABILITY = .2;
-	
 	// Control Variables for Model
 	public static final int MODEL_WIDTH = 1000;
 	public static final int MODEL_HEIGHT = MODEL_WIDTH;
@@ -75,7 +73,7 @@ public class Controls {
 	public static final int PADDLE_MIN_SPEED=4;
 	public static final int PADDLE_DEFAULT_LENGTH = 100;
 	public static final int PADDLE_WIDTH = 10;
-	public static final int PADDLE_VELOCITY=7;
+	public static final int PADDLE_VELOCITY=8;
 	public static final int PADDLE_MAXREACH_LIMIT= MODEL_WIDTH-CONER_LENGTH;
 	public static final int PADDLE_MINREACH_LIMIT=CONER_LENGTH;
 	public static final int PADDLE_ACTIVE_MIN_LENGTH = 50;
@@ -84,7 +82,7 @@ public class Controls {
 	
 	// Control Variables for Ball
 	public static final int BALL_MAX_SPEED = 12;
-	public static final int BALL_MIN_SPEED = 2;
+	public static final int BALL_MIN_SPEED = 4;
 	public static final int BALL_NORMAL_SPEED=5;
 	public static final int BALL_DEFAULT_RADIUS = 20;
 	

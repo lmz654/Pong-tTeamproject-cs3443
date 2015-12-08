@@ -3,6 +3,7 @@ package game.components.obstacles;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
+import game.Controls;
 import game.core.Ball;
 import game.math.structures.Vector;
 
@@ -10,22 +11,25 @@ public abstract class Obstacle {
 	
 	private Point position;
 	private BufferedImage image;
-	private int timer;
+	private long durationtime;
 	
 	public Obstacle(Point position, BufferedImage image,int timer) {
 		this.position = position;
 		this.image = image;
-		this.timer = timer;
+		this.durationtime=Controls.WHACKY_OBSATCLE_DURABLE_TIME;
 	}
 	
-	public int getTimer() {
-		return timer;
+	public boolean isLast(){
+		this.durationtime-=Controls.MODEL_TIME;
+		if(this.durationtime>0){
+			return true;
+		}else{
+			return false;
+		}
 	}
+	
 
-	public void setTimer(int timer) {
-		this.timer = timer;
-	}
-
+	
 	public Point getPosition() {
 		return position;
 	}

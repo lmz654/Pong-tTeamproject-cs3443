@@ -45,9 +45,13 @@ public class vbhitModel {
 	private BufferedImage defaultballimage;
 	private vbhitController controller;
 	private int gamestate;
+	private int itemcounttime, nwobstaclecounttime, cwobstaclecoundtime;
 	
 	public vbhitModel() {
 		super();
+		this.itemcounttime=Controls.TIME_ITEM_POP_UP/2;
+		this.nwobstaclecounttime=Controls.TIME_OBSTACLE_POP_UP/3;
+		this.cwobstaclecoundtime=Controls.TIME_OBSTACLE_POP_UP/4;
 		gamesound = new Sound();
 		this.obstacleimagelist = new ArrayList<BufferedImage>();
 		this.item = new ArrayList<Item>();
@@ -74,13 +78,17 @@ public class vbhitModel {
 		//this.createball();
 		timer = new Timer(Controls.MODEL_TIME, action);
 	}
-	
+	public int totalObject(){
+		return this.ball.size()+this.player.size()+this.item.size()+this.obstacle.size();
+	}
 	public Sound getGameSound(){
 		return this.gamesound;
 	}
 	
 	public void resetgame(){
 		this.ball.clear();
+		this.obstacle.clear();
+		this.item.clear();
 		for(Player pl:this.player){
 			pl.resetPlayer();
 		}
@@ -170,8 +178,7 @@ public class vbhitModel {
 			for(int i=0;i<size;i++){
 				//if(this.ball.get(i).getLastHit().equals(player)){
 					b=ball.get(i).clone();
-					b.setVelocity(Vector.getRand(new int[]{Controls.BALL_MAX_SPEED, -Controls.BALL_MIN_SPEED}, 
-									   new int[]{Controls.BALL_MAX_SPEED, -Controls.BALL_MIN_SPEED}));
+					b.setVelocity(Vector.getRand(Controls.BALL_MIN_SPEED+2,Controls.BALL_MAX_SPEED-5));
 					if(player!=null){
 						b.setLastHit(player);
 						b.setimage(player.getBallimage().get(0));
@@ -344,8 +351,30 @@ public class vbhitModel {
 			
 		}).start();
 		new Thread(new Runnable(){
-
+			
 			public void run() {
+				vbhitModel.this.cwobstaclecoundtime+=Controls.MODEL_TIME;
+				vbhitModel.this.nwobstaclecounttime+=Controls.MODEL_TIME;
+				
+				if(vbhitModel.this.cwobstaclecoundtime>=Controls.TIME_OBSTACLE_POP_UP){
+					vbhitModel.this.CreatRandomCZWObstacle();
+					vbhitModel.this.cwobstaclecoundtime=0;
+				}
+				if(vbhitModel.this.nwobstaclecounttime>=Controls.TIME_OBSTACLE_POP_UP){
+					vbhitModel.this.CreatRandomNWObstacle();
+					vbhitModel.this.nwobstaclecounttime=0;
+				}
+				
+				
+				for(int i=0;i<vbhitModel.this.obstacle.size();i++){
+					if(vbhitModel.this.obstacle.get(i)!=null){
+						if(vbhitModel.this.obstacle.get(i).isLast()==false){
+							vbhitModel.this.obstacle.remove(i);
+							i--;
+						}
+					}
+				}
+				
 				for(int i=0;i<vbhitModel.this.obstacle.size();i++){
 					if(vbhitModel.this.obstacle.get(i)!=null && vbhitModel.this.obstacle.get(i) instanceof NiceWhackyObstacle){
 						NiceWhackyObstacle t = (NiceWhackyObstacle) vbhitModel.this.obstacle.get(i);
@@ -368,7 +397,11 @@ public class vbhitModel {
 		new Thread(new Runnable(){
 
 			public void run() {
-				
+				vbhitModel.this.itemcounttime+=Controls.MODEL_TIME;
+				if(vbhitModel.this.itemcounttime>=Controls.TIME_ITEM_POP_UP){
+					vbhitModel.this.CreatRandomItem();
+					vbhitModel.this.itemcounttime=0;
+				}
 				vbhitModel.this.BallHitItem();
 			}
 			
@@ -532,7 +565,6 @@ public class vbhitModel {
 				}
 				
 			}else if(b.getVelocity().cartesian(1)>0){//bottom player
-				System.out.println("get bottom");
 				if(b.getPosition().cartesian(0) >= p.getPaddle().getPosition().cartesian(0)){//right
 					if(b.getVelocity().cartesian(0)>0){//x>0
 						x=vlength-b.getVelocity().cartesian(0);
@@ -690,7 +722,9 @@ public class vbhitModel {
 								this.gamesound.Explosion();
 								this.ball.remove(i);
 								size--;
-								this.createDefaultball();	
+								if(this.ball.size()<8){
+									this.createDefaultball();
+								}	
 								this.controller.SidePanelRepaint();
 								
 							}catch(Exception e){
@@ -706,7 +740,9 @@ public class vbhitModel {
 							try{
 								this.gamesound.Explosion();
 								this.ball.remove(i);
-								this.createDefaultball();	
+								if(this.ball.size()<8){
+									this.createDefaultball();
+								}	
 								this.controller.SidePanelRepaint();
 								size--;
 							}catch(Exception e){
@@ -723,7 +759,9 @@ public class vbhitModel {
 								this.gamesound.Explosion();
 								this.ball.remove(i);
 								size--;
-								this.createDefaultball();	
+								if(this.ball.size()<8){
+									this.createDefaultball();
+								}
 								this.controller.SidePanelRepaint();
 								
 							}catch(Exception e){
@@ -740,7 +778,9 @@ public class vbhitModel {
 								this.gamesound.Explosion();
 								this.ball.remove(i);
 								size--;
-								this.createDefaultball();	
+								if(this.ball.size()<8){
+									this.createDefaultball();
+								}
 								this.controller.SidePanelRepaint();
 								
 							}catch(Exception e){

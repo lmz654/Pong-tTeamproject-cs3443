@@ -63,6 +63,7 @@ public class ActionPanel extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		
 		try{
 			g.drawImage(center, 0, 0, null);
 			g.drawImage(this.topleft,-10,-10,Math.round(150*this.ratio),Math.round(150*this.ratio),null);
@@ -125,6 +126,7 @@ public class ActionPanel extends JPanel {
 					}
 				}	
 			}
+			
 		}catch(Exception e){
 			System.err.println("draw paddleimage fail in actionpanel");
 		}
@@ -141,7 +143,7 @@ public class ActionPanel extends JPanel {
 		}catch(Exception e){
 			System.err.println("draw ballimage fail in actionpanel");
 		}
-		
+		g.drawString(""+this.controller.getModel().totalObject(), 10, 10);
 		
 	}
 	public void update(){
