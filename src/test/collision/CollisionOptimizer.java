@@ -27,11 +27,11 @@ public class CollisionOptimizer {
 		
 		//algAnalysis(4, 10, 10, 0, true);
 		
-		System.out.println("Max Objects for Playable Refresh Rate of 25ms");
+		System.out.println("Max Objects for Playable Refresh Period of 25ms");
 		algMaxAnalysis(25, 10, 10, 10, false);
-		System.out.println("Max Objects for Lagging Refresh Rate of 35ms");
+		System.out.println("Max Objects for Lagging Refresh Period of 35ms");
 		algMaxAnalysis(35, 10, 10, 10, false);
-		System.out.println("Max Objects before Unplayable Refresh Rate of 50ms");
+		System.out.println("Max Objects before Unplayable Refresh Period of 50ms");
 		algMaxAnalysis(50, 10, 10, 10, false);
 		System.out.println("Max Objects Analysis Complete!");
 		
