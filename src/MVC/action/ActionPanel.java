@@ -20,8 +20,9 @@ public class ActionPanel extends JPanel {
 	
 	private vbhitController	controller;
 	private float ratio;
-	private BufferedImage center,topleft,topright,bottomleft,bottomright;
+	private BufferedImage centerbackground,topleft,topright,bottomleft,bottomright;
 	//subpanel
+	private ReportMenu reportmenu;
 	private PauseMenu pausemenu;
 	private SaveKeyMapPanel savekeymappanel;
 	private SetupMenu setupmenu;
@@ -35,16 +36,14 @@ public class ActionPanel extends JPanel {
 		this.savekeymappanel = new SaveKeyMapPanel(this.controller);
 		this.setupmenu = new SetupMenu(this.controller);
 		this.titlemenu = new TitleMenu(this.controller);
-		this.pausemenu.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
-		this.setupmenu.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
-		this.savekeymappanel.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
-		this.instruction.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
-		//this.view.getActionPanel().showPauseMenu();
+		this.reportmenu = new ReportMenu(this.controller);
+		this.add(this.reportmenu);
 		this.add(this.titlemenu);
 		this.add(this.pausemenu);
 		this.add(this.savekeymappanel);
 		this.add(this.setupmenu);
 		this.add(this.instruction);
+		this.reportmenu.setVisible(false);
 		this.titlemenu.setVisible(false);
 		this.pausemenu.setVisible(false);
 		this.savekeymappanel.setVisible(false);
@@ -53,9 +52,12 @@ public class ActionPanel extends JPanel {
 		this.setBackground(null);
 		this.ratio=(float)this.getSize().width/1000;
 		try {
-			//center = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\background1.jpeg"));
+			centerbackground = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\background2.jpg"));
+			System.out.println(centerbackground.getHeight() + "  " +centerbackground.getWidth());
 			topleft = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\topleft.png"));
 			topright = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\topright.png"));
+			bottomleft = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\bottmleft.png"));
+			bottomright = ImageIO.read(new File("src\\MVC\\imagecontainer\\background\\bottomright.png"));
 		} catch (Exception e) {
 			System.err.println("actionpanel image input fail in actionpanel");
 		}
@@ -63,11 +65,14 @@ public class ActionPanel extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
+		System.out.println(this.getWidth() + "  " + this.getHeight());
 		try{
-			g.drawImage(center, 0, 0, null);
+			
+			g.drawImage(this.centerbackground,0,0,null);
 			g.drawImage(this.topleft,-10,-10,Math.round(150*this.ratio),Math.round(150*this.ratio),null);
 			g.drawImage(this.topright,Math.round(850*this.ratio)+10,-10,Math.round(150*this.ratio),Math.round(150*this.ratio),null);
+			g.drawImage(this.bottomleft,-10,Math.round(850*this.ratio)+10,Math.round(150*this.ratio),Math.round(150*this.ratio),null);
+			g.drawImage(this.bottomright,Math.round(850*this.ratio)+10,Math.round(850*this.ratio)+10,Math.round(150*this.ratio),Math.round(150*this.ratio),null);
 			//g.drawImage(image.getSubimage((image.getWidth()-this.getWidth())/2, (image.getHeight()-this.getHeight())/2, this.getWidth(), this.getWidth()), 0, 0, this.getWidth(), this.getHeight(), null);
 			
 		}catch(Exception e){
@@ -143,11 +148,16 @@ public class ActionPanel extends JPanel {
 		}catch(Exception e){
 			System.err.println("draw ballimage fail in actionpanel");
 		}
-		g.drawString(""+this.controller.getModel().totalObject(), 10, 10);
+		g.drawString(""+this.controller.getModel().getGametimer()/60000 +" : "+
+		(this.controller.getModel().getGametimer()%60000)/1000 + " : "+ 
+		this.controller.getModel().getGametimer()%1000, this.getWidth()-70 ,20);
+		g.drawString("# of Object: "+this.controller.getModel().totalObject(), 10, 20);
 		
 	}
 	public void update(){
 		this.ratio= (float)this.getHeight()/1000;
+		this.reportmenu.setBounds(Math.round(this.getWidth()/2-this.getWidth()*3/8),Math.round(this.getHeight()/2-this.getHeight()/6),
+				Math.round(this.getWidth()*3/4),Math.round(this.getHeight()/3));
 		this.titlemenu.setBounds(
 				Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),
 				Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
@@ -168,7 +178,7 @@ public class ActionPanel extends JPanel {
 				Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),
 				Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
 		
-		this.center=this.controller.getView().getBackgroundImage().getSubimage(
+		this.centerbackground=this.controller.getView().getBackgroundImage().getSubimage(
 				this.controller.getView().getActpanelpos(),0,this.getWidth(),this.getHeight());
 	}
 	
@@ -178,13 +188,18 @@ public class ActionPanel extends JPanel {
 		this.setupmenu.setVisible(false);
 		this.titlemenu.setVisible(false);
 		this.savekeymappanel.setVisible(false);
+		this.reportmenu.setVisible(false);
 	}
+	
 	
 	public PauseMenu getPauseMenu(){
 		return this.pausemenu;
 	}
 	public SaveKeyMapPanel getSaveKeyMapPanel(){
 		return this.savekeymappanel;
+	}
+	public void showReportMenu(){
+		this.reportmenu.ShowPanel();
 	}
 	
 	public void showInstruction(){

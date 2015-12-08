@@ -45,6 +45,11 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 		
 		
 	}
+	public void GameEnd(){
+		model.stop();
+		view.stop();
+		this.getView().getActionPanel().showReportMenu();
+	}
 	
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
@@ -57,8 +62,11 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			this.view.getActionPanel().showPauseMenu();
 		}else if(arg0.getKeyChar()=='h'){
 			this.model.CreatRandomItem();
+		}else if(arg0.getKeyChar()=='r'){
+			this.getView().getActionPanel().hideAllSubMenu();
+			this.getView().getActionPanel().showReportMenu();
 		}else if(arg0.getKeyChar()=='f'){
-			this.model.CreatRandomCZWObstacle();
+			this.model.CreatRandomNWObstacle();
 		}else if(arg0.getKeyChar()=='n'){
 			model.createDefaultball();
 		}else if(arg0.getKeyChar()=='2'){
@@ -205,7 +213,9 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			this.view.getActionPanel().getSaveKeyMapPanel().getBackorResume().setText("Resume");
 			this.model.setGameState(Controls.GAME_PLAY);
 			this.view.requestFocus();
-			model.createDefaultball();
+			for(int i=0;i<8;i++){
+				model.createDefaultball();
+			}
 			this.view.updateratio();
 			model.start();
 			view.start();
@@ -238,7 +248,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			this.view.getActionPanel().showTitleMenu();
 		}
 		//SetupMenu
-		else if(e.getActionCommand().equals("Start Game!")){
+		/*else if(e.getActionCommand().equals("Start Game!")){
 			this.model.getGameSound().BGsound();
 			vbhitController.this.view.getActionPanel().hideAllSubMenu();
 			this.model.setGameState(Controls.GAME_PLAY);
@@ -247,7 +257,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			this.view.updateratio();
 			model.start();
 			view.start();
-		}
+		}*/
 		
 	}
 

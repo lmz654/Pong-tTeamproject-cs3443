@@ -4,11 +4,8 @@ import javax.swing.JFrame;
 
 public class vbhitMain {
 	public static void creatwindow(){
-		//ActionPanel actionpanel = new ActionPanel(new vbhitModel());
-		//actionpanel.setVisible(true);
 		vbhitModel model = new vbhitModel();
 		vbhitView view = new vbhitView(model);
-		//vbhitController controller = new vbhitController(model, view);
 		view.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		view.setVisible(true);
 	}
