@@ -66,13 +66,11 @@ public class Collision {
 	}
 	
 	private Vector calculateCollisionPoint() {
-		Vector aTob = b.position.minus(a.position);	
-		Vector cPoint = aTob.unit();
+		Vector c = b.position.minus(a.position);	
+		double t = c.dot(b.velocity) / a.velocity.dot(b.velocity);
 		
-		if (a instanceof CollidableCircle) {
-			cPoint = cPoint.times(((CollidableCircle)a).getRadius());
-		}
-		cPoint = a.position.plus(cPoint);		
+		Vector cPoint = a.velocity.times(t).plus(a.position);
+		
 		return cPoint;
 	}
 	

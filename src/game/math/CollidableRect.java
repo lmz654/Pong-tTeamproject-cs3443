@@ -41,4 +41,10 @@ public class CollidableRect extends Collidable {
 		
 	}
 
+	@Override
+	public Collidable next() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
