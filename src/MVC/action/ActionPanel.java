@@ -22,6 +22,7 @@ public class ActionPanel extends JPanel {
 	private float ratio;
 	private BufferedImage center,topleft,topright,bottomleft,bottomright;
 	//subpanel
+	private ReportMenu reportmenu;
 	private PauseMenu pausemenu;
 	private SaveKeyMapPanel savekeymappanel;
 	private SetupMenu setupmenu;
@@ -35,16 +36,19 @@ public class ActionPanel extends JPanel {
 		this.savekeymappanel = new SaveKeyMapPanel(this.controller);
 		this.setupmenu = new SetupMenu(this.controller);
 		this.titlemenu = new TitleMenu(this.controller);
-		this.pausemenu.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
+		this.reportmenu = new ReportMenu(this.controller);
+		/*this.pausemenu.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
 		this.setupmenu.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
 		this.savekeymappanel.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
-		this.instruction.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
+		this.instruction.setBounds(Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));*/
 		//this.view.getActionPanel().showPauseMenu();
+		this.add(this.reportmenu);
 		this.add(this.titlemenu);
 		this.add(this.pausemenu);
 		this.add(this.savekeymappanel);
 		this.add(this.setupmenu);
 		this.add(this.instruction);
+		this.reportmenu.setVisible(false);
 		this.titlemenu.setVisible(false);
 		this.pausemenu.setVisible(false);
 		this.savekeymappanel.setVisible(false);
@@ -143,11 +147,16 @@ public class ActionPanel extends JPanel {
 		}catch(Exception e){
 			System.err.println("draw ballimage fail in actionpanel");
 		}
-		g.drawString(""+this.controller.getModel().totalObject(), 10, 10);
+		g.drawString(""+this.controller.getModel().getGametimer()/60000 +" : "+
+		(this.controller.getModel().getGametimer()%60000)/1000 + " : "+ 
+		this.controller.getModel().getGametimer()%1000, this.getWidth()-70 ,20);
+		g.drawString("# of Object: "+this.controller.getModel().totalObject(), 10, 20);
 		
 	}
 	public void update(){
 		this.ratio= (float)this.getHeight()/1000;
+		this.reportmenu.setBounds(Math.round(this.getWidth()/2-this.getWidth()*3/8),Math.round(this.getHeight()/2-this.getHeight()/6),
+				Math.round(this.getWidth()*3/4),Math.round(this.getHeight()/3));
 		this.titlemenu.setBounds(
 				Math.round(this.getWidth()/2-this.getWidth()/8),Math.round(this.getHeight()/2-this.getHeight()/8),
 				Math.round(this.getWidth()/4),Math.round(this.getHeight()/4));
@@ -178,13 +187,18 @@ public class ActionPanel extends JPanel {
 		this.setupmenu.setVisible(false);
 		this.titlemenu.setVisible(false);
 		this.savekeymappanel.setVisible(false);
+		this.reportmenu.setVisible(false);
 	}
+	
 	
 	public PauseMenu getPauseMenu(){
 		return this.pausemenu;
 	}
 	public SaveKeyMapPanel getSaveKeyMapPanel(){
 		return this.savekeymappanel;
+	}
+	public void showReportMenu(){
+		this.reportmenu.ShowPanel();
 	}
 	
 	public void showInstruction(){

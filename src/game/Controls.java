@@ -12,6 +12,8 @@ import game.math.structures.Vector;
 
 // Class that contains all of the control variables for the Game
 public class Controls {
+	//game timer
+	public static final long GAME_TIMER_DEFAULT=300000;
 	//whacky obstacle
 	public static final int WHACKY_OBSTACLE_WIDTH = 40;
 	public static final int WHACKY_OBSTACLE_HEIGHT=40;

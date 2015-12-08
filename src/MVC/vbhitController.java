@@ -45,6 +45,11 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 		
 		
 	}
+	public void GameEnd(){
+		model.stop();
+		view.stop();
+		this.getView().getActionPanel().showReportMenu();
+	}
 	
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
@@ -57,8 +62,11 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			this.view.getActionPanel().showPauseMenu();
 		}else if(arg0.getKeyChar()=='h'){
 			this.model.CreatRandomItem();
+		}else if(arg0.getKeyChar()=='r'){
+			this.getView().getActionPanel().hideAllSubMenu();
+			this.getView().getActionPanel().showReportMenu();
 		}else if(arg0.getKeyChar()=='f'){
-			this.model.CreatRandomCZWObstacle();
+			this.model.CreatRandomNWObstacle();
 		}else if(arg0.getKeyChar()=='n'){
 			model.createDefaultball();
 		}else if(arg0.getKeyChar()=='2'){

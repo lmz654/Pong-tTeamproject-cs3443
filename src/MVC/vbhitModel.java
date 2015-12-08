@@ -46,6 +46,7 @@ public class vbhitModel {
 	private vbhitController controller;
 	private int gamestate;
 	private int itemcounttime, nwobstaclecounttime, cwobstaclecoundtime;
+	private long gametimer;
 	
 	public vbhitModel() {
 		super();
@@ -60,9 +61,15 @@ public class vbhitModel {
 		this.ball = new ArrayList<Ball>();
 		this.player= new ArrayList<Player>();
 		this.gamestate=Controls.GAME_STOP;
+		this.gametimer=Controls.GAME_TIMER_DEFAULT;
 		ActionListener action = new ActionListener(){
 
 			public void actionPerformed(ActionEvent arg0) {
+				if(vbhitModel.this.gametimer>0){
+					vbhitModel.this.gametimer-=Controls.MODEL_TIME;
+				}else{
+					vbhitModel.this.controller.GameEnd();
+				}
 				vbhitModel.this.update();
 			}
 			
@@ -89,6 +96,7 @@ public class vbhitModel {
 		this.ball.clear();
 		this.obstacle.clear();
 		this.item.clear();
+		this.gametimer=Controls.GAME_TIMER_DEFAULT;
 		for(Player pl:this.player){
 			pl.resetPlayer();
 		}
@@ -96,6 +104,12 @@ public class vbhitModel {
 		//this.createdefaultplayer();
 	}
 	
+	public long getGametimer() {
+		return gametimer;
+	}
+	public void setGametimer(long gametimer) {
+		this.gametimer = gametimer;
+	}
 	public int getGameState(){
 		return this.gamestate;
 	}
@@ -298,8 +312,8 @@ public class vbhitModel {
 	}
 	public void BallinWObstacle(){
 		Point b,i;
-		int size = this.ball.size();
-		for(int z=0;z<size;z++){
+		/*int size = this.ball.size();*/
+		for(int z=0;z<this.ball.size();z++){
 			if(ball.get(z)!=null){
 				try{
 					for(int t=0;t<this.obstacle.size();t++){
