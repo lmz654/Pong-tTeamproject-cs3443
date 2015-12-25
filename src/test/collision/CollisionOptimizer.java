@@ -25,7 +25,7 @@ public class CollisionOptimizer {
 	
 	public static void main(String[] args) {
 		
-		algAnalysis(4, 10, 10, 0, true);
+		//algAnalysis(4, 20, 10, 0, true);
 		
 		System.out.println("Max Objects for Playable Refresh Period of 25ms");
 		algMaxAnalysis(25, 10, 10, 10, false);
