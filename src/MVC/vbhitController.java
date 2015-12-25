@@ -7,6 +7,8 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.InputMethodListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
@@ -60,7 +62,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			model.stop();
 			view.stop();
 			this.view.getActionPanel().showPauseMenu();
-		}else if(arg0.getKeyChar()=='h'){
+		}/*else if(arg0.getKeyChar()=='h'){
 			this.model.CreatRandomItem();
 		}else if(arg0.getKeyChar()=='r'){
 			this.getView().getActionPanel().hideAllSubMenu();
@@ -77,7 +79,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			model.setPlayerStatus(3, Controls.PLAYER_PLAY);
 		}else if(arg0.getKeyChar()=='1'){
 			model.setPlayerStatus(0, Controls.PLAYER_PLAY);
-		}
+		}*/
 		else{
 			for(Player temp:model.getAllPlayer()){
 				if(temp.getKeydecrease()==arg0.getKeyChar()){
@@ -213,7 +215,7 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 			this.view.getActionPanel().getSaveKeyMapPanel().getBackorResume().setText("Resume");
 			this.model.setGameState(Controls.GAME_PLAY);
 			this.view.requestFocus();
-			for(int i=0;i<8;i++){
+			for(int i=0;i<Controls.NUMBER_BALL_START;i++){
 				model.createDefaultball();
 			}
 			this.view.updateratio();
@@ -317,9 +319,19 @@ public class vbhitController implements KeyListener, ActionListener, ComponentLi
 	}
 
 	public void focusLost(FocusEvent arg0) {
+		
+		JTextField textfield = (JTextField) arg0.getSource();
+		if(textfield.getText().length()>0){
+			textfield.setText(""+textfield.getText().charAt(0));
+		}
+		
+	}
+
+	public void caretPositionChanged(InputMethodEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 	
 	

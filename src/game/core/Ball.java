@@ -1,6 +1,8 @@
 package game.core;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 import game.Controls;
 import game.components.obstacles.Obstacle;
@@ -15,18 +17,23 @@ public class Ball {
 	private BufferedImage image;
 	private Player holded;
 	private Obstacle inobstacle;
-	
+	private ArrayList<BufferedImage> shadowimage;
+	private LinkedList<Vector> ballshaddow;//6 shadow;
 	// --- Game Metrics ---
 	private Player lastHit;
 	
 	// Constructor
 	public Ball(Vector position, Vector velocity, int radius) {
+		//this.shadowimage= new ArrayList<BufferedImage>();
 		this.position = position;
 		this.velocity = velocity;
 		this.radius = radius;
 		this.collided = false;
 		this.holded=null;
 		this.inobstacle=null;
+		this.ballshaddow = new LinkedList<Vector>();
+		
+		
 	}
 	
 	// Setters and Getters
@@ -35,6 +42,30 @@ public class Ball {
 		return position;
 	}
 	
+	/*public ArrayList<BufferedImage> getShadowimage() {
+		return shadowimage;
+	}
+
+	public void setShadowimage(ArrayList<BufferedImage> shadowimage) {
+		this.shadowimage = shadowimage;
+	}*/
+
+	public ArrayList<BufferedImage> getShadowimage() {
+		return shadowimage;
+	}
+
+	public void setShadowimage(ArrayList<BufferedImage> shadowimage) {
+		this.shadowimage = shadowimage;
+	}
+
+	public LinkedList<Vector> getBallshaddow() {
+		return ballshaddow;
+	}
+
+	public void setBallshaddow(LinkedList<Vector> ballshaddow) {
+		this.ballshaddow = ballshaddow;
+	}
+
 	public Player getHolded() {
 		return holded;
 	}
@@ -81,14 +112,35 @@ public class Ball {
 		this.lastHit = player;
 	}
 	public void move() {
-		if (!collided)
+		//if (!collided)
+			//this.setShaddow();
+		this.ballshaddow.addLast(new Vector(this.position));
+		if(this.ballshaddow.size()>6){
+			this.ballshaddow.removeFirst();
+		}
+		
 			position = position.plus(velocity);
-		collided = false;
+			//System.out.print(this.ballshaddow.get(0)+" " + this.ballshaddow.get(1)+"  " + this.position+"-");
+		//collided = false;
 	}
 	
 
 	public void setPosition(Vector position) {
 		this.position = position;
+	}
+	
+	/*public LinkedList<Vector> getShaddow(){
+		return this.ballshaddow;
+	}*/
+	public void setShaddow(){
+		
+		/*this.ballshaddow.add(new Vector(this.position.minus(this.velocity.times(12))));
+		this.ballshaddow.add(new Vector(this.position.minus(this.velocity.times(10))));
+		this.ballshaddow.add(new Vector(this.position.minus(this.velocity.times(8))));
+		this.ballshaddow.add(new Vector(this.position.minus(this.velocity.times(6))));
+		this.ballshaddow.add(new Vector(this.position.minus(this.velocity.times(4))));
+		this.ballshaddow.add(new Vector(this.position.minus(this.velocity.times(2))));*/
+		/*System.out.print(this.ballshaddow.get(0)+ "  " + this.ballshaddow.get(1));*/
 	}
 	
 	public boolean intersects(Ball ball) {
@@ -103,7 +155,7 @@ public class Ball {
 	//increase in percent
 	public void IncreaseSpeed(double speedup){
 		if(this.velocity.magnitude()<Controls.BALL_MAX_SPEED){
-			this.velocity.PercentAdjust(1+speedup);
+			this.velocity.PercentAdjust(1+speedup);//speed up by percent
 			//System.out.print(this.velocity.toString());
 		}
 	}

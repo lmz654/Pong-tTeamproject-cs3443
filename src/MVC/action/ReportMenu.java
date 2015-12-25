@@ -60,14 +60,14 @@ public class ReportMenu extends JPanel {
 		JLabel label;
 		JPanel overallscore;
 		JPanel scorepanel;
-		String winner="";
 		int currentscore,bestscore;
 		bestscore=Integer.MIN_VALUE;
 		for(Player player: this.control.getModel().getAllPlayer()){
-			currentscore = player.getScore().getScore()-player.getScore().getMiss();
-			if(bestscore< currentscore){
-				bestscore = currentscore;
-				winner = player.getName();
+			if(player.getPlayerStatus()!=Controls.PLAYER_NOT_PLAY){
+				currentscore = player.getScore().getScore()-player.getScore().getMiss();
+				if(bestscore< currentscore){
+					bestscore = currentscore;
+				}
 			}
 		}
 		for(Player player: this.control.getModel().getAllPlayer()){
@@ -129,7 +129,7 @@ public class ReportMenu extends JPanel {
 				scorepanel.add(label);
 				overallscore.add(scorepanel, BorderLayout.CENTER);
 				
-				if(player.getName().equals(winner)){
+				if((player.getScore().getScore()-player.getScore().getMiss())==bestscore){
 					label= new JLabel("WIN!",SwingConstants.CENTER);
 					label.setForeground(Color.yellow);
 					label.setBackground(null);

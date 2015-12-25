@@ -14,33 +14,33 @@ public class Vector {
 		this.LEN = LEN1;
 		data = new double[LEN];
 	}
-	
 	public Vector(double...data) {
 		LEN = data.length;
-		
 		this.data = new double[LEN];
 		for (int i = 0; i < LEN; i++) {
 			this.data[i] = data[i];
 		}
 	}
-	
-	
-	
+	public Vector (Vector vector){
+		LEN=2;
+		this.data = new double[2];
+		this.data[0]=vector.cartesian(0);
+		this.data[1]=vector.cartesian(1);
+	}
+	// data[0] min, data[1] max
 	public static Vector getRand(int...data) {
 		double max,d1;
 		double[] rand = new double[data.length];
 		Random random = new Random();
 		d1=data[0] + random.nextDouble()*(data[1]-data[0]);
+		rand[0] =random.nextDouble()*d1;
 		if(random.nextBoolean()==true){
-			rand[0] =random.nextDouble()*d1;
-		}else{
-			rand[0] = -(random.nextDouble()*d1);
+			rand[0]=-rand[0];
 		}
 		max=Math.sqrt(Math.pow(d1, 2) - Math.pow(rand[0], 2));
+		rand[1]=max;
 		if(random.nextBoolean()==true){
-			rand[1]=random.nextDouble()*max;
-		}else{
-			rand[1]=-random.nextDouble()*max;
+			rand[1]=-max;
 		}
 	
 	

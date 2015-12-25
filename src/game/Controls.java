@@ -12,6 +12,11 @@ import game.math.structures.Vector;
 
 // Class that contains all of the control variables for the Game
 public class Controls {
+	//
+	public static final int EXPLOSE_IMAGE_WIDTH=500;
+	public static final int EXPLOSE_IMAGE_HEIGTH=500;
+	//number of ball start
+	public static final int NUMBER_BALL_START=8;
 	//game timer
 	public static final long GAME_TIMER_DEFAULT=300000;
 	//whacky obstacle
@@ -25,7 +30,7 @@ public class Controls {
 	public static final Font SMALL_FONT_DEFAULT  = new Font("American Typewriter", Font.BOLD, 10);
 	
 	//power up
-	public static final int 	TIME_ITEM_POP_UP=6000;
+	public static final int	TIME_ITEM_POP_UP=6000;
 	public static final int ITEM_WIDTH=60;
 	public static final int ITEM_HEIGTH=60;
 		
@@ -83,10 +88,10 @@ public class Controls {
 	public static final int PADDLE_MAX_LENGTH = PADDLE_MAXREACH_LIMIT - PADDLE_MINREACH_LIMIT;
 	
 	// Control Variables for Ball
-	public static final int BALL_MAX_SPEED = 12;
-	public static final int BALL_MIN_SPEED = 4;
-	public static final int BALL_NORMAL_SPEED=5;
-	public static final int BALL_DEFAULT_RADIUS = 20;
+	public static final int BALL_MAX_SPEED = 8;
+	public static final int BALL_MIN_SPEED = 2;
+	public static final int BALL_NORMAL_SPEED=4;
+	public static final int BALL_DEFAULT_RADIUS = 30;
 	
 	// Control Variables for Collision Model
 	public static final int SIM_NUM_BALLS = 10; // qT Algorithm allows for 1000 no problem up to 1500 is where performance starts taking a hit 2000 is unplayable
@@ -125,7 +130,7 @@ public class Controls {
 	
 	public static Ball getDefaultBall(){
 		Ball ball = new Ball(new Vector(MODEL_WIDTH/2, MODEL_HEIGHT/2), 
-				Vector.getRand(Controls.BALL_MIN_SPEED+2,Controls.BALL_MAX_SPEED-5), BALL_DEFAULT_RADIUS);
+				Vector.getRand(Controls.BALL_MIN_SPEED,Controls.BALL_MAX_SPEED), BALL_DEFAULT_RADIUS);
 		return ball;
 	}
 	public static Player player1default(){

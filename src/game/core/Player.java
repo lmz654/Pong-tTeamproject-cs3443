@@ -23,9 +23,11 @@ public class Player {
 	private int keyincreasepress;//the value is 0 or 1
 	private ArrayList<BufferedImage> ballimage;
 	private ArrayList<BufferedImage> paddleimage;
+	private ArrayList<BufferedImage> ballshadow;
 	private char motionAxis; // X is for Top and Bottom Players,  Y is for Side Players
 	
 	public Player(String name, Paddle paddle,char keydecrease, char keyincrease,char keyhold, char motionAxis) {
+		this.ballshadow = new ArrayList<BufferedImage>();
 		this.name = name;
 		this.paddle = paddle;
 		this.item = new ArrayList<Item>();
@@ -44,7 +46,13 @@ public class Player {
 		this.paddleimage = new ArrayList<BufferedImage>();
 		this.playerstatus=Controls.PLAYER_NOT_PLAY;
 	}
+	public void setBallShaddow(ArrayList<BufferedImage> image){
+		this.ballshadow=image;
+	}
 	
+	public ArrayList<BufferedImage> getBallShaddow(){
+		return this.ballshadow;
+	}
 	public void resetPlayer(){
 		
 		this.score.reset();

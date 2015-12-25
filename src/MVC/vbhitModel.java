@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -41,15 +42,25 @@ public class vbhitModel {
 	private ArrayList<Obstacle> obstacle;
 	private ArrayList<Player> player;
 	private ArrayList<Ball> ball;
+	private ArrayList<BufferedImage> shadowball;
+	private ArrayList<BufferedImage> shadowball1;
+	private ArrayList<BufferedImage> shadowball2;
+	private ArrayList<BufferedImage> shadowball3;
+	private ArrayList<BufferedImage> shadowball4;
+	private BufferedImage explose;
+	private LinkedList<Vector> ballgone;
 	private Timer timer;
 	private BufferedImage defaultballimage;
 	private vbhitController controller;
 	private int gamestate;
 	private int itemcounttime, nwobstaclecounttime, cwobstaclecoundtime;
 	private long gametimer;
+	private ExecutorService ex;
 	
 	public vbhitModel() {
 		super();
+		
+		this.ballgone = new LinkedList<Vector>();
 		this.itemcounttime=Controls.TIME_ITEM_POP_UP/2;
 		this.nwobstaclecounttime=Controls.TIME_OBSTACLE_POP_UP/3;
 		this.cwobstaclecoundtime=Controls.TIME_OBSTACLE_POP_UP/4;
@@ -62,6 +73,17 @@ public class vbhitModel {
 		this.player= new ArrayList<Player>();
 		this.gamestate=Controls.GAME_STOP;
 		this.gametimer=Controls.GAME_TIMER_DEFAULT;
+		this.shadowball=new ArrayList<BufferedImage>();
+		this.shadowball1=new ArrayList<BufferedImage>();
+		this.shadowball2=new ArrayList<BufferedImage>();
+		this.shadowball3=new ArrayList<BufferedImage>();
+		this.shadowball4=new ArrayList<BufferedImage>();
+		try {
+			this.explose= ImageIO.read(new File("src\\MVC\\imagecontainer\\explose\\exploseball.png"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("fail to load exploseballimage");
+		}
 		ActionListener action = new ActionListener(){
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -77,6 +99,60 @@ public class vbhitModel {
 		this.loadItemImage();
 		this.loadObstacleImage();
 		try {
+			BufferedImage shadowball;
+			//this.shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\ball_shadow.png"));
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\defaultball6.png"));
+			this.shadowball.add(shadowball);
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\defaultball5.png"));
+			this.shadowball.add(shadowball);
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\defaultball4.png"));
+			this.shadowball.add(shadowball);
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\defaultball3.png"));
+			this.shadowball.add(shadowball);
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\defaultball2.png"));
+			this.shadowball.add(shadowball);
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\defaultball1.png"));
+			this.shadowball.add(shadowball);
+			//shadow ball 1
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p116.png"));
+			this.shadowball1.add(shadowball);
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p115.png"));
+			this.shadowball1.add(shadowball);
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p114.png"));
+			this.shadowball1.add(shadowball);
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p113.png"));
+			this.shadowball1.add(shadowball);
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p112.png"));
+			this.shadowball1.add(shadowball);
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p111.png"));
+			this.shadowball1.add(shadowball);
+			//shadow ball 2
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p216.png"));
+			this.shadowball2.add(shadowball);
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p215.png"));
+			this.shadowball2.add(shadowball);
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p214.png"));
+			this.shadowball2.add(shadowball);
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p213.png"));
+			this.shadowball2.add(shadowball);
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p212.png"));
+			this.shadowball2.add(shadowball);
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p211.png"));
+			this.shadowball2.add(shadowball);
+			//shadowball3
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p316.png"));
+			this.shadowball3.add(shadowball);
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p315.png"));
+			this.shadowball3.add(shadowball);
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p314.png"));
+			this.shadowball3.add(shadowball);
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p313.png"));
+			this.shadowball3.add(shadowball);
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p312.png"));
+			this.shadowball3.add(shadowball);
+			shadowball= ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\p311.png"));
+			this.shadowball3.add(shadowball);
+			//this.shadowball1.add(shadowball);
 			defaultballimage = ImageIO.read(new File("src\\MVC\\imagecontainer\\ball\\defaultball.png"));
 		} catch (IOException e) {
 			System.err.println("defautballimage input is fail in vbhitModel");
@@ -84,6 +160,15 @@ public class vbhitModel {
 		this.createdefaultplayer();
 		//this.createball();
 		timer = new Timer(Controls.MODEL_TIME, action);
+	}
+	public BufferedImage getExplose(){
+		return this.explose;
+	}
+	public LinkedList<Vector> getBallGone(){
+		return this.ballgone;
+	}
+	public ArrayList<BufferedImage> getShadowball(){
+		return this.shadowball;
 	}
 	public int totalObject(){
 		return this.ball.size()+this.player.size()+this.item.size()+this.obstacle.size();
@@ -104,6 +189,12 @@ public class vbhitModel {
 		//this.createdefaultplayer();
 	}
 	
+	/*public BufferedImage getShadowball() {
+		return shadowball;
+	}
+	public void setShadowball(BufferedImage shadowball) {
+		this.shadowball = shadowball;
+	}*/
 	public long getGametimer() {
 		return gametimer;
 	}
@@ -148,18 +239,18 @@ public class vbhitModel {
 	}
 	public void CreatRandomNWObstacle(){
 		Point p= new Point();
-		p.setLocation(200+Math.random()*600, 200+Math.random()*600);
+		p.setLocation(50+Math.random()*900, 50+Math.random()*900);
 		this.obstacle.add(new NiceWhackyObstacle (p, this.obstacleimagelist.get(1),30));
 	}
 	public void CreatRandomCZWObstacle(){
 		Point p= new Point();
-		p.setLocation(200+Math.random()*600, 200+Math.random()*600);
+		p.setLocation(50+Math.random()*900, 50+Math.random()*900);
 		this.obstacle.add(new CrazyWhackyObstacle (p, this.obstacleimagelist.get(0),30));
 	
 	}
 	public void CreatRandomItem(){
 		Point point= new Point();
-		point.setLocation(200+Math.random()*600, 200+Math.random()*600);
+		point.setLocation(50+Math.random()*900, 50+Math.random()*900);
 		int itemtype= new Random().nextInt(6);//Math.round((float)Math.round(Math.random()*5));
 		switch (itemtype){
 		case 0:
@@ -196,8 +287,10 @@ public class vbhitModel {
 					if(player!=null){
 						b.setLastHit(player);
 						b.setimage(player.getBallimage().get(0));
+						b.setShadowimage(player.getBallShaddow());
 					}else{
 						b.setimage(this.defaultballimage);
+						b.setShadowimage(this.shadowball);
 					}
 					temp.add(b);
 				//}
@@ -210,14 +303,19 @@ public class vbhitModel {
 	public void createDefaultball(){
 		Ball ball = Controls.getDefaultBall();
 		ball.setimage(this.defaultballimage);
+		ball.setShadowimage(this.shadowball);
 		this.ball.add(ball);
 	}
 	public void createdefaultplayer(){
 			this.player.clear();
 			this.player.add(0, Controls.player1default());
+			this.player.get(0).setBallShaddow(this.shadowball1);
 			this.player.add(1,Controls.player2default());
+			this.player.get(1).setBallShaddow(this.shadowball2);
 			this.player.add(2,Controls.player3default());
+			this.player.get(2).setBallShaddow(this.shadowball3);
 			this.player.add(3,Controls.player4default());
+			this.player.get(3).setBallShaddow(this.shadowball4);
 	}
 	
 	public void removeItem(Item out){
@@ -312,7 +410,6 @@ public class vbhitModel {
 	}
 	public void BallinWObstacle(){
 		Point b,i;
-		/*int size = this.ball.size();*/
 		for(int z=0;z<this.ball.size();z++){
 			if(ball.get(z)!=null){
 				try{
@@ -339,8 +436,9 @@ public class vbhitModel {
 	}
 	//update totally action  in the game
 	public void update(){
-		
-		new Thread(new Runnable(){
+		ex = Executors.newCachedThreadPool();
+		Thread thread;
+		thread = new Thread(new Runnable(){
 
 			public void run() {
 				for(Player p: player){
@@ -352,19 +450,34 @@ public class vbhitModel {
 				
 			}
 			
-		}).start();
+		});
+		ex.execute(thread);
 		
-		vbhitModel.this.BallsVelocityAdjust();
 		
-		new Thread(new Runnable(){
+		
+		
+		thread = new Thread(new Runnable(){
+
+			public void run() {
+				
+				vbhitModel.this.BallsVelocityAdjust();
+			}
+			
+		});
+		ex.execute(thread);
+		
+		
+		thread = new Thread(new Runnable(){
 
 			public void run() {
 				
 				vbhitModel.this.MoveBall();
 			}
 			
-		}).start();
-		new Thread(new Runnable(){
+		});
+		ex.execute(thread);
+		
+		thread = new Thread(new Runnable(){
 			
 			public void run() {
 				vbhitModel.this.cwobstaclecoundtime+=Controls.MODEL_TIME;
@@ -398,17 +511,10 @@ public class vbhitModel {
 				vbhitModel.this.BallinWObstacle();
 			}
 			
-		}).start();
-		/*new Thread(new Runnable(){
-
-			public void run() {
-				
-				vbhitModel.this.BallinWObstacle();
-			}
-			
-		}).start();*/
+		});
+		ex.execute(thread);
 		
-		new Thread(new Runnable(){
+		thread=new Thread(new Runnable(){
 
 			public void run() {
 				vbhitModel.this.itemcounttime+=Controls.MODEL_TIME;
@@ -419,7 +525,10 @@ public class vbhitModel {
 				vbhitModel.this.BallHitItem();
 			}
 			
-		}).start();
+		});
+		ex.execute(thread);
+		ex.shutdown();
+		while(!ex.isTerminated()){}
 		
 		
 			
@@ -630,7 +739,7 @@ public class vbhitModel {
 			
 			b.setLastHit(player);
 			b.setimage(b.getLastHit().getBallimage().get(0));//change image of the ball to player who hit the ball
-			
+			b.setShadowimage(player.getBallShaddow());
 			if(player.isKeyholepress()==true && player.getBallholded()==null){
 				
 				player.setBallholded(b);
@@ -734,6 +843,7 @@ public class vbhitModel {
 							this.player.get(0).increaseMiss();
 							try{
 								this.gamesound.Explosion();
+								this.ballgone.add(this.ball.get(i).getPosition());
 								this.ball.remove(i);
 								size--;
 								if(this.ball.size()<8){
@@ -753,6 +863,7 @@ public class vbhitModel {
 							this.player.get(1).increaseMiss();
 							try{
 								this.gamesound.Explosion();
+								this.ballgone.add(this.ball.get(i).getPosition());
 								this.ball.remove(i);
 								if(this.ball.size()<8){
 									this.createDefaultball();
@@ -771,6 +882,7 @@ public class vbhitModel {
 							this.player.get(2).increaseMiss();
 							try{
 								this.gamesound.Explosion();
+								this.ballgone.add(this.ball.get(i).getPosition());
 								this.ball.remove(i);
 								size--;
 								if(this.ball.size()<8){
@@ -790,6 +902,7 @@ public class vbhitModel {
 							this.player.get(3).increaseMiss();
 							try{
 								this.gamesound.Explosion();
+								this.ballgone.add(this.ball.get(i).getPosition());
 								this.ball.remove(i);
 								size--;
 								if(this.ball.size()<8){

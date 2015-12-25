@@ -65,6 +65,7 @@ public class KeyMap extends JPanel {
 		keydecrease.setForeground(Color.green);
 		keydecrease.setFont(Controls.LARGE_FONT_DEFAULT);
 		this.keydecrease.addFocusListener(this.controller);
+		//this.addInputMethodListener(this.controller);
 		this.keydecrease.setText(""+player.getKeydecrease());
 		label = new JLabel("Key Decrease:",SwingConstants.CENTER);
 		label.setForeground(Color.green);
@@ -81,6 +82,7 @@ public class KeyMap extends JPanel {
 		keyincrease.setForeground(Color.green);
 		keyincrease.setFont(Controls.LARGE_FONT_DEFAULT);
 		keyincrease.setHorizontalAlignment(JTextField.CENTER);
+		keyincrease.addFocusListener(this.controller);
 		this.keyincrease.setText(""+player.getKeyincrease());
 		label = new JLabel("Key Increase:",SwingConstants.CENTER);
 		label.setForeground(Color.green);
@@ -97,6 +99,7 @@ public class KeyMap extends JPanel {
 		keyhold.setOpaque(false);
 		keyhold.setBackground(null);
 		keyhold.setFont(Controls.LARGE_FONT_DEFAULT);
+		keyhold.addFocusListener(controller);
 		this.keyhold.setText(""+player.getKeyhole());
 		label = new JLabel("Key Hold:",SwingConstants.CENTER);
 		label.setForeground(Color.green);
@@ -147,10 +150,10 @@ public class KeyMap extends JPanel {
 			this.player.setKeyincrease(this.keyincrease.getText().charAt(0));
 		}
 		if(this.keydecrease.getText().length()>0){
-			this.player.setKeyincrease(this.keydecrease.getText().charAt(0));
+			this.player.setkeydecrease(this.keydecrease.getText().charAt(0));
 		}
 		if(this.keyhold.getText().length()>0){
-			this.player.setKeyincrease(this.keyhold.getText().charAt(0));
+			this.player.setKeyhole(this.keyhold.getText().charAt(0));
 		}
 	}
 	public int getPlayerNumber(){
